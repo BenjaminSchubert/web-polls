@@ -1,3 +1,8 @@
+body {
+	background-color: #2e3136;
+	color: #a5a5a5;
+}
+
 .navbar-brand {
     left: 50%;
     transform: translateX(-50%);
@@ -6,15 +11,33 @@
     font-size: 18pt;
 }
 
+h2 {
+	color: #ccc;
+}
+
 #container {
+	background-color: #36393e;
+	
     margin-top: 61px;
     margin-bottom: 20px;
     padding: 30px;
 
     font-size: 15pt;
 
-    border: 1px solid #ccc;
+    border: 1px solid #5a5555;
     border-radius: 4px;
+}
+
+.btn {
+	background-color: #6d6d6d;
+	border-color: #585858;
+	color: #d8d8d8;
+}
+
+.btn:hover {
+	background-color: #5d5d5d;
+	border-color: #484848;
+	color: #b8b8b8;
 }
 
 #presentation {
@@ -34,7 +57,7 @@
 }
 
 .feature-container {
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #5a5555;
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
