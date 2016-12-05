@@ -1,0 +1,7 @@
+<wp-scrollable>
+    <h4 header>Available Polls</h4>
+
+    <li content class="list-group-item" *ngFor="let poll of service.$ | async">
+        <wp-poll [poll]="poll" [room]="room"></wp-poll>
+    </li>
+</wp-scrollable>

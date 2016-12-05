@@ -1,0 +1,8 @@
+# editors related stuff
+.idea
+
+
+# node related stuff
+dist/
+node_modules/
+npm-debug.log

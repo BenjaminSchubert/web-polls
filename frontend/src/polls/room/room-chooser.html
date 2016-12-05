@@ -1,0 +1,7 @@
+<wp-scrollable>
+    <h4 header>Rooms</h4>
+
+    <li content class="list-group-item" *ngFor="let room of service.$ | async">
+        <wp-room [room]="room"></wp-room>
+    </li>
+</wp-scrollable>
