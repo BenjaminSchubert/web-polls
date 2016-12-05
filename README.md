@@ -10,17 +10,18 @@ result for a question at any time.
 ...
 
 ## Frameworks used
-* Flask + socket io
+* Flask + websockets
 * Angular2
 
 ## Deployment
 
 Requirements:
-* ...
+* Docker version 1.12.3, build 7b5044b/1.12.3
 
 Here are the steps you need to perform to deploy the project locally:
 
-...
+1. Clone the repo and cd into it.
+2. `docker-compose up --build`
 
 
 ## About the developpers
