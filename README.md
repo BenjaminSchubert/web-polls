@@ -24,4 +24,4 @@ Here are the steps you need to perform to deploy the project locally:
 
 
 ## About the developpers
-Made by Benjamin Schubert and Basile Vu.
+Made by [Benjamin Schubert](https://github.com/BenjaminSchubert) and [Basile Vu](https://github.com/Flagoul).
