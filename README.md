@@ -6,6 +6,8 @@ This application was made in the context of the TWEB course at HEIG-VD. This app
 an user to create polls, invite people to them and ask questions. Each participant can vote and see the
 result for a question at any time.
 
+Our website can be found [there](https://benjaminschubert.github.io/web-polls/).
+
 ## Preview of the app
 ...
 
