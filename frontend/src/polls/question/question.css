@@ -18,11 +18,21 @@
     float: right;
 }
 
+.question-number-wrapper {
+    text-align: center;
+}
+
 .question-number {
     color: #ccc;
+    background-color: #383c42;
+    
+    display: inline-block;
+    padding: 8px 13px 2px 13px;
+    
+    border-radius: 20px;
 } 
 
-.question-number, .question-title {
+.question-title {
     text-align: center;
 }
 
