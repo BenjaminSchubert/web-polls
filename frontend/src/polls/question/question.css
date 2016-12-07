@@ -4,6 +4,8 @@
     top: 53px;
     right: 0;
     
+    overflow-y: scroll;
+    
     background-color: #494f58;
     color: #aaa;
     
@@ -12,11 +14,7 @@
     display: block;
 }
 
-.previous-button {
-    float: left;
-}
-
-.next-button {
+.button-right {
     float: right;
 }
 
@@ -29,7 +27,7 @@
 }
 
 .question-container {
-	margin-top: 50px;
+	margin: 50px 0px;
 	padding: 30px;
 	text-align: left;
 	vertical-align: top;
@@ -55,7 +53,7 @@
 	opacity: 0;
 }
 
-.control__indicator {
+.control-indicator {
 	position: absolute;
 	top: 2px;
 	left: 0;
@@ -64,48 +62,48 @@
 	background: #e6e6e6;
 }
 
-.control--radio .control__indicator {
+.control-radio .control-indicator {
 	border-radius: 50%;
 }
 
 /* Hover and focus states */
-.control:hover input ~ .control__indicator,
-.control input:focus ~ .control__indicator {
+.control:hover input ~ .control-indicator,
+.control input:focus ~ .control-indicator {
 	background: #ccc;
 }
 
 /* Checked state */
-.control input:checked ~ .control__indicator {
+.control input:checked ~ .control-indicator {
 	background: #444;
 }
 
 /* Hover state whilst checked */
-.control:hover input:not([disabled]):checked ~ .control__indicator,
-.control input:checked:focus ~ .control__indicator {
+.control:hover input:not([disabled]):checked ~ .control-indicator,
+.control input:checked:focus ~ .control-indicator {
 	background: #555;
 }
 
 /* Disabled state */
-.control input:disabled ~ .control__indicator {
+.control input:disabled ~ .control-indicator {
 	pointer-events: none;
 	opacity: .6;
 	background: #e6e6e6;
 }
 
 /* Check mark */
-.control__indicator:after {
+.control-indicator:after {
 	position: absolute;
 	display: none;
 	content: '';
 }
 
 /* Show check mark */
-.control input:checked ~ .control__indicator:after {
+.control input:checked ~ .control-indicator:after {
 	display: block;
 }
 
 /* Checkbox tick */
-.control--checkbox .control__indicator:after {
+.control-checkbox .control-indicator:after {
 	top: 4px;
 	left: 8px;
 	width: 3px;
@@ -116,12 +114,12 @@
 }
 
 /* Disabled tick colour */
-.control--checkbox input:disabled ~ .control__indicator:after {
+.control-checkbox input:disabled ~ .control-indicator:after {
 	border-color: #7b7b7b;
 }
 
 /* Radio button inner circle */
-.control--radio .control__indicator:after {
+.control-radio .control-indicator:after {
 	top: 7px;
 	left: 7px;
 	width: 6px;
@@ -131,6 +129,6 @@
 }
 
 /* Disabled circle colour */
-.control--radio input:disabled ~ .control__indicator:after {
+.control-radio input:disabled ~ .control-indicator:after {
 	background: #7b7b7b;
 }
