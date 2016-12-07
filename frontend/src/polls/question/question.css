@@ -8,8 +8,28 @@
     color: #aaa;
     
     padding: 50px;
+    
+    display: block;
 }
 
-#question-title {
+button {
+	background-color: #7188d4;
+	color: white;
+}
+
+button:hover {
+	background-color: #596eb3;
+	color: #eee;
+}
+
+.question-title {
 	text-align: center;
+}
+
+.previous-button {
+    float: left;
+}
+
+.next-button {
+    float: right;
 }
