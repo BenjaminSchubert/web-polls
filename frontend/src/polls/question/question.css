@@ -1,0 +1,15 @@
+:host {
+    position: fixed;
+    bottom: 53px;
+    top: 53px;
+    right: 0;
+    
+    background-color: #494f58;
+    color: #aaa;
+    
+    padding: 50px;
+}
+
+#question-title {
+	text-align: center;
+}
