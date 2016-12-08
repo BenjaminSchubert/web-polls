@@ -1,0 +1,19 @@
+/* Poll active indicator */
+
+.poll-active-indicator {
+    float: right;
+    margin-top: 5px;
+    
+    width: 12px;
+    height: 12px;
+    
+    border-radius: 12px;
+}
+
+.poll-active-indicator[active="true"] {
+    background-color: #22c222;
+}
+
+.poll-active-indicator[active="false"] {
+    background-color: #ca2626;
+}

@@ -4,6 +4,7 @@ import { Poll } from "../stub";
 
 @Component({
     selector: "wp-poll",
+    styleUrls: ["poll.css"],
     templateUrl: "poll.html",
 })
 export class PollComponent {
