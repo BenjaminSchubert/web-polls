@@ -4,6 +4,10 @@
     top: 53px;
     left: calc(2/12 * 100%);
     background-color: #383c42;
+    
+    -webkit-box-shadow: inset 5px 0px 10px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 5px 0px 10px -5px rgba(0,0,0,0.75);
+    box-shadow: inset 5px 0px 10px -5px rgba(0,0,0,0.75);
 }
 
 :host li:hover {
