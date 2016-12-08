@@ -1,4 +1,19 @@
 h1 {
     text-align: center;
     margin-bottom: 30px;
+    color: #ccc;
+}
+
+form {
+    padding: 30px 20px;
+    margin: 40px 0px 40px 0px;
+    
+    color: #ccc;
+    
+    border: 1px solid #999;
+    border-width: 1px 0px 1px 0px;
+}
+
+.form-group {
+    margin-bottom: 0px;
 }
