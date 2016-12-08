@@ -52,7 +52,7 @@
   "scripts": {
     "clean": "npm cache clean && npm run clean:dist && rimraf -- node_modules",
     "clean:dist": "rimraf -- dist",
-    "watch": "webpack-dev-server --config config/webpack.config.js",
+    "watch": "webpack-dev-server --config config/webpack.config.js --progress",
     "prewatch": "npm run clean:dist",
     "build": "webpack --config config/webpack.config.js --colors --profile --display-error-details --display-cached --bail",
     "prebuild": "npm run clean:dist",

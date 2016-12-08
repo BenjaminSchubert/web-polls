@@ -1,5 +1,10 @@
 <wp-scrollable>
-    <h4 header>Rooms</h4>
+    <div header>
+        <h4>Rooms</h4>
+        <a class="add-button" href="#">
+            <p>+</p>
+        </a>
+    </div>
 
     <li content class="list-group-item" *ngFor="let room of service.$ | async">
         <wp-room [room]="room"></wp-room>
