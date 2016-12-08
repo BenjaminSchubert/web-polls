@@ -21,7 +21,7 @@
 .btn {
     -webkit-appearance: none;
 
-    background-color: #7e838c !important;
+    background-color: #459b45 !important;
     color: #eee !important;
     
     border-radius: 7px;
@@ -32,7 +32,7 @@
 }
 
 .btn:hover {
-    background-color: #78797c !important;
+    background-color: #418841 !important;
     color: #ddd !important;
 }
 
@@ -47,12 +47,16 @@
 
 .question-number {
     color: #ccc;
-    background-color: #383c42;
+    background-color: #636971;
     
     display: inline-block;
     padding: 8px 13px 2px 13px;
     
     border-radius: 20px;
+    
+    -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
 } 
 
 .question-title {
@@ -110,21 +114,15 @@
     border-radius: 50%;
 }
 
-/* Hover and focus states */
-.control:hover input ~ .control-indicator,
-.control input:focus ~ .control-indicator {
-    background: #ccc;
-}
-
 /* Checked state */
 .control input:checked ~ .control-indicator {
-    background: #444;
+    background: #056707;
 }
 
 /* Hover state whilst checked */
 .control:hover input:not([disabled]):checked ~ .control-indicator,
 .control input:checked:focus ~ .control-indicator {
-    background: #555;
+    background: #056707;
 }
 
 /* Disabled state */
