@@ -19,8 +19,12 @@
 }
 
 .btn {
-    background-color: #7e838c;
-    color: #eee;
+    -webkit-appearance: none;
+
+    background-color: #7e838c !important;
+    color: #eee !important;
+    
+    border-radius: 7px;
     
     -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
@@ -28,8 +32,8 @@
 }
 
 .btn:hover {
-    background-color: #78797c;
-    color: #ddd;
+    background-color: #78797c !important;
+    color: #ddd !important;
 }
 
 

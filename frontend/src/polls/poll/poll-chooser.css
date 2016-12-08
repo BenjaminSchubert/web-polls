@@ -14,3 +14,7 @@
     background-color: #2e3136;
     cursor: pointer;
 }
+
+h4 {
+    display: inline-block;
+}
