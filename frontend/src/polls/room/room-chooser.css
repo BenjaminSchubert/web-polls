@@ -2,11 +2,11 @@
     position: fixed;
     bottom: 53px;
     top: 53px;
-    background-color: #2e3136;
+    background-color: #31343c;
 }
 
 :host li:hover {
-    background-color: #383c42;
+    background-color: #393d44;
     cursor: pointer;
 }
 
