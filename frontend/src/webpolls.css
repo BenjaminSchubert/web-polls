@@ -9,7 +9,6 @@
 
 
 /* Scrollbar */
-
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -23,4 +22,3 @@
     -webkit-border-radius: 30px;
     background: #22252a;
 }
-

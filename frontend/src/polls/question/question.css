@@ -14,6 +14,21 @@
     display: block;
 }
 
+.btn {
+	background-color: #7e838c;
+	color: #eee;
+	
+	-webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+	box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+}
+
+.btn:hover {
+	background-color: #78797c;
+	color: #ddd;
+}
+
+
 .button-right {
     float: right;
 }
@@ -54,9 +69,9 @@
     
     border-radius: 10px;
     
-    -webkit-box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
-	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 10px 20px -11px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 10px 20px -11px rgba(0,0,0,0.75);
+	box-shadow: 0px 10px 20px -11px rgba(0,0,0,0.75);
 }
 
 .control {
