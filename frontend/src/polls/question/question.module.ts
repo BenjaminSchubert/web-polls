@@ -1,25 +1,22 @@
 import { NgModule } from "@angular/core";
-import { QuestionWrapperComponent } from "./question-wrapper.component"
-import { QuestionComponent } from "./question.component"
-import { PollCreationComponent } from "./poll-creation.component"
-import { QuestionCreationComponent } from "./question-creation.component"
-import { RoomCreationComponent } from "./room-creation.component"
+import { QuestionWrapperComponent } from "./question-wrapper/question-wrapper.component"
+import { QuestionComponent } from "./question/question.component"
+import { PollCreationComponent } from "./poll-creation/poll-creation.component"
+import { QuestionCreationComponent } from "./question-creation/question-creation.component"
+import { RoomCreationComponent } from "./room-creation/room-creation.component"
+import { RoomIndexComponent } from "./room-index/room-index.component"
 
 @NgModule({
     declarations: [
-        QuestionWrapperComponent, 
+        QuestionWrapperComponent,
         QuestionComponent,
         QuestionCreationComponent,
         PollCreationComponent,
-        RoomCreationComponent
+        RoomCreationComponent,
+        RoomIndexComponent
     ],
     exports: [
-        QuestionWrapperComponent, 
-        QuestionComponent, 
-        QuestionCreationComponent,
-        PollCreationComponent,
-        RoomCreationComponent
-    ],
-    imports: [],
+        QuestionWrapperComponent
+    ]
 })
 export class QuestionModule {}
