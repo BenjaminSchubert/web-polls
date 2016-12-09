@@ -22,9 +22,12 @@ By clicking on the "+" button, he can then create a new room (in our case, TWEB-
 Now, the room is created and the room index is displayed to him. An invitation link can be copied (used to invite other people) and the description of the room edited. As he is in a room (and also the admin), another "+" button appears, which allows him to create polls.
 ![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/room-index.png)
 
+Here, the user begins to create polls.
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/poll-creation.png)
+
 Finally, the user creates a question in the poll. He can specify the title of the question, the type (can there be only 1 answer or multiples?) and, of course, the possible choices.
 ![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/question-creation.png)
-Note: here, the user has created some other polls before that point. Some are open (green round indicator) and other are closed (grey indicator).
+Note: here, the user has created quite a few other polls compared to the previous step. Some are open (green round indicator) and other are closed (grey indicator).
 
 Now let's look at what another user that joined the room sees when he answers the question. Here, we have the question created by the admin and its choices and the user checks what he wants.
 ![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/question-multiple.png)
