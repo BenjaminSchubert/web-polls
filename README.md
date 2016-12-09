@@ -27,12 +27,18 @@ On the frontend, we are using :
 ## Deployment
 
 Requirements:
-* Docker version 1.12.3, build 7b5044b/1.12.3
+* node 6 LTS (tested on 6.9.1), other versions might work but were not tested
+* npm version 3+
+
+Other requirements will come once the backend is implemented (mainly python 3.5+)
 
 Here are the steps you need to perform to deploy the project locally:
 
-1. Clone the repo and cd into it.
-2. `docker-compose up --build`
+1. Clone the repo : `git clone git@github.com:BenjaminSchubert/web-polls`
+2. cd into the frontend : `cd web-polls/frontend`
+3. install dependencies : `npm install` (you can also use `yarn`)
+4. launch the server: `npm run watch`.
+5. the application will be available at `localhost:8080`
 
 
 ## About the developpers
