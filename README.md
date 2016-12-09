@@ -12,8 +12,17 @@ Our website can be found [there](https://benjaminschubert.github.io/web-polls/).
 ...
 
 ## Frameworks used
-* Flask + websockets
-* Angular2
+On the backend we are using :
+
+* [Flask](http://flask.pocoo.org/), a lightweight python server framework
+* [Flask-websockets](https://github.com/zeekay/flask-uwsgi-websocket), an efficient websocket implementation for Flask
+* various other Flask plugins
+ 
+On the frontend, we are using :
+
+* [Angular2](https://angular.io/), a framework by Google
+* [Bootstrap4](https://getbootstrap.com), a very well known css framework
+
 
 ## Deployment
 
