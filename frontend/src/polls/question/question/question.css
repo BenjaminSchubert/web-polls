@@ -41,6 +41,11 @@
     margin-top: 10px;
 }
 
+.result-label {
+    max-height: 25px;
+    overflow: hidden;
+}
+
 .result-bar {
     height: 25px;
     border-radius: 25px;
