@@ -58,6 +58,7 @@ module.exports = function(projectRoot, appConfig) {
         devServer: {
             contentBase: appConfig.outDir,
             port: 8080,
+            host: "0.0.0.0",
             historyApiFallback: true,
 
             proxy: {
