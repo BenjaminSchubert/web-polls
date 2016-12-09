@@ -1,10 +1,14 @@
 .navbar {
     background-color: #22252a;
-    color: #aaaaaa;
+    color: #aaa;
 }
 
 .nav-link {
-    color: #aaaaaa;
+    color: #aaa;
+}
+
+.nav-link:hover {
+    color: #eee;
 }
 
 
