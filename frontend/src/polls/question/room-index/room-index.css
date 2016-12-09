@@ -24,10 +24,17 @@ form label {
     font-size: 15pt;
 }
 
-#settings {
-    padding-bottom: 65px;
+#settings .form-group {
+    margin-right: 0px;
+}
+
+
+#settings-update-button-wrapper {
+    margin-top: 30px;
+    
+    text-align: right;
 }
 
 #settings-update-button {
-    margin-top: 15px;
+    display: inline-block;
 }
