@@ -1,0 +1,57 @@
+/* Forms */
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+form {
+    padding: 30px 20px;
+    margin: 40px 0px 40px 0px;
+    
+    color: #ccc;
+    font-size: 14pt;
+    
+    border: 1px solid #999;
+    border-width: 1px 0px 1px 0px;
+}
+
+.form-group:last-of-type {
+    margin-bottom: 0px;
+}
+
+input[type="text"] {
+    background-color: #ccc;
+}
+
+input[type="text"]:focus {
+    border: 1px solid #999;
+    
+    -webkit-box-shadow: inset 0px 0px 7px -2px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 0px 0px 7px -2px rgba(0,0,0,0.75);
+    box-shadow: inset 0px 0px 7px -2px rgba(0,0,0,0.75);
+}
+
+
+/* Buttons */
+.btn {
+    -webkit-appearance: none;
+
+    background-color: #459b45 !important;
+    color: #eee !important;
+    
+    border-radius: 7px;
+    
+    -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+}
+
+.btn:hover {
+    background-color: #418841 !important;
+    color: #ddd !important;
+}
+
+.button-right {
+    float: right;
+}

@@ -1,0 +1,156 @@
+.choice-group {
+    margin: 0px 0px 5px 0px;
+}
+
+.add-choice-button, .delete-choice-button {
+    width: 30px;
+    height: 30px;
+    
+    font-size: 25pt;
+    
+    padding: 0px;
+    text-align: center;
+}
+
+.add-choice-button {
+    line-height: 28px;
+}
+
+.delete-choice-button {
+    margin-left: 10px;
+    line-height: 23px;
+}
+
+.question-number-wrapper {
+    text-align: center;
+}
+
+.question-number {
+    color: #ccc;
+    background-color: #636971;
+    
+    display: inline-block;
+    padding: 8px 13px 2px 13px;
+    
+    border-radius: 20px;
+    
+    -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+} 
+
+.question-title {
+    text-align: center;
+}
+
+.question-title {
+    padding-bottom: 20px;
+    margin-bottom: 40px;
+
+    border-bottom: 1px solid #999;
+}
+
+.question-container {
+    margin: 50px 0px;
+    padding: 30px;
+    text-align: left;
+    vertical-align: top;
+    
+    background: #7e838c;
+    color: #eee;
+    
+    border-radius: 10px;
+    
+    -webkit-box-shadow: 0px 10px 20px -11px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 20px -11px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 20px -11px rgba(0,0,0,0.75);
+}
+
+.control {
+    font-size: 18px;
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.control-indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: #e6e6e6;
+}
+
+.control-radio .control-indicator {
+    border-radius: 50%;
+}
+
+/* Checked state */
+.control input:checked ~ .control-indicator {
+    background: #459b45;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control-indicator,
+.control input:checked:focus ~ .control-indicator {
+    background: #459b45;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control-indicator {
+    pointer-events: none;
+    opacity: .6;
+    background: #e6e6e6;
+}
+
+/* Check mark */
+.control-indicator:after {
+    position: absolute;
+    display: none;
+    content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control-indicator:after {
+    display: block;
+}
+
+/* Checkbox tick */
+.control-checkbox .control-indicator:after {
+    top: 4px;
+    left: 8px;
+    width: 3px;
+    height: 8px;
+    transform: rotate(45deg);
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control-checkbox input:disabled ~ .control-indicator:after {
+    border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control-radio .control-indicator:after {
+    top: 7px;
+    left: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+/* Disabled circle colour */
+.control-radio input:disabled ~ .control-indicator:after {
+    background: #7b7b7b;
+}
