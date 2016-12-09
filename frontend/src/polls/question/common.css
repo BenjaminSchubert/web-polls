@@ -13,7 +13,7 @@ form h4 {
     margin-bottom: 30px;
 }
 
-form {
+form, #results {
     color: #ccc;
     background-color: #636971;
     
