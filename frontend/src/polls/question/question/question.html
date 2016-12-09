@@ -1,6 +1,6 @@
 <div>
-    <a type="button" class="btn">Previous</a>
-    <a type="button" class="btn button-right">Next</a>
+    <a type="button" class="btn button" href="#">Previous</a>
+    <a type="button" class="btn button float-xs-right" href="#">Next</a>
     
     <div class="question-number-wrapper">
         <div class="question-number">
@@ -9,7 +9,7 @@
     </div>
     
     <!--
-    <div class="question-container">
+    <form>
         <h2 class="question-title">
 			What do you think this lesson is lacking ?</h2>
         <label class="control control-checkbox">
@@ -32,10 +32,14 @@
             <input type="checkbox"/>
             <div class="control-indicator"></div>
         </label>
-    </div>-->
-
+        
+        <div class="bottom-right-button-wrapper">
+            <a type="button" class="btn button bottom-right-button"
+            href="#">Submit</a>
+        </div>
+    </form>-->
 	
-    <div class="question-container">
+    <form>
         <h2 class="question-title">Are you a boy or a girl ?</h2>
         <label class="control control-radio">A boy
             <input type="radio" name="radio"/>
@@ -49,9 +53,14 @@
             <input type="radio" name="radio"/>
             <div class="control-indicator"></div>
         </label>
-    </div>
-    
-    <a type="button" class="btn button-right">Submit</a>
-    <!--<a type="button" class="btn button-right">See results</a>-->
-
+        
+        <div class="bottom-right-button-wrapper">
+            <a type="button" class="btn button bottom-right-button"
+            href="#">Submit</a>
+            <!--
+            <a type="button" class="btn button bottom-right-button"
+            href="#">Submit</a>
+            -->
+        </div>
+    </form>
 </div>

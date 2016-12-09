@@ -5,19 +5,34 @@ h1 {
     color: #ccc;
 }
 
-form {
-    padding: 30px 20px;
-    margin: 40px 0px 40px 0px;
-    
-    color: #ccc;
-    font-size: 14pt;
-    
-    border: 1px solid #999;
-    border-width: 1px 0px 1px 0px;
+h2 {
+    text-align: center;
 }
 
-.form-group:last-of-type {
-    margin-bottom: 0px;
+form h4 {
+    margin-bottom: 30px;
+}
+
+form {
+    color: #ccc;
+    background-color: #636971;
+    
+    padding: 30px;
+    
+    border: 0px;
+    border-radius: 20px;
+    
+    -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+}
+
+form label {
+    font-size: 15pt;
+}
+
+.form-group {
+    margin-right: 0px;
 }
 
 input[type="text"], textarea {
@@ -54,6 +69,103 @@ textarea:focus {
     color: #ddd !important;
 }
 
-.button-right {
-    float: right;
+.bottom-right-button-wrapper {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.bottom-right-button {
+    display: inline-block;
+}
+
+
+/* Custom checkboxes and radio buttons */
+/* Based on https://kyusuf.com/post/completely-css-custom-checkbox-radio-buttons-and-select-boxes */
+.control {
+    font-size: 18px;
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+.control input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+
+.control-indicator {
+    position: absolute;
+    top: 2px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: #e6e6e6;
+}
+
+.control-radio .control-indicator {
+    border-radius: 50%;
+}
+
+/* Checked state */
+.control input:checked ~ .control-indicator {
+    background: #5fba61;
+}
+
+/* Hover state whilst checked */
+.control:hover input:not([disabled]):checked ~ .control-indicator,
+.control input:checked:focus ~ .control-indicator {
+    background: #5fba61;
+}
+
+/* Disabled state */
+.control input:disabled ~ .control-indicator {
+    pointer-events: none;
+    opacity: .6;
+    background: #e6e6e6;
+}
+
+/* Check mark */
+.control-indicator:after {
+    position: absolute;
+    display: none;
+    content: '';
+}
+
+/* Show check mark */
+.control input:checked ~ .control-indicator:after {
+    display: block;
+}
+
+/* Checkbox tick */
+.control-checkbox .control-indicator:after {
+    top: 4px;
+    left: 8px;
+    width: 3px;
+    height: 8px;
+    transform: rotate(45deg);
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+}
+
+/* Disabled tick colour */
+.control-checkbox input:disabled ~ .control-indicator:after {
+    border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+.control-radio .control-indicator:after {
+    top: 7px;
+    left: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+/* Disabled circle colour */
+.control-radio input:disabled ~ .control-indicator:after {
+    background: #7b7b7b;
 }
