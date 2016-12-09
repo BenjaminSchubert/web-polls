@@ -6,7 +6,7 @@ This application was made in the context of the TWEB course at HEIG-VD. This app
 an user to create polls, invite people to them and ask questions. Each participant can vote and see the
 result for a question at any time.
 
-Our website can be found [there](https://benjaminschubert.github.io/web-polls/). Please note that this is a work in progress and only part of the interface is available, and not functionning.
+Our landing page can be found [there](https://benjaminschubert.github.io/web-polls/).
 
 ## Preview of the app
 
@@ -62,6 +62,8 @@ Here are the steps you need to perform to deploy the project locally:
 3. install dependencies : `npm install` (you can also use `yarn`)
 4. launch the server: `npm run watch`.
 5. the application will be available at `localhost:8080`
+
+Please note that this is a work in progress and is not feature complete yet.
 
 
 ## About the developpers
