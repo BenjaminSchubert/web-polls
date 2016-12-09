@@ -9,7 +9,18 @@ result for a question at any time.
 Our website can be found [there](https://benjaminschubert.github.io/web-polls/).
 
 ## Preview of the app
-...
+
+Let's do a quick tour of the app by using a simple scenario of a user creating polls and another user answering to a question created.
+
+First, let's suppose the future admin of the room has previously created an account and is logged in. Now, he wants to create a room in which he can create polls to ask questions. What he sees is the following:
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/no-room-selected.png)
+Note: in our case, the user had already joined other rooms before.
+
+By clicking on the "+" button, he can then create a new room (in our case, TWEB-2016):
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/room-creation.png)
+
+Now, the room is created and the room index is displayed to him. An invitation link can be copied (used to invite other people) and the description of the room edited. As he is in a room (and also the admin), another "+" button appears, which allows him to create polls.
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/room-index.png)
 
 ## Frameworks used
 On the backend we are using :
