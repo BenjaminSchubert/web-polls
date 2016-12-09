@@ -51,16 +51,16 @@ h1, h2 {
 }
 
 .btn {
-	background-color: #7e838c;
+	background-color: #459b45;
 	color: #eee;
 	
-	-webkit-box-shadow: 0px 6px 10px -8px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 6px 10px -8px rgba(0,0,0,0.75);
-	box-shadow: 0px 6px 10px -8px rgba(0,0,0,0.75);
+	-webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
+    box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
 }
 
 .btn:hover {
-	background-color: #78797c;
+	background-color: #418841;
 	color: #ddd;
 }
 
@@ -74,7 +74,7 @@ h1, h2 {
 }
 
 .feature-container:not(:first-of-type) {
-	margin-top: 20px;
+	margin-top: 50px;
 	padding-top: 20px;
     border-top: 1px solid #5a5555;
 }
