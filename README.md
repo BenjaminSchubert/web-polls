@@ -22,6 +22,18 @@ By clicking on the "+" button, he can then create a new room (in our case, TWEB-
 Now, the room is created and the room index is displayed to him. An invitation link can be copied (used to invite other people) and the description of the room edited. As he is in a room (and also the admin), another "+" button appears, which allows him to create polls.
 ![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/room-index.png)
 
+Finally, the user creates a question in the poll. He can specify the title of the question, the type (can there be only 1 answer or multiples?) and, of course, the possible choices.
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/question-creation.png)
+Note: here, the user has created some other polls before that point. Some are open (green round indicator) and other are closed (grey indicator).
+
+Now let's look at what another user that joined the room sees when he answers the question. Here, we have the question created by the admin and its choices and the user checks what he wants.
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/question-multiple.png)
+
+After that, he submits his answer and a graph appears, displaying the results for this question and updating in real time.
+![alt tag](https://github.com/BenjaminSchubert/web-polls/blob/gh-pages/assets/img/question-results.png)
+
+Afterward, even if the poll is closed, he can still navigate on the questions that were asked and see the results.
+
 ## Frameworks used
 On the backend we are using :
 
