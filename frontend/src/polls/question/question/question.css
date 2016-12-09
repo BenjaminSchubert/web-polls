@@ -50,6 +50,10 @@
     box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
 }
 
+.result-bar:hover {
+    border: 1px solid #444;
+}
+
 .result-green {
     background-color: #459b45;
 }
