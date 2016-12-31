@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { RoomService } from "./room.service";
+import { UserService } from "../../auth/user.service";
 
 
 @Component({
@@ -8,5 +9,5 @@ import { RoomService } from "./room.service";
     templateUrl: "room-chooser.html",
 })
 export class RoomChooserComponent {
-    constructor(public service: RoomService) {}
+    constructor(public service: RoomService, public user: UserService) {}
 }

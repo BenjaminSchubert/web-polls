@@ -13,3 +13,14 @@
 h4 {
     display: inline-block;
 }
+
+.centerer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 100%;
+    color: #7b7b7b;
+}
+

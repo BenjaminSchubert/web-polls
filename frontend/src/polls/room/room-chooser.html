@@ -1,12 +1,21 @@
-<wp-scrollable>
-    <div header>
-        <h4>Rooms</h4>
-        <a class="add-button" href="#">
-            <p>+</p>
-        </a>
-    </div>
+<template [ngIf]="user.isLoggedIn$ | async">
+    <wp-scrollable>
+        <div header>
+            <h4>Rooms</h4>
+            <a class="add-button" href="#">
+                <p>+</p>
+            </a>
+        </div>
 
-    <li content class="list-group-item" *ngFor="let room of service.$ | async">
-        <wp-room [room]="room"></wp-room>
-    </li>
-</wp-scrollable>
+        <li content class="list-group-item" *ngFor="let room of service.$ | async">
+            <wp-room [room]="room"></wp-room>
+        </li>
+    </wp-scrollable>
+</template>
+
+<template [ngIf]="!(user.isLoggedIn$ | async)">
+    <div class="centerer">
+        Please login to manage your rooms
+        <button class="btn btn-primary">Login</button>
+    </div>
+</template>
