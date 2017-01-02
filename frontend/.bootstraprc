@@ -60,16 +60,16 @@ styles:
   breadcrumb: false
   pagination: false
   jumbotron: false
-  alert: false
+  alert: true
   progress: false
   media: false
   list-group: true
   responsive-embed: true
-  close: false
+  close: true
   tags: false
 
   # Components w/ JavaScript
-  modal: false
+  modal: true
   tooltip: false
   popover: false
   carousel: false

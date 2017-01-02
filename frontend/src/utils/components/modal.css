@@ -1,0 +1,13 @@
+:host.in {
+    display: block;
+    background-color: rgba(1, 1, 1, .5);
+}
+
+.modal-content {
+    max-height: 100%;
+    overflow: auto;
+}
+
+:host {
+    color: #aaaaaa;
+}

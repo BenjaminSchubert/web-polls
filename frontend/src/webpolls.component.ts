@@ -1,4 +1,5 @@
 import { Component, ViewEncapsulation } from "@angular/core";
+import { AccountService } from "./auth/account.service";
 
 
 /**
@@ -10,4 +11,15 @@ import { Component, ViewEncapsulation } from "@angular/core";
     styleUrls: ["webpolls.css"],
     templateUrl: "webpolls.html",
 })
-export class WebpollsComponent {}
+export class WebpollsComponent {
+    constructor(public account: AccountService) {
+    }
+
+    public login() {
+        this.account.requestLogin();
+    }
+
+    public logout() {
+        this.account.logout().subscribe();
+    }
+}

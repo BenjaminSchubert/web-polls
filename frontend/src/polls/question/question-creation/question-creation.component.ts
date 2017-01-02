@@ -4,7 +4,7 @@ import { Component } from "@angular/core";
     styleUrls: [
         "question-creation.css",
         "../question/question.css",
-        "../common.css"
+        "../common.css",
     ],
     templateUrl: "question-creation.html",
 })

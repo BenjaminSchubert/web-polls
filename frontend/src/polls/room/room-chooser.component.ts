@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { RoomService } from "./room.service";
-import { UserService } from "../../auth/user.service";
+import { AccountService } from "../../auth/account.service";
 
 
 @Component({
@@ -9,5 +9,9 @@ import { UserService } from "../../auth/user.service";
     templateUrl: "room-chooser.html",
 })
 export class RoomChooserComponent {
-    constructor(public service: RoomService, public user: UserService) {}
+    constructor(public service: RoomService, public user: AccountService) {}
+
+    public requestLogin() {
+        this.user.requestLogin();
+    }
 }

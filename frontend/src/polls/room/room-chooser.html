@@ -16,6 +16,6 @@
 <template [ngIf]="!(user.isLoggedIn$ | async)">
     <div class="centerer">
         Please login to manage your rooms
-        <button class="btn btn-primary">Login</button>
+        <button class="btn btn-primary" (click)="requestLogin()">Login</button>
     </div>
 </template>

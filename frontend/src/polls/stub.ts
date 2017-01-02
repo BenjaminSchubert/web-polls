@@ -14,4 +14,4 @@ export type Poll = {
     last_active: string;
     name: string;
     owning: boolean;
-}
+};

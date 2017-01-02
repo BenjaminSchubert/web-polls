@@ -6,3 +6,12 @@
 dist/
 node_modules/
 npm-debug.log
+
+# python
+*.pyc
+__pycache__
+
+
+# miscellaneous
+test.db
+

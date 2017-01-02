@@ -11,8 +11,9 @@
             </li>
         </ul>
         <ul class="nav navbar-nav float-xs-right">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
+            <li class="nav-item" [ngSwitch]="account.isLoggedIn$ | async">
+                <a class="nav-link" href="javascript:void(0);" (click)="login()" *ngSwitchCase="false">Login</a>
+                <a class="nav-link" href="javascript:void(0);" (click)="logout()" *ngSwitchCase="true">Logout</a>
             </li>
         </ul>
     </nav>
@@ -29,3 +30,6 @@
         </li>
     </ul>
 </footer>
+
+
+<wp-login></wp-login>
