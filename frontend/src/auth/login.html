@@ -1,5 +1,5 @@
 <wp-modal *ngIf="account.loginIsRequested$ | async" (onClose)="hideLoginForm()" (click)="hideLoginForm()">
-    <div header *ngIf="!(showRegistrationForm$ | async)">Login</div>
+    <div header *ngIf="!(showRegistrationForm$ | async)">{{ account.loginMessage || "Login" }}</div>
     <div header *ngIf="(showRegistrationForm$ | async)">Register</div>
 
     <form body [formGroup]="form" (ngSubmit)="login()">

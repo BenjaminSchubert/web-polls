@@ -2,7 +2,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 
 const routes: Routes = [
-    {path: "**", redirectTo: ""},
+    {path: "", pathMatch: "full", redirectTo: "/rooms"},
+    {path: "**", redirectTo: "/rooms"},
 ];
 
 

@@ -1,7 +1,7 @@
 <template [ngIf]="user.isLoggedIn$ | async">
     <wp-scrollable>
         <div header>
-            <h4>Rooms</h4>
+            <h4 [routerLink]="['rooms']">Rooms</h4>
             <a class="add-button" [routerLink]="['rooms', 'new']">
                 <p>+</p>
             </a>

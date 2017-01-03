@@ -4,6 +4,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { Account } from "./stub";
 import { AUTH_ACCOUNT_URL, AUTH_LOGIN_URL, AUTH_REGISTER_URL, AUTH_LOGOUT_URL } from "../api.routes";
 import { noop } from "../base/miscellaneous";
+import { Router } from "@angular/router";
 
 
 @Injectable()
@@ -12,10 +13,14 @@ export class AccountService {
     public isLoggedIn$: Observable<boolean>;
     public loginIsRequested$: Observable<boolean>;
 
+    public loginMessage: string = null;
+
     private _$: BehaviorSubject<Account>;
     private requestLogin$: BehaviorSubject<boolean>;
 
-    constructor(private http: Http) {
+    private redirectUrl: string;
+
+    constructor(private http: Http, private router: Router) {
         this._$ = new BehaviorSubject(null);
         this.$ = this._$.asObservable();
         this.isLoggedIn$ = this._$.map((a: Account) => a !== null);
@@ -31,6 +36,10 @@ export class AccountService {
             .map((res: Response) => {
                 this.getAccount().subscribe(noop, noop);
                 this.requestLogin$.next(false);
+                // tslint:disable-next-line:triple-equals
+                if (this.redirectUrl != null) {
+                    this.router.navigateByUrl(this.redirectUrl).then(); // FIXME : this does not work
+                }
                 return res;
             });
     }
@@ -47,11 +56,18 @@ export class AccountService {
         return this.login(data, AUTH_REGISTER_URL);
     }
 
-    public requestLogin() {
+    public requestLogin(loginMessage?: string, route?: string) {
+        // tslint:disable-next-line:triple-equals
+        if (route != null) {
+            this.redirectUrl = route;
+        }
+        this.loginMessage = loginMessage;
         this.requestLogin$.next(true);
     }
 
     public cancelLoginRequest() {
+        this.redirectUrl = null;
+        this.loginMessage = null;
         this.requestLogin$.next(false);
     }
 

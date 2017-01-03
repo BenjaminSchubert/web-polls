@@ -19,3 +19,11 @@ csrf_missing = ErrorMessage(message="CSRF token is missing.", code=2)
 bad_credentials = ErrorMessage(message="Username or password not recognized.", code=3)
 unauthorized = ErrorMessage(message="Unauthorized, please login.", code=4)
 unique_constraint_failed = ErrorMessage(message="This field must be unique", code=5)
+
+unable_to_generate_token = ErrorMessage(
+    message="The server was unable to generate a unique token,"
+            " please contact the administrator if this problem persists",
+    code=6
+)
+
+invalid_room_token = ErrorMessage(message="No room with the given token was found", code=7)

@@ -1,6 +1,6 @@
 // tslint:disable:no-any
 import { FormGroup } from "@angular/forms";
-import { Response } from "@angular/http";
+import { TError } from "./base";
 
 
 export class ErrorHandler {
@@ -31,14 +31,12 @@ export class ErrorHandler {
         return messages;
     }
 
-    protected handleError(error: Response, ctrl: FormGroup) {
-        let data = error.json();
-
-        for (let entry in data) {
+    protected handleError(error: TError, ctrl: FormGroup) {
+        for (let entry in error) {
             if (ctrl.get(entry) !== null) {
-                ctrl.get(entry).setErrors({"serverError": data[entry]});
+                ctrl.get(entry).setErrors({"serverError": error[entry]});
             } else {
-                ctrl.setErrors({"serverError": data[entry]});
+                ctrl.setErrors({"serverError": error[entry]});
             }
         }
     }

@@ -2,21 +2,20 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ErrorHandler } from "../base/error_handler";
 import { RoomService } from "../room-chooser/room.service";
-import { noop } from "../base/miscellaneous";
-import { Response } from "@angular/http";
+import { TError } from "../base/base";
 
 
 @Component({
-    templateUrl: "./new_room.html",
+    templateUrl: "./room-index.html",
 })
-export class NewRoomComponent extends ErrorHandler implements OnInit {
+export class RoomIndexComponent extends ErrorHandler implements OnInit {
     public form: FormGroup;
 
     constructor(private rooms: RoomService, private builder: FormBuilder) {
         super();
 
         this.form = this.builder.group({
-            name: ["", Validators.required],
+            code: ["", Validators.required],
         });
     }
 
@@ -25,9 +24,6 @@ export class NewRoomComponent extends ErrorHandler implements OnInit {
     }
 
     public submit() {
-        this.rooms.create(this.form.value).subscribe(
-            noop,
-            (err: Response) => this.handleError(err, this.form),
-        );
+        this.rooms.join(this.form.value, (err: TError) => this.handleError(err, this.form));
     }
 }

@@ -16,7 +16,13 @@ export class LoginGuard implements CanActivate {
     constructor(protected router: Router, protected user: AccountService) {}
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        return this.user.isLoggedIn$.take(1);
+        return  this.user.isLoggedIn$.take(1)
+            .map((loggedIn: boolean) => {
+                if (!loggedIn) {
+                    this.user.requestLogin("You must login to access this feature", state.url);
+                }
+                return loggedIn;
+            });
     }
 
 }

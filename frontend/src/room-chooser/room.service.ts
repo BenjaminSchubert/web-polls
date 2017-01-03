@@ -6,6 +6,7 @@ import { AccountService } from "../auth/account.service";
 import { Http, Response } from "@angular/http";
 import { ROOMS_URL } from "../api.routes";
 import * as io from "socket.io-client";
+import { TError } from "../base/base";
 
 
 @Injectable()
@@ -19,10 +20,12 @@ export class RoomService {
     private socket: any;  // FIXME : we should type that
 
     constructor(private account: AccountService, private http: Http) {
-        this._$ = new BehaviorSubject([]);
+        this.t = [];
+        this._$ = new BehaviorSubject(this.t);
         this.$ = this._$.asObservable();
 
         this.socket = io("/rooms");
+        this.socket.connect();
 
         this.socket.on("list", (res: Room[]) => {
             this.t = res;
@@ -50,10 +53,18 @@ export class RoomService {
         });
     }
 
-    public post(data: {name: string}) {
+    public create(data: {name: string}) {
         return this.http.post(ROOMS_URL, data).map((res: Response) => {
             this.socket.emit("join", res.json().id);
             return res;
+        });
+    }
+
+    public join(data: {code: string}, callback?: (err: TError) => void) {
+        this.socket.emit("join", data.code, (res: {[key: string]: number|string}) => {
+            if (callback !== undefined) {
+                callback(res);
+            }
         });
     }
 

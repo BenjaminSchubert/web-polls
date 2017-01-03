@@ -1,4 +1,8 @@
 """Defines models related to rooms."""
+import string
+from sqlite3 import IntegrityError
+
+import random
 
 from flask_login import current_user
 from sqlalchemy import Column, INTEGER, VARCHAR, ForeignKey, Table
@@ -26,7 +30,8 @@ class Room(SerializableMixin, Base):
     __excluded__ = set("owner_id")
 
     id = Column(INTEGER, primary_key=True)
-    name = Column(VARCHAR)
+    name = Column(VARCHAR(255))
+    token = Column(VARCHAR(6), unique=True)
     owner_id = Column(INTEGER, ForeignKey("users.id"))
     owner = relationship("User")
 
@@ -37,3 +42,21 @@ class Room(SerializableMixin, Base):
         base = super().as_dict()
         base["owning"] = self.owner == current_user
         return base
+
+    def set_token(self, session, size=6):
+        """
+        Create a random token to identify the room.
+
+        :param session: session to use to commit the changes
+        :param size: size of the token to generate
+        """
+        e = None
+        for i in range(1000):
+            try:
+                self.token = "".join(random.choice(string.ascii_uppercase + string.digits) for _ in range(size))
+                session.commit()
+            except IntegrityError as exc:
+                e = exc
+            else:
+                return
+        raise e

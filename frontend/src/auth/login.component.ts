@@ -62,7 +62,10 @@ export class LoginComponent extends ErrorHandler implements OnInit, OnDestroy {
                     this.form.removeControl("email");
                 }
             }),
-            this.account.loginIsRequested$.subscribe((show: boolean) => this.form.reset()),
+            this.account.loginIsRequested$.subscribe(() => {
+                this.form.reset();
+                this.registering = false;
+            }),
         ];
 
         this.registering = false;
@@ -96,7 +99,7 @@ export class LoginComponent extends ErrorHandler implements OnInit, OnDestroy {
 
         ret.subscribe(
             noop,
-            (err: Response) => this.handleError(err, this.form),
+            (err: Response) => this.handleError(err.json(), this.form),
         );
     }
 
