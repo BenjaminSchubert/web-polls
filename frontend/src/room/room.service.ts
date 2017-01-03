@@ -1,25 +1,29 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Room } from "../polls/stub";
 import { AccountService } from "../auth/account.service";
 import { Http, Response } from "@angular/http";
 import { ROOMS_URL } from "../api.routes";
 import * as io from "socket.io-client";
 import { TError } from "../base/base";
+import { RestService } from "../base/rest.service";
+import { IRoom, INewRoom } from "./stubs";
 
 
 @Injectable()
-export class RoomService {
-    public $: Observable<Room[]>;
+export class RoomService extends RestService<INewRoom> {
+    protected URL = ROOMS_URL;
 
-    private t: Room[];
-    private _$: BehaviorSubject<Room[]>;
+    public $: Observable<IRoom[]>;
+
+    private t: IRoom[];
+    private _$: BehaviorSubject<IRoom[]>;
 
     // tslint:disable-next-line:no-any
     private socket: any;  // FIXME : we should type that
 
-    constructor(private account: AccountService, private http: Http) {
+    constructor(http: Http, private account: AccountService) {
+        super(http);
         this.t = [];
         this._$ = new BehaviorSubject(this.t);
         this.$ = this._$.asObservable();
@@ -27,13 +31,13 @@ export class RoomService {
         this.socket = io("/rooms");
         this.socket.connect();
 
-        this.socket.on("list", (res: Room[]) => {
+        this.socket.on("list", (res: IRoom[]) => {
             this.t = res;
             this._$.next(this.t);
         });
 
-        this.socket.on("item", (res: Room) => {
-            let index = this.t.findIndex((room: Room) => room.id === res.id);
+        this.socket.on("item", (res: IRoom) => {
+            let index = this.t.findIndex((room: IRoom) => room.id === res.id);
 
             if (index >= 0) {
                 this.t[index] = res;
@@ -54,11 +58,11 @@ export class RoomService {
     }
 
     public get(id: number) {
-        return this.$.map((rooms: Room[]) => rooms.find((room: Room) => room.id === id));
+        return this.$.map((rooms: IRoom[]) => rooms.find((room: IRoom) => room.id === id));
     }
 
-    public create(data: {name: string}) {
-        return this.http.post(ROOMS_URL, data).map((res: Response) => {
+    public create(room: INewRoom) {
+        return super.create(room).map((res: Response) => {
             this.socket.emit("join", res.json().id);
             return res;
         });

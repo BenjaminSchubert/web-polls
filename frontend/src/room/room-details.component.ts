@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ErrorHandler } from "../base/error_handler";
-import { RoomService } from "../room-chooser/room.service";
+import { RoomService } from "./room.service";
 import { noop } from "../base/miscellaneous";
 import { Response } from "@angular/http";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Room } from "../polls/stub";
+import { IRoom } from "./stubs";
 
 
 @Component({
@@ -13,7 +13,7 @@ import { Room } from "../polls/stub";
 })
 export class RoomComponent extends ErrorHandler implements OnInit {
     public form: FormGroup;
-    public room: Room;
+    public room: IRoom;
     public editing: boolean = false;
 
     constructor(private route: ActivatedRoute, private service: RoomService, private builder: FormBuilder) {
@@ -27,7 +27,7 @@ export class RoomComponent extends ErrorHandler implements OnInit {
     public ngOnInit() {
         this.route.params
             .switchMap((params: Params) => this.service.get(+params["id"]))
-            .subscribe((room: Room) => this.room = room);
+            .subscribe((room: IRoom) => this.room = room);
     }
 
     public submit() {

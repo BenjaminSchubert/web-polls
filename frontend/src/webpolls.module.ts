@@ -7,7 +7,6 @@ import { PollsModule } from "./polls/polls.module";
 import { ExtendedRequestOptions } from "./utils/requests";
 import { RequestOptions } from "@angular/http";
 import { AuthModule } from "./auth/auth.module";
-import { RoomChooserModule } from "./room-chooser/room-chooser.module";
 import { PollChooserModule } from "./poll-chooser/poll-chooser.module";
 import { RoomModule } from "./room/room.module";
 
@@ -18,8 +17,8 @@ import { RoomModule } from "./room/room.module";
     imports: [
         BrowserModule, routing,
         UtilsModule,
-        AuthModule.forRoot(), RoomChooserModule.forRoot(), PollChooserModule.forRoot(),
-        PollsModule, RoomModule,
+        AuthModule.forRoot(), PollChooserModule.forRoot(),
+        PollsModule, RoomModule.forRoot(),
     ],
     providers: [
         {provide: RequestOptions, useClass: ExtendedRequestOptions},

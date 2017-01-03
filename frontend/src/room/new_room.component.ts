@@ -1,33 +1,21 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
-import { ErrorHandler } from "../base/error_handler";
-import { RoomService } from "../room-chooser/room.service";
-import { noop } from "../base/miscellaneous";
-import { Response } from "@angular/http";
+import { Component } from "@angular/core";
+import { FormBuilder, Validators } from "@angular/forms";
+import { RoomService } from "./room.service";
+import { CreationComponent } from "../base/creation.component";
+import { INewRoom } from "./stubs";
 
 
 @Component({
     templateUrl: "./new_room.html",
 })
-export class NewRoomComponent extends ErrorHandler implements OnInit {
-    public form: FormGroup;
+export class NewRoomComponent extends CreationComponent<INewRoom> {
+    constructor(service: RoomService, private builder: FormBuilder) {
+        super(service);
+    }
 
-    constructor(private rooms: RoomService, private builder: FormBuilder) {
-        super();
-
-        this.form = this.builder.group({
+    protected buildForm() {
+        return this.builder.group({
             name: ["", Validators.required],
         });
-    }
-
-    public ngOnInit() {
-        this.form.reset();
-    }
-
-    public submit() {
-        this.rooms.create(this.form.value).subscribe(
-            noop,
-            (err: Response) => this.handleError(err, this.form),
-        );
     }
 }

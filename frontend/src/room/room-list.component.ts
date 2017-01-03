@@ -4,10 +4,10 @@ import { AccountService } from "../auth/account.service";
 
 
 @Component({
-    selector: "wp-room-chooser",
-    templateUrl: "room-chooser.html",
+    selector: "wp-room-list",
+    templateUrl: "room-list.html",
 })
-export class RoomChooserComponent {
+export class RoomListComponent {
     constructor(public service: RoomService, public user: AccountService) {}
 
     public requestLogin() {

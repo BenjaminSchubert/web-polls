@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ErrorHandler } from "../base/error_handler";
-import { RoomService } from "../room-chooser/room.service";
+import { RoomService } from "./room.service";
 import { TError } from "../base/base";
 
 

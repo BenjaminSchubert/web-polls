@@ -26,12 +26,12 @@
     }
 }
 
-.chooser:nth-child(1) {
+.list:nth-child(1) {
     @include chooser($background-dark, $text-color-dark);
     left: 0;
 }
 
-.chooser:nth-child(2) {
+.list:nth-child(2) {
     @include chooser($background, $text-color-dark);
 
     left: calc(3 / 12 * 100%);
