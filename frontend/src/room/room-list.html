@@ -1,8 +1,8 @@
 <template [ngIf]="user.isLoggedIn$ | async">
     <wp-scrollable>
         <div header>
-            <h4 [routerLink]="['rooms']">Rooms</h4>
-            <a class="add-button" [routerLink]="['rooms', 'new']">
+            <h4 [routerLink]="['']">Rooms</h4>
+            <a class="add-button" [routerLink]="['new']">
                 <p>+</p>
             </a>
         </div>
@@ -13,7 +13,7 @@
                 class="list-group-item"
                 *ngFor="let room of service.$ | async"
                 routerLinkActive="active"
-                [routerLink]="['rooms', room.id]"
+                [routerLink]="[room.id]"
         >
         </wp-room-item>
 

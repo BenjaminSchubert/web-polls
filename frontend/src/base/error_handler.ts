@@ -1,6 +1,6 @@
 // tslint:disable:no-any
 import { FormGroup } from "@angular/forms";
-import { TError } from "./base";
+import { TError } from "./stubs";
 
 
 export class ErrorHandler {

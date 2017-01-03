@@ -75,6 +75,7 @@ export class AccountService {
         return this.http.get(AUTH_ACCOUNT_URL)
             .map((res: Response) => {
                 this._$.next(res.json());
+                this.requestLogin$.next(false);
                 return res;
             })
             .catch((err: Response) => {

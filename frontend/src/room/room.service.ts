@@ -3,7 +3,7 @@ import { AccountService } from "../auth/account.service";
 import { Http, Response } from "@angular/http";
 import { ROOMS_URL } from "../api.routes";
 import * as io from "socket.io-client";
-import { TError } from "../base/base";
+import { TError } from "../base/stubs";
 import { RestService } from "../base/rest.service";
 import { IRoom, INewRoom } from "./stubs";
 
@@ -45,10 +45,6 @@ export class RoomService extends RestService<IRoom, INewRoom> {
         this.account.$.subscribe(() => {
             this.socket.connect();
         });
-    }
-
-    public get(id: number) {
-        return this.$.map((rooms: IRoom[]) => rooms.find((room: IRoom) => room.id === id));
     }
 
     public create(room: INewRoom) {

@@ -26,7 +26,7 @@ export class RoomComponent extends ErrorHandler implements OnInit {
 
     public ngOnInit() {
         this.route.params
-            .switchMap((params: Params) => this.service.get(+params["id"]))
+            .switchMap((params: Params) => this.service.get(+params["room"]))
             .subscribe((room: IRoom) => this.room = room);
     }
 

@@ -1,7 +1,6 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
 import { UtilsModule } from "../utils/utils.module";
-import { NewRoomComponent } from "./room-creation.component";
-import { roomRouting } from "./room.routing";
+import { RoomCreationComponent } from "./room-creation.component";
 import { RoomIndexComponent } from "./room-index.component";
 import { RoomComponent } from "./room-details.component";
 import { RoomService } from "./room.service";
@@ -10,9 +9,9 @@ import { RoomListComponent } from "./room-list.component";
 
 
 @NgModule({
-    declarations: [NewRoomComponent, RoomIndexComponent, RoomComponent, RoomItemComponent, RoomListComponent],
+    declarations: [RoomCreationComponent, RoomIndexComponent, RoomComponent, RoomItemComponent, RoomListComponent],
     exports: [RoomListComponent],
-    imports: [UtilsModule, roomRouting],
+    imports: [UtilsModule],
 
 })
 export class RoomModule {

@@ -8,7 +8,7 @@ import { INewRoom, IRoom } from "./stubs";
 @Component({
     templateUrl: "room-creation.html",
 })
-export class NewRoomComponent extends CreationComponent<IRoom, INewRoom> {
+export class RoomCreationComponent extends CreationComponent<IRoom, INewRoom> {
     constructor(service: RoomService, builder: FormBuilder) {
         super(service, builder);
     }

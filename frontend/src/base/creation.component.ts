@@ -4,9 +4,10 @@ import { ErrorHandler } from "./error_handler";
 import { noop } from "./miscellaneous";
 import { Response } from "@angular/http";
 import { RestService } from "./rest.service";
+import { IIdentifiable } from "./stubs";
 
 
-export abstract class CreationComponent<T, TNew> extends ErrorHandler implements OnInit {
+export abstract class CreationComponent<T extends IIdentifiable, TNew> extends ErrorHandler implements OnInit {
     public form: FormGroup;
 
     protected abstract buildForm(): FormGroup;

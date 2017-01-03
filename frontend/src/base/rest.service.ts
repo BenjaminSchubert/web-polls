@@ -1,8 +1,9 @@
 import { Observable, BehaviorSubject } from "rxjs";
 import { Response, Http } from "@angular/http";
+import { IIdentifiable } from "./stubs";
 
 
-export abstract class RestService<T, TNew> {
+export abstract class RestService<T extends IIdentifiable, TNew> {
     protected abstract URL: string;
 
     public $: Observable<T[]>;
@@ -18,6 +19,10 @@ export abstract class RestService<T, TNew> {
 
     public create(t: TNew): Observable<Response> {
         return this.http.post(this.URL, t);
+    }
+
+    public get(id: number) {
+        return this.$.map((ts: T[]) => ts.find((t: T) => t.id === id));
     }
 
 }
