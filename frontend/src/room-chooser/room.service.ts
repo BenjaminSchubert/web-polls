@@ -53,6 +53,10 @@ export class RoomService {
         });
     }
 
+    public get(id: number) {
+        return this.$.map((rooms: Room[]) => rooms.find((room: Room) => room.id === id));
+    }
+
     public create(data: {name: string}) {
         return this.http.post(ROOMS_URL, data).map((res: Response) => {
             this.socket.emit("join", res.json().id);

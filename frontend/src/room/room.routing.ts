@@ -3,6 +3,7 @@ import { RouterModule } from "@angular/router";
 import { LoginGuard } from "../auth/guards/login.guard";
 import { NewRoomComponent } from "./new_room.component";
 import { RoomIndexComponent } from "./room-index.component";
+import { RoomComponent } from "./room-details.component";
 
 
 const roomRoutes = [
@@ -12,6 +13,10 @@ const roomRoutes = [
                 canActivate: [LoginGuard],
                 component: NewRoomComponent,
                 path: "new",
+            },
+            {
+                component: RoomComponent,
+                path: ":id",
             },
             {
                 component: RoomIndexComponent,

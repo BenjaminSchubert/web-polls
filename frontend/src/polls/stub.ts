@@ -4,6 +4,7 @@ export type Room = {
     id: number;
     last_active: string;
     name: string;
+    token: string;
     owning: boolean;
 };
 

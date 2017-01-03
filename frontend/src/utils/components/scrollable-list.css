@@ -3,7 +3,9 @@
     padding-bottom: 60px;
 }
 
-.list-group-item {
+.list-group-item,
+.list-group-item.active,
+.list-group-item.active:hover {
     border-radius: 0;
     border-right: none;
     border-left: none;
@@ -35,9 +37,5 @@
 
 .list-group-item {
     background-color: inherit;
-    color: #aaaaaa;
-}
-
-.list-group-item a {
     color: #aaaaaa;
 }

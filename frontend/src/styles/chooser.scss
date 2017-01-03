@@ -1,24 +1,41 @@
 @import "variables";
 @import "shadows";
 
-.chooser {
+@mixin chooser($_background-color, $_text-color) {
     @extend .col-xs-3;
     @extend .col-sm-2;
 
     position: fixed;
     bottom: $navbar-height;
     top: $navbar-height;
-    left: 0;
-    background-color: $background-dark;
-    color: $text-color-dark;
 
-    &:nth-child(2) {
-        background-color: $background;
+    background-color: $_background-color;
+    color: $_text-color;
 
-        left: calc(3 / 12 * 100%);
-        @media (min-width: $screen-sm-min) {
-            left: calc(2 / 12 * 100%);
+    .list-group-item {
+        color: $_text-color;
+
+        &:hover,
+        &.active:hover {
+            background-color: lighten($_background-color, 7%);
         }
 
+        &.active {
+            background-color: lighten($_background-color, 5%);
+        }
+    }
+}
+
+.chooser:nth-child(1) {
+    @include chooser($background-dark, $text-color-dark);
+    left: 0;
+}
+
+.chooser:nth-child(2) {
+    @include chooser($background, $text-color-dark);
+
+    left: calc(3 / 12 * 100%);
+    @media (min-width: $screen-sm-min) {
+        left: calc(2 / 12 * 100%);
     }
 }

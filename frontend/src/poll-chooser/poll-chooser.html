@@ -6,7 +6,13 @@
         </a>
     </div>
 
-    <li content class="list-group-item" *ngFor="let poll of service.$ | async">
+    <li
+            content
+            class="list-group-item"
+            *ngFor="let poll of service.$ | async"
+            [routerLink]="" [queryParams]="{ room: room, poll: poll.id}"
+            routerLinkActive="active"
+    >
         <wp-poll [poll]="poll" [room]="room"></wp-poll>
     </li>
 </wp-scrollable>

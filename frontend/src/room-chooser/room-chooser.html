@@ -7,9 +7,16 @@
             </a>
         </div>
 
-        <li content class="list-group-item" *ngFor="let room of service.$ | async">
-            <wp-room [room]="room"></wp-room>
-        </li>
+        <wp-room
+                content
+                [room]="room"
+                class="list-group-item"
+                *ngFor="let room of service.$ | async"
+                routerLinkActive="active"
+                [routerLink]="['rooms', room.id]"
+        >
+        </wp-room>
+
     </wp-scrollable>
 </template>
 
