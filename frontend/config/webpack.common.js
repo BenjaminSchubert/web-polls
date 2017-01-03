@@ -67,9 +67,10 @@ module.exports = function(projectRoot, appConfig) {
                     pathRewrite: {"^/api" : ""}
                 },
 
-                "/static": {
-                    target: "http://localhost:8000"
-                }
+                "/socket.io": {
+                    target: "http://localhost:5000",
+                    ws: true,
+                },
             }
         }
     };

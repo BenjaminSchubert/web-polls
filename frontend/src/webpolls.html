@@ -19,8 +19,12 @@
     </nav>
 
     <menu></menu>
-    <!-- base app -->
-    <router-outlet></router-outlet>
+
+    <div class="row">
+        <wp-room-chooser class="chooser"></wp-room-chooser>
+        <wp-poll-chooser class="chooser"></wp-poll-chooser>
+        <div id="main"><router-outlet></router-outlet></div>
+    </div>
 </div>
 
 <footer class="navbar navbar-fixed-bottom">

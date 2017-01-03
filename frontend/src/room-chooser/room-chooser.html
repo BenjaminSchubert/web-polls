@@ -2,7 +2,7 @@
     <wp-scrollable>
         <div header>
             <h4>Rooms</h4>
-            <a class="add-button" href="#">
+            <a class="add-button" [routerLink]="['rooms', 'new']">
                 <p>+</p>
             </a>
         </div>
@@ -14,7 +14,7 @@
 </template>
 
 <template [ngIf]="!(user.isLoggedIn$ | async)">
-    <div class="centerer">
+    <div class="center">
         Please login to manage your rooms
         <button class="btn btn-primary" (click)="requestLogin()">Login</button>
     </div>

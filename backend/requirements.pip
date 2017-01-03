@@ -1,5 +1,6 @@
 flask
 flask-login
 flask-wtf
+flask-socketio
 sqlalchemy
 simplejson

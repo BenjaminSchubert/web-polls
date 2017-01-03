@@ -1,9 +1,5 @@
 /* Forms */
-h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #ccc;
-}
+
 
 h2 {
     text-align: center;
@@ -16,20 +12,18 @@ form h4 {
 form, #results {
     color: #ccc;
     background-color: #636971;
-    
+
     padding: 30px;
-    
+
     border: 0px;
     border-radius: 20px;
-    
+
     -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
     box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
 }
 
-form label {
-    font-size: 15pt;
-}
+
 
 .form-group {
     margin-right: 0px;
@@ -58,7 +52,7 @@ textarea:focus {
 
     background-color: #459b45 !important;
     color: #eee !important;
-    
+
     -webkit-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);
     box-shadow: 0px 6px 10px -7px rgba(0,0,0,0.75);

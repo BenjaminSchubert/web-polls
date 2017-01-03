@@ -1,0 +1,23 @@
+<h1 class="title">Create a new room</h1>
+
+<form class="content" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="form-group row">
+        <label for="name" class="col-xs-2 col-form-label">Name</label>
+        <div class="col-xs-10">
+            <input type="text" placeholder="Name" id="name" formControlName="name">
+        </div>
+    </div>
+    <div class="row" *ngIf="!(form.get('name').valid || form.get('name').pristine)">
+        <div class="offset-xs-2 col-xs-10 error-row">
+            <div class="alert alert-danger">
+                {{ display_error(form.get("name").errors) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary float-xs-right" [disabled]="!form.valid" type="submit">Create room</button>
+        </div>
+    </div>
+</form>

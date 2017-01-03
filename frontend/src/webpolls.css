@@ -16,22 +16,6 @@ body {
 }
 
 
-/* Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    -webkit-border-radius: 30px;
-}
-
-::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 30px;
-    background: #22252a;
-}
-
-
 /* Add button */
 
 .add-button:hover, .add-button:visited,
@@ -65,11 +49,3 @@ body {
 }
 
 
-.error-row {
-    margin-top: -1.1rem;
-}
-
-.form-error {
-    margin-right: 0;
-    margin-left: 0;
-}

@@ -3,7 +3,6 @@ import { QuestionWrapperComponent } from "./question-wrapper/question-wrapper.co
 import { QuestionComponent } from "./question/question.component";
 import { PollCreationComponent } from "./poll-creation/poll-creation.component";
 import { QuestionCreationComponent } from "./question-creation/question-creation.component";
-import { RoomCreationComponent } from "./room-creation/room-creation.component";
 import { RoomIndexComponent } from "./room-index/room-index.component";
 
 
@@ -13,7 +12,6 @@ import { RoomIndexComponent } from "./room-index/room-index.component";
         QuestionComponent,
         QuestionCreationComponent,
         PollCreationComponent,
-        RoomCreationComponent,
         RoomIndexComponent,
     ],
     exports: [

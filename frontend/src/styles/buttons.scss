@@ -1,0 +1,7 @@
+@import "shadows";
+
+
+.btn {
+    @include component-shadow;
+    -webkit-appearance: none;
+}

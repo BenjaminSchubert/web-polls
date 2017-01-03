@@ -1,0 +1,11 @@
+@mixin container-shadow {
+    -webkit-box-shadow: inset 5px 0 10px -5px rgba(0,0,0,0.75);
+    -moz-box-shadow: inset 5px 0 10px -5px rgba(0,0,0,0.75);
+    box-shadow: inset 5px 0 10px -5px rgba(0,0,0,0.75);
+}
+
+@mixin component-shadow {
+    -webkit-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+    box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+}

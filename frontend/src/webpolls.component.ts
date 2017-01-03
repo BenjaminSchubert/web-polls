@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from "@angular/core";
 import { AccountService } from "./auth/account.service";
+import { Router } from "@angular/router";
 
 
 /**
@@ -12,11 +13,12 @@ import { AccountService } from "./auth/account.service";
     templateUrl: "webpolls.html",
 })
 export class WebpollsComponent {
-    constructor(public account: AccountService) {
-    }
+    constructor(private router: Router, public account: AccountService) {}
 
     public login() {
         this.account.requestLogin();
+        // tslint:disable-next-line:no-unused-expression
+        this.router; // this is required for Augury to work in debug mode
     }
 
     public logout() {

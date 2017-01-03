@@ -6,7 +6,6 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: "wp-poll-chooser",
-    styleUrls: ["poll-chooser.css"],
     templateUrl: "poll-chooser.html",
 })
 export class PollChooserComponent implements OnInit, OnDestroy {

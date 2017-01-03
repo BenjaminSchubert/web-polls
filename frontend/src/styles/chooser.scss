@@ -1,0 +1,24 @@
+@import "variables";
+@import "shadows";
+
+.chooser {
+    @extend .col-xs-3;
+    @extend .col-sm-2;
+
+    position: fixed;
+    bottom: $navbar-height;
+    top: $navbar-height;
+    left: 0;
+    background-color: $background-dark;
+    color: $text-color-dark;
+
+    &:nth-child(2) {
+        background-color: $background;
+
+        left: calc(3 / 12 * 100%);
+        @media (min-width: $screen-sm-min) {
+            left: calc(2 / 12 * 100%);
+        }
+
+    }
+}

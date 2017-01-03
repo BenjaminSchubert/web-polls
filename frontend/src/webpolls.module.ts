@@ -6,21 +6,23 @@ import { UtilsModule } from "./utils/utils.module";
 import { PollsModule } from "./polls/polls.module";
 import { ExtendedRequestOptions } from "./utils/requests";
 import { RequestOptions } from "@angular/http";
-import { AccountService } from "./auth/account.service";
 import { AuthModule } from "./auth/auth.module";
+import { RoomChooserModule } from "./room-chooser/room-chooser.module";
+import { PollChooserModule } from "./poll-chooser/poll-chooser.module";
+import { RoomModule } from "./room/room.module";
 
 
 @NgModule({
     bootstrap: [WebpollsComponent],
     declarations: [WebpollsComponent],
     imports: [
-        BrowserModule, routing, UtilsModule, AuthModule,
-        PollsModule,
+        BrowserModule, routing,
+        UtilsModule,
+        AuthModule.forRoot(), RoomChooserModule.forRoot(), PollChooserModule.forRoot(),
+        PollsModule, RoomModule,
     ],
     providers: [
         {provide: RequestOptions, useClass: ExtendedRequestOptions},
-        AccountService,
     ],
 })
-export class WebPollsModule {
-}
+export class WebPollsModule {}
