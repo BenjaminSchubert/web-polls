@@ -9,8 +9,8 @@ import { INewRoom, IRoom } from "./stubs";
     templateUrl: "room-creation.html",
 })
 export class NewRoomComponent extends CreationComponent<IRoom, INewRoom> {
-    constructor(service: RoomService, private builder: FormBuilder) {
-        super(service);
+    constructor(service: RoomService, builder: FormBuilder) {
+        super(service, builder);
     }
 
     protected buildForm() {

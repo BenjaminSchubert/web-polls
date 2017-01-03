@@ -1,5 +1,5 @@
 import { OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormGroup, FormBuilder } from "@angular/forms";
 import { ErrorHandler } from "./error_handler";
 import { noop } from "./miscellaneous";
 import { Response } from "@angular/http";
@@ -11,7 +11,7 @@ export abstract class CreationComponent<T, TNew> extends ErrorHandler implements
 
     protected abstract buildForm(): FormGroup;
 
-    constructor(private service: RestService<T, TNew>) {
+    constructor(protected service: RestService<T, TNew>, protected builder: FormBuilder) {
         super();
         this.form = this.buildForm();
     }
