@@ -1,7 +1,7 @@
 @import "variables";
 @import "shadows";
 
-@mixin chooser($_background-color, $_text-color) {
+@mixin list($_background-color, $_text-color) {
     @extend .col-xs-3;
     @extend .col-sm-2;
 
@@ -12,12 +12,17 @@
     background-color: $_background-color;
     color: $_text-color;
 
+    h4 {
+        display: inline-block;
+    }
+
     .list-group-item {
         color: $_text-color;
 
         &:hover,
         &.active:hover {
             background-color: lighten($_background-color, 7%);
+            cursor: pointer;
         }
 
         &.active {
@@ -27,12 +32,12 @@
 }
 
 .list:nth-child(1) {
-    @include chooser($background-dark, $text-color-dark);
+    @include list($background-dark, $text-color-dark);
     left: 0;
 }
 
 .list:nth-child(2) {
-    @include chooser($background, $text-color-dark);
+    @include list($background, $text-color-dark);
 
     left: calc(3 / 12 * 100%);
     @media (min-width: $screen-sm-min) {

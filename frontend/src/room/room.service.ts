@@ -1,6 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { AccountService } from "../auth/account.service";
 import { Http, Response } from "@angular/http";
 import { ROOMS_URL } from "../api.routes";
@@ -11,22 +9,14 @@ import { IRoom, INewRoom } from "./stubs";
 
 
 @Injectable()
-export class RoomService extends RestService<INewRoom> {
+export class RoomService extends RestService<IRoom, INewRoom> {
     protected URL = ROOMS_URL;
-
-    public $: Observable<IRoom[]>;
-
-    private t: IRoom[];
-    private _$: BehaviorSubject<IRoom[]>;
 
     // tslint:disable-next-line:no-any
     private socket: any;  // FIXME : we should type that
 
     constructor(http: Http, private account: AccountService) {
         super(http);
-        this.t = [];
-        this._$ = new BehaviorSubject(this.t);
-        this.$ = this._$.asObservable();
 
         this.socket = io("/rooms");
         this.socket.connect();

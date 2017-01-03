@@ -2,13 +2,13 @@ import { Component } from "@angular/core";
 import { FormBuilder, Validators } from "@angular/forms";
 import { RoomService } from "./room.service";
 import { CreationComponent } from "../base/creation.component";
-import { INewRoom } from "./stubs";
+import { INewRoom, IRoom } from "./stubs";
 
 
 @Component({
-    templateUrl: "./new_room.html",
+    templateUrl: "room-creation.html",
 })
-export class NewRoomComponent extends CreationComponent<INewRoom> {
+export class NewRoomComponent extends CreationComponent<IRoom, INewRoom> {
     constructor(service: RoomService, private builder: FormBuilder) {
         super(service);
     }

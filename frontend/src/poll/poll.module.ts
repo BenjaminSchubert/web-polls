@@ -1,20 +1,20 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
-import { PollComponent } from "./poll.component";
+import { PollItemComponent } from "./poll-item.component";
 import { UtilsModule } from "../utils/utils.module";
-import { PollChooserComponent } from "./poll-chooser.component";
+import { PollListComponent } from "./poll-list.component";
 import { PollService } from "./poll.service";
 
 
 @NgModule({
-    declarations: [PollComponent, PollChooserComponent],
-    exports: [PollChooserComponent],
+    declarations: [PollItemComponent, PollListComponent],
+    exports: [PollListComponent],
     imports: [UtilsModule],
 
 })
-export class PollChooserModule {
+export class PollModule {
     public static forRoot(): ModuleWithProviders {
         return {
-            ngModule: PollChooserModule,
+            ngModule: PollModule,
             providers: [
                 PollService,
             ],

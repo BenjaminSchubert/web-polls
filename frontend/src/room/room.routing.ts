@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { LoginGuard } from "../auth/guards/login.guard";
-import { NewRoomComponent } from "./new_room.component";
+import { NewRoomComponent } from "./room-creation.component";
 import { RoomIndexComponent } from "./room-index.component";
 import { RoomComponent } from "./room-details.component";
 

@@ -5,10 +5,10 @@ import { Subscription } from "rxjs";
 
 
 @Component({
-    selector: "wp-poll-chooser",
-    templateUrl: "poll-chooser.html",
+    selector: "wp-poll-list",
+    templateUrl: "poll-list.html",
 })
-export class PollChooserComponent implements OnInit, OnDestroy {
+export class PollListComponent implements OnInit, OnDestroy {
     public room: number;
 
     private subscriptions: Subscription[] = [];

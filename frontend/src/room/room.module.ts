@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from "@angular/core";
 import { UtilsModule } from "../utils/utils.module";
-import { NewRoomComponent } from "./new_room.component";
+import { NewRoomComponent } from "./room-creation.component";
 import { roomRouting } from "./room.routing";
 import { RoomIndexComponent } from "./room-index.component";
 import { RoomComponent } from "./room-details.component";

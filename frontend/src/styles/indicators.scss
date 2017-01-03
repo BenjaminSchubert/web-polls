@@ -1,23 +1,19 @@
-/* Poll active indicator */
-
-.poll-active-indicator {
+.active-indicator {
     float: right;
     margin-top: 5px;
-    
+
     width: 12px;
     height: 12px;
-    
+
     border-radius: 12px;
-    
+
     -webkit-box-shadow: inset -1px 1px 3px -1px rgba(0,0,0,0.75);
     -moz-box-shadow: inset -1px 1px 3px -1px rgba(0,0,0,0.75);
     box-shadow: inset -1px 1px 3px -1px rgba(0,0,0,0.75);
-}
 
-.poll-active-indicator[active="true"] {
-    background-color: #22c222;
-}
-
-.poll-active-indicator[active="false"] {
     background-color: #777;
+
+    &[active="true"] {
+        background-color: #22c222;
+    }
 }

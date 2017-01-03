@@ -6,12 +6,12 @@ import { Response } from "@angular/http";
 import { RestService } from "./rest.service";
 
 
-export abstract class CreationComponent<T> extends ErrorHandler implements OnInit {
+export abstract class CreationComponent<T, TNew> extends ErrorHandler implements OnInit {
     public form: FormGroup;
 
     protected abstract buildForm(): FormGroup;
 
-    constructor(private service: RestService<T>) {
+    constructor(private service: RestService<T, TNew>) {
         super();
         this.form = this.buildForm();
     }
