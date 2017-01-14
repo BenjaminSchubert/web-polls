@@ -3,6 +3,8 @@ import { LoginGuard } from "./auth/guards/login.guard";
 import { RoomCreationComponent } from "./room/room-creation.component";
 import { RoomComponent } from "./room/room-details.component";
 import { RoomIndexComponent } from "./room/room-index.component";
+import { PollCreationComponent } from "./poll/poll-creation.component";
+import { RoomContainerComponent } from "./room/room-container.component";
 
 
 const routes: Routes = [
@@ -14,7 +16,18 @@ const routes: Routes = [
                 path: "new",
             },
             {
-                component: RoomComponent,
+                children: [
+                    {
+                        // canActivate: [RoomOwner],
+                        component: PollCreationComponent,
+                        path: "new",
+                    },
+                    {
+                        component: RoomComponent,
+                        path: "",
+                    },
+                ],
+                component: RoomContainerComponent,
                 path: ":room",
             },
             {

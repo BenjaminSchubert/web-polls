@@ -4,7 +4,7 @@ import { ErrorHandler } from "../base/error_handler";
 import { RoomService } from "./room.service";
 import { noop } from "../base/miscellaneous";
 import { Response } from "@angular/http";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { IRoom } from "./stubs";
 
 
@@ -16,7 +16,7 @@ export class RoomComponent extends ErrorHandler implements OnInit {
     public room: IRoom;
     public editing: boolean = false;
 
-    constructor(private route: ActivatedRoute, private service: RoomService, private builder: FormBuilder) {
+    constructor(private route: ActivatedRoute, private service: RoomService, private builder: FormBuilder, private router: Router) {
         super();
 
         this.form = this.builder.group({
@@ -34,6 +34,12 @@ export class RoomComponent extends ErrorHandler implements OnInit {
         this.service.create(this.form.value).subscribe(
             noop,
             (err: Response) => this.handleError(err, this.form),
+        );
+    }
+
+    public delete() {
+        this.service.delete(this.room).subscribe(
+            () => this.router.navigate([".."]),
         );
     }
 }

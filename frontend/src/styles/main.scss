@@ -1,5 +1,13 @@
 @import "shadows";
 @import "variables";
+@import "list";
+
+
+wp-room-list {
+    @include list($background-dark, $text-color-dark);
+    left: 0;
+}
+
 
 #main {
     @extend .col-xs-6;
@@ -38,5 +46,15 @@
             margin-bottom: 1rem;
         }
     }
+
+    wp-poll-list {
+        @include list($background, $text-color-dark);
+
+        left: calc(3 / 12 * 100%);
+        @media (min-width: $screen-sm-min) {
+            left: calc(2 / 12 * 100%);
+        }
+    }
+
 
 }

@@ -1,19 +1,19 @@
 """Defines models related to rooms."""
+
 import string
 from sqlite3 import IntegrityError
 
 import random
-
+from blinker import Namespace
 from flask_login import current_user
 from sqlalchemy import Column, INTEGER, VARCHAR, ForeignKey, Table
 from sqlalchemy.orm import relationship
 
+from base.models import SerializableMixin
 from database import Base
-from models.mixins import SerializableMixin
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
-
 
 participants_in_room = Table(
     "participants_in_room",
@@ -21,6 +21,9 @@ participants_in_room = Table(
     Column("user_id", INTEGER, ForeignKey("users.id")),
     Column("room_id", INTEGER, ForeignKey("rooms.id"))
 )
+
+namespace = Namespace()
+deleted = namespace.signal("deleted")
 
 
 class Room(SerializableMixin, Base):
@@ -40,7 +43,7 @@ class Room(SerializableMixin, Base):
     def as_dict(self):
         """Get the object as a dictionary."""
         base = super().as_dict()
-        base["owning"] = self.owner == current_user
+        base["owning"] = self.owner_id == current_user.id
         return base
 
     def set_token(self, session, size=6):

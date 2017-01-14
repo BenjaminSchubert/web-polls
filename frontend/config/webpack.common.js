@@ -26,6 +26,7 @@ module.exports = function(projectRoot, appConfig) {
             rules: [
                 { test: /\.ts$/, loader: "@ngtools/webpack" },
                 { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: [/node_modules/] },
+                { test: /\.scss$/, loaders: ['raw-loader', 'sass-loader'] },
                 { test: /\.css$/, loader: "raw-loader" },
                 { test: /\.html$/, loader: 'raw-loader' },
                 { test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/, loader: 'file?name=assets/[name].[hash].[ext]' }

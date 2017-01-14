@@ -1,5 +1,4 @@
-"""This module contains mixins for models."""
-
+"""Define bases utilities related to models."""
 
 from typing import Dict, Sequence  # noqa
 

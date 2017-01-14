@@ -1,5 +1,7 @@
+import * as io from "socket.io-client";
 import { Observable, BehaviorSubject } from "rxjs";
 import { Response, Http } from "@angular/http";
+import { AccountService } from "../auth/account.service";
 import { IIdentifiable } from "./stubs";
 
 
@@ -11,18 +13,33 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     protected t: T[];
     protected _$: BehaviorSubject<T[]>;
 
-    constructor(protected http: Http) {
+    // tslint:disable-next-line:no-any
+    protected socket: any;  // FIXME : we should type that
+
+    constructor(protected http: Http, protected account: AccountService, ioRoom: string) {
         this.t = [];
         this._$ = new BehaviorSubject(this.t);
         this.$ = this._$.asObservable();
+
+        this.socket = io(ioRoom);
+        this.socket.connect();
+
+        this.socket.on("disconnect", () => {
+            this.t = [];
+            this._$.next(this.t);
+        });
+
+        this.account.$.subscribe(() => {
+            this.socket.disconnect();
+            this.socket.connect();
+        });
     }
 
     public create(t: TNew): Observable<Response> {
         return this.http.post(this.URL, t);
     }
 
-    public get(id: number) {
-        return this.$.map((ts: T[]) => ts.find((t: T) => t.id === id));
+    public delete(t: T): Observable<Response> {
+        return this.http.delete(`${this.URL}${t.id}`);
     }
-
 }

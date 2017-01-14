@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { PollService } from "./poll.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Params } from "@angular/router";
 import { Subscription } from "rxjs";
 
 
@@ -16,7 +16,9 @@ export class PollListComponent implements OnInit, OnDestroy {
     constructor(private route: ActivatedRoute, public service: PollService) {}
 
     public ngOnInit(): void {
-        this.subscriptions.push(this.route.queryParams.subscribe((params) => this.room = params["room"]));
+        this.subscriptions.push(this.route.params.subscribe((params: Params) => {
+            this.room = params["room"];
+        }));
     }
 
     public ngOnDestroy(): void {

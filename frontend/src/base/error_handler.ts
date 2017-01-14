@@ -32,7 +32,9 @@ export class ErrorHandler {
     }
 
     protected handleError(error: TError, ctrl: FormGroup) {
+        console.log(ctrl, error);
         for (let entry in error) {
+            console.log("Entry " +entry);
             if (ctrl.get(entry) !== null) {
                 ctrl.get(entry).setErrors({"serverError": error[entry]});
             } else {

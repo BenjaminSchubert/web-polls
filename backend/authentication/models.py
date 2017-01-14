@@ -1,13 +1,12 @@
 """Defines models related to the user scheme."""
 
-
 from flask_login import UserMixin
 from sqlalchemy import Column, INTEGER, VARCHAR
 from sqlalchemy.orm import validates
 
+from base.models import SerializableMixin
+from base.models.types import Hash
 from database import Base
-from models.mixins import SerializableMixin
-from models.types import Hash
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"

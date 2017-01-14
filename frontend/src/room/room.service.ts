@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { AccountService } from "../auth/account.service";
 import { Http, Response } from "@angular/http";
 import { ROOMS_URL } from "../api.routes";
-import * as io from "socket.io-client";
 import { TError } from "../base/stubs";
 import { RestService } from "../base/rest.service";
 import { IRoom, INewRoom } from "./stubs";
@@ -12,17 +11,18 @@ import { IRoom, INewRoom } from "./stubs";
 export class RoomService extends RestService<IRoom, INewRoom> {
     protected URL = ROOMS_URL;
 
-    // tslint:disable-next-line:no-any
-    private socket: any;  // FIXME : we should type that
-
-    constructor(http: Http, private account: AccountService) {
-        super(http);
-
-        this.socket = io("/rooms");
-        this.socket.connect();
+    constructor(http: Http, account: AccountService) {
+        super(http, account, "/rooms");
 
         this.socket.on("list", (res: IRoom[]) => {
             this.t = res;
+            this._$.next(this.t);
+        });
+
+        this.socket.on("delete", (res: number) => {
+            console.log(res, this.t, this.t.findIndex((r: IRoom) => r.id === res));
+            this.t.splice(this.t.findIndex((r: IRoom) => r.id === res), 1);
+            console.log(this.t);
             this._$.next(this.t);
         });
 
@@ -37,19 +37,11 @@ export class RoomService extends RestService<IRoom, INewRoom> {
             this._$.next(this.t);
         });
 
-        this.socket.on("disconnect", () => {
-            this.t = [];
-            this._$.next(this.t);
-        });
-
-        this.account.$.subscribe(() => {
-            this.socket.connect();
-        });
     }
 
     public create(room: INewRoom) {
-        return super.create(room).map((res: Response) => {
-            this.socket.emit("join", res.json().id);
+        return super.create(room).do((res: Response) => {
+            this.socket.emit("join", res.json().token);
             return res;
         });
     }
@@ -62,4 +54,7 @@ export class RoomService extends RestService<IRoom, INewRoom> {
         });
     }
 
+    public get(id: number) {
+        return this.$.map((rooms: IRoom[]) => rooms.find((r: IRoom) => r.id === id));
+    }
 }

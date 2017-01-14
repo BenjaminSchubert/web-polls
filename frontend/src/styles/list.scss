@@ -30,17 +30,3 @@
         }
     }
 }
-
-.list:nth-child(1) {
-    @include list($background-dark, $text-color-dark);
-    left: 0;
-}
-
-.list:nth-child(2) {
-    @include list($background, $text-color-dark);
-
-    left: calc(3 / 12 * 100%);
-    @media (min-width: $screen-sm-min) {
-        left: calc(2 / 12 * 100%);
-    }
-}

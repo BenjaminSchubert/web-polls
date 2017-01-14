@@ -5,10 +5,10 @@ from flask import request
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.exc import IntegrityError
 
+from authentication.forms import RegisterForm, LoginForm
+from authentication.models import User
 from database import db_session
 from errors import bad_credentials, unique_constraint_failed
-from forms.auth import RegisterForm, LoginForm
-from models import User
 from runserver import app
 
 

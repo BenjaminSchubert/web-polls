@@ -5,18 +5,20 @@ Main entry point for the webpoll application.
 
 This script configures and launches the server.
 """
+
 import flask
 from flask import Flask
 from flask_login import LoginManager
 from flask_wtf import CsrfProtect
 from flask_socketio import SocketIO
 
-from database import init_db, db_session
+from authentication.models import User
+from database import db_session, engine, Base
 from json import CustomJSONEncoder
-from models import User
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
+
 
 app = Flask("webpolls")
 app.config["SECRET_KEY"] = "very secret"  # FIXME: we need to externalize this
@@ -29,8 +31,6 @@ csrf = CsrfProtect(app)
 socketio = SocketIO(app, json=flask.json)
 
 app.json_encoder = CustomJSONEncoder
-
-init_db()
 
 
 @app.teardown_appcontext
@@ -54,7 +54,11 @@ def load_user(user_id):
     return User.query.filter(User.id == user_id).first()
 
 
-from views import *  # noqa
+from authentication import *  # noqa
+from polls import *  # noqa
+from rooms import *  # noqa
+
+Base.metadata.create_all(bind=engine)
 
 
 if __name__ == "__main__":

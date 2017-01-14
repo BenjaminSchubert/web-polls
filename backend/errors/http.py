@@ -45,3 +45,11 @@ class BadRequestException(BaseHTTPException):
         :param payload: payload to send to explain the error to the user.
         """
         super().__init__(payload, 400)
+
+
+class NotFoundException(BaseHTTPException):
+    """This is an exception to throw to return a 404 NOT FOUND to the user."""
+
+    def __init__(self):
+        """Create a new `NotFoundException`."""
+        super().__init__(None, 404)

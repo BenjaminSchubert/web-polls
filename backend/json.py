@@ -6,7 +6,7 @@ from flask.json import JSONEncoder
 from sqlalchemy.orm import object_mapper
 from sqlalchemy.orm.exc import UnmappedInstanceError
 
-from models.mixins import SerializableMixin
+from base.models import SerializableMixin
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
