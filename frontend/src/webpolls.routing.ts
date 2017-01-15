@@ -16,12 +16,11 @@ const routes: Routes = [
                 path: "new",
             },
             {
+                component: PollCreationComponent,
+                path: ":room/new",
+            },
+            {
                 children: [
-                    {
-                        // canActivate: [RoomOwner],
-                        component: PollCreationComponent,
-                        path: "new",
-                    },
                     {
                         component: RoomComponent,
                         path: "",

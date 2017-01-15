@@ -12,10 +12,10 @@ export class PollService extends RestService<IPoll, INewPoll> {
 
     constructor(http: Http, account: AccountService) {
         super(http, account, "/polls");
+    }
 
-        this.socket.on("list", (res: IPoll) => {
-            console.log("GOT " + res);
-        });
+    public getForRoom(id: number) {
+        return this.$.map((polls: IPoll[]) => polls.filter((poll: IPoll) => poll.room_id === id));
     }
 
 }

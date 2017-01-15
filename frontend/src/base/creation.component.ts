@@ -6,7 +6,8 @@ import { RestService } from "./rest.service";
 import { IIdentifiable } from "./stubs";
 
 
-export abstract class CreationComponent<T extends IIdentifiable, TNew> extends ErrorHandler implements OnInit {
+export abstract class CreationComponent<T extends IIdentifiable, TNew>
+extends ErrorHandler implements OnInit {
     public form: FormGroup;
 
     protected abstract buildForm(): FormGroup;
@@ -27,6 +28,7 @@ export abstract class CreationComponent<T extends IIdentifiable, TNew> extends E
         );
     }
 
+    // tslint:disable-next-line:no-empty
     protected onSuccess(res: T) {
     }
 

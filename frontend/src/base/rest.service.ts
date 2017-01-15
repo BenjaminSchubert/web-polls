@@ -1,5 +1,6 @@
 import * as io from "socket.io-client";
-import { Observable, BehaviorSubject } from "rxjs";
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { Observable } from "rxjs/Observable";
 import { Response, Http } from "@angular/http";
 import { AccountService } from "../auth/account.service";
 import { IIdentifiable } from "./stubs";
@@ -26,6 +27,27 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
 
         this.socket.on("disconnect", () => {
             this.t = [];
+            this._$.next(this.t);
+        });
+
+        this.socket.on("list", (res: T[]) => {
+            this.t = res;
+            this._$.next(this.t);
+        });
+
+        this.socket.on("delete", (res: number) => {
+            this.t.splice(this.t.findIndex((r: T) => r.id === res), 1);
+            this._$.next(this.t);
+        });
+
+        this.socket.on("item", (res: T) => {
+            let index = this.t.findIndex((room: T) => room.id === res.id);
+
+            if (index >= 0) {
+                this.t[index] = res;
+            } else {
+                this.t.push(res);
+            }
             this._$.next(this.t);
         });
 

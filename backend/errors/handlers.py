@@ -6,11 +6,12 @@ These error handlers take care of sending a meaningful message to the user.
 
 from flask import abort
 from flask import jsonify
+from flask_wtf.csrf import CSRFError
 
 import errors
 from errors import csrf_missing
 from errors.http import BaseHTTPException
-from runserver import app, csrf, login_manager
+from runserver import app, login_manager
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
@@ -26,12 +27,12 @@ def handle_invalid_usage(error):
     return jsonify(error.payload), error.status_code
 
 
-@csrf.error_handler
-def csrf_error(reason):
+@app.errorhandler(CSRFError)
+def csrf_error(error):
     """
     Notify the user that the csrf token is missing for his form submission.
 
-    :param reason: reason of why the token is missing, unused
+    :param error: reason of why the token is missing, unused
     """
     response = jsonify(csrf_missing)
     response.status_code = 400

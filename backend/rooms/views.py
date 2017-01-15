@@ -6,10 +6,11 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from authentication.models import User
 from base.views import ApiView, register_api
+from database import db_session
 from errors import invalid_room_token
-from rooms.forms import RoomCreationForm
+from rooms.forms import RoomForm
 from rooms.models import Room
-from runserver import db_session, socketio
+from runserver import socketio
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
@@ -26,8 +27,8 @@ class RoomApiView(ApiView):
         return Room.query.join(Room.participants).filter(User.rooms.any(User.id == current_user.id))
 
     def get_form(self):
-        """Get the form to create or update an object."""
-        return RoomCreationForm(owner=current_user)
+        """Get the form to create or update a room."""
+        return RoomForm(owner=current_user)
 
 
 class RoomNamespace(Namespace):

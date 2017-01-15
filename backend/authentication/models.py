@@ -19,9 +19,9 @@ class User(UserMixin, SerializableMixin, Base):
     __excluded__ = {"password"}
 
     id = Column(INTEGER, primary_key=True)
-    username = Column(VARCHAR, unique=True)
-    email = Column(VARCHAR, unique=True)
-    password = Column(Hash(iterations=30000, salt_length=12))  # FIXME : add to configuration
+    username = Column(VARCHAR(length=255), unique=True)
+    email = Column(VARCHAR(length=255), unique=True)
+    password = Column(Hash(iterations=30000, salt_length=12, length=255))  # FIXME : add to configuration
 
     @validates("password")
     def validate_password(self, key: str, password: str) -> Hash:

@@ -23,6 +23,13 @@
             <textarea placeholder="Description (optional)" id="description" formControlName="description"></textarea>
         </div>
     </div>
+    <div class="row" *ngIf="!(form.get('description').valid || form.get('description').pristine)">
+        <div class="offset-xs-2 col-xs-10 error-row">
+            <div class="alert alert-danger">
+                {{ display_error(form.get("description").errors) }}
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col-xs-12">

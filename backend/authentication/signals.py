@@ -3,6 +3,7 @@
 from flask import Response
 from flask import request
 from flask_wtf.csrf import generate_csrf, validate_csrf
+from wtforms import ValidationError
 
 from runserver import app
 
@@ -18,6 +19,9 @@ def set_csrf_cookie(response: Response) -> Response:
     :param response: response to send back
     :return: the response with its token attached
     """
-    if request.cookies.get("XSRF-TOKEN") is None or not validate_csrf(request.cookies.get("XSRF-TOKEN")):
+    try:
+        validate_csrf(request.cookies.get("XSRF-TOKEN"))
+    except ValidationError:
         response.set_cookie("XSRF-TOKEN", generate_csrf())
+
     return response

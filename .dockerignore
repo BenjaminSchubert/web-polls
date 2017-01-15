@@ -1,0 +1,18 @@
+# backend
+**/*.pyc
+**/.prospector.yaml
+
+# frontend
+**/node_modules
+**/tslint.json
+
+# miscellaneous
+fabfile.py
+LICENSE
+README.md
+.gitignore
+**/*.log
+.git
+
+# secrets
+.env

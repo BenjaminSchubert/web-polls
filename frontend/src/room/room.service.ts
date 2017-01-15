@@ -13,31 +13,7 @@ export class RoomService extends RestService<IRoom, INewRoom> {
 
     constructor(http: Http, account: AccountService) {
         super(http, account, "/rooms");
-
-        this.socket.on("list", (res: IRoom[]) => {
-            this.t = res;
-            this._$.next(this.t);
-        });
-
-        this.socket.on("delete", (res: number) => {
-            console.log(res, this.t, this.t.findIndex((r: IRoom) => r.id === res));
-            this.t.splice(this.t.findIndex((r: IRoom) => r.id === res), 1);
-            console.log(this.t);
-            this._$.next(this.t);
-        });
-
-        this.socket.on("item", (res: IRoom) => {
-            let index = this.t.findIndex((room: IRoom) => room.id === res.id);
-
-            if (index >= 0) {
-                this.t[index] = res;
-            } else {
-                this.t.push(res);
             }
-            this._$.next(this.t);
-        });
-
-    }
 
     public create(room: INewRoom) {
         return super.create(room).do((res: Response) => {

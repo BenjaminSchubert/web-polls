@@ -1,0 +1,20 @@
+FROM nginx:stable-alpine
+
+MAINTAINER Benjamin Schubert "ben.c.schubert@gmail.com"
+
+EXPOSE 80
+
+ADD ./frontend /srv/frontend-build
+ADD ./deployment/nginx.conf /etc/nginx/nginx.conf
+
+CMD ["nginx", "-g", "daemon off;"]
+
+RUN apk add --no-cache nodejs python make g++ && \
+    cd /srv/frontend-build && \
+    npm install && \
+    npm run build:prod && \
+    mkdir -p /srv/frontend && \
+    cp -r dist/* /srv/frontend && \
+    cd && \
+    rm -rf /srv/frontend-build && \
+    apk del --purge --no-cache python nodejs make g++

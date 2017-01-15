@@ -1,4 +1,5 @@
 export interface INewPoll {
+    description: string;
     name: string;
 }
 
@@ -6,5 +7,5 @@ export interface IPoll extends INewPoll {
     active: boolean;
     id: number;
     last_active: string;
-    owning: boolean;
+    room_id: number;
 }

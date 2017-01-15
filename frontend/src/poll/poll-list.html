@@ -9,7 +9,7 @@
     <li
             content
             class="list-group-item"
-            *ngFor="let poll of service.$ | async"
+            *ngFor="let poll of service.getForRoom(room) | async"
             [routerLink]="" [queryParams]="{ room: room, poll: poll.id}"
             routerLinkActive="active"
     >

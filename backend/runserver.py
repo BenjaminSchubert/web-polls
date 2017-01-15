@@ -1,24 +1,26 @@
 #!/usr/bin/env python3
 
 """
-Main entry point for the webpoll application.
+Main entry point for the webpolls application.
 
 This script configures and launches the server.
 """
 
+import sys
+from time import sleep
+
 import flask
 from flask import Flask
 from flask_login import LoginManager
-from flask_wtf import CsrfProtect
 from flask_socketio import SocketIO
+from flask_wtf import CSRFProtect
+from sqlalchemy.exc import OperationalError
 
-from authentication.models import User
-from database import db_session, engine, Base
-from json import CustomJSONEncoder
+from base.json import CustomJSONEncoder
+from database import engine
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
-
 
 app = Flask("webpolls")
 app.config["SECRET_KEY"] = "very secret"  # FIXME: we need to externalize this
@@ -27,10 +29,23 @@ app.config["SECRET_KEY"] = "very secret"  # FIXME: we need to externalize this
 app.config.setdefault('WTF_CSRF_HEADERS', ['X-XSRF-TOKEN'])
 
 login_manager = LoginManager(app)
-csrf = CsrfProtect(app)
+csrf = CSRFProtect(app)
 socketio = SocketIO(app, json=flask.json)
 
 app.json_encoder = CustomJSONEncoder
+
+# noinspection PyUnresolvedReferences
+from database import Base, db_session
+# noinspection PyUnresolvedReferences
+from authentication import User
+# noinspection PyUnresolvedReferences
+from errors.handlers import *  # noqa
+# noinspection PyUnresolvedReferences
+from authentication import *  # noqa
+# noinspection PyUnresolvedReferences
+from polls import *  # noqa
+# noinspection PyUnresolvedReferences
+from rooms import *  # noqa
 
 
 @app.teardown_appcontext
@@ -54,12 +69,22 @@ def load_user(user_id):
     return User.query.filter(User.id == user_id).first()
 
 
-from authentication import *  # noqa
-from polls import *  # noqa
-from rooms import *  # noqa
+retries = 10
+for i in range(retries):
+    try:
+        Base.metadata.create_all(bind=engine)
+    except OperationalError as e:
+        if "Connection refused" in e.args[0]:
+            print("[{}/{}] It seems like the database is not yet up. waiting 10 seconds before retrying".format(
+                i, retries
+            ), file=sys.stderr)
+            sleep(10)
+            continue
 
-Base.metadata.create_all(bind=engine)
-
+        print("Could not setup tables, got", "; ".join(e.args))
+        exit(1)
+    else:
+        break
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)  # FIXME: a configuration file would be much better
+    socketio.run(app, host="0.0.0.0", debug=True)  # FIXME: a configuration file would be much better

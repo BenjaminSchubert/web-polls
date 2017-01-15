@@ -16,7 +16,12 @@ export class RoomComponent extends ErrorHandler implements OnInit {
     public room: IRoom;
     public editing: boolean = false;
 
-    constructor(private route: ActivatedRoute, private service: RoomService, private builder: FormBuilder, private router: Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private service: RoomService,
+        private builder: FormBuilder,
+        private router: Router,
+    ) {
         super();
 
         this.form = this.builder.group({

@@ -41,8 +41,11 @@ class ApiForm(FlaskForm):
         obj = self.model()
         self.populate_obj(obj)
 
+        db_session.add(obj)
+
         try:
             db_session.commit()
+            print(obj)
         except IntegrityError as e:
             origin = str(e.orig).lower()
             if "unique" in origin:

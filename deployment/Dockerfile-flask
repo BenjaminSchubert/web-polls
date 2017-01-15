@@ -1,0 +1,15 @@
+FROM python:3.5-alpine
+
+MAINTAINER Benjamin Schubert "ben.c.schubert@gmail.com"
+
+EXPOSE 5000
+
+CMD ["sh", "/runserver.sh"]
+
+ADD ./deployment/scripts/runserver.sh /runserver.sh
+ADD ./backend /srv/api
+
+RUN apk add --no-cache gcc musl-dev mariadb-dev && \
+    pip3 install -r /srv/api/requirements.pip && \
+    pip3 install mysqlclient && \
+    apk del --purge --no-cache gcc musl-dev

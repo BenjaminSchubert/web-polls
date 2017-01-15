@@ -9,7 +9,7 @@ __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 
 @DBSignals.deleted.connect_via(Room)
-def disconnect_deleted_room(id, *args, **kwargs):
+def disconnect_deleted_room(sender, id, *args, **kwargs):
     """
     Disconnect all users from the room that was just deleted.
 
@@ -17,5 +17,5 @@ def disconnect_deleted_room(id, *args, **kwargs):
     :param args: additional arguments
     :param kwargs: additional keyword arguments
     """
-    socketio.emit("delete", id, namespace="/rooms")
+    socketio.emit("delete", id, namespace="/rooms", room=id)
     socketio.close_room(id, namespace="/rooms")

@@ -5,14 +5,14 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
-module.exports = function(projectRoot, appConfig) {
+module.exports = function (projectRoot, appConfig) {
     return {
         devtool: "source-map",
 
         output: {
             path: path.resolve(projectRoot, appConfig.outDir),
             filename: '[name].[hash].js',
-            sourceMapFilename: "[name].[hash].map",
+            sourceMapFilename: "[name].[hash].map"
         },
 
         plugins: [
@@ -20,11 +20,11 @@ module.exports = function(projectRoot, appConfig) {
                 'process.env.NODE_ENV': JSON.stringify('production')
             }),
 
-            new ExtractTextPlugin("style.[hash].css"),
+            new ExtractTextPlugin("main.[hash].css"),
 
             new webpack.optimize.UglifyJsPlugin({
-                mangle: { screw_ie8 : true },
-                compress: { screw_ie8: true },
+                mangle: {screw_ie8: true},
+                compress: {screw_ie8: true},
                 sourceMap: true
             }),
 
@@ -38,7 +38,7 @@ module.exports = function(projectRoot, appConfig) {
 
             new webpack.LoaderOptionsPlugin({
                 minimize: true,
-                debug: false,
+                debug: false
             })
         ]
 

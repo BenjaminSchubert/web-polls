@@ -1,7 +1,7 @@
+import { Subscription } from "rxjs/Subscription";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { PollService } from "./poll.service";
 import { ActivatedRoute, Params } from "@angular/router";
-import { Subscription } from "rxjs";
 
 
 @Component({
@@ -17,7 +17,7 @@ export class PollListComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.subscriptions.push(this.route.params.subscribe((params: Params) => {
-            this.room = params["room"];
+            this.room = parseInt(params["room"], 10);
         }));
     }
 

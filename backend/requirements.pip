@@ -1,7 +1,8 @@
-blinker
-flask
-flask-login
-flask-wtf
-flask-socketio
-sqlalchemy
-simplejson
+blinker==1.4
+flask==0.12
+flask-login==0.4.0
+flask-wtf==0.14.2
+flask-socketio==2.8.2
+sqlalchemy==1.1.4
+simplejson==3.10.0
+eventlet==0.20.1

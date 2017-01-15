@@ -7,7 +7,7 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 
-module.exports = function(projectRoot, appConfig) {
+module.exports = function (projectRoot, appConfig) {
     const appSrc = path.resolve(projectRoot, appConfig.src);
     const appMain = path.resolve(appSrc, appConfig.main);
     const appVendors = path.resolve(appSrc, appConfig.vendors);
@@ -24,13 +24,13 @@ module.exports = function(projectRoot, appConfig) {
 
         module: {
             rules: [
-                { test: /\.ts$/, loader: "@ngtools/webpack" },
-                { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: [/node_modules/] },
-                { test: /\.scss$/, loaders: ['raw-loader', 'sass-loader'] },
-                { test: /\.css$/, loader: "raw-loader" },
-                { test: /\.html$/, loader: 'raw-loader' },
-                { test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/, loader: 'file?name=assets/[name].[hash].[ext]' }
-            ],
+                {test: /\.ts$/, loader: "@ngtools/webpack"},
+                {enforce: 'pre', test: /\.js$/, loader: 'source-map-loader', exclude: [/node_modules/]},
+                {test: /\.scss$/, loaders: ['raw-loader', 'sass-loader']},
+                {test: /\.css$/, loader: "raw-loader"},
+                {test: /\.html$/, loader: 'raw-loader'},
+                {test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/, loader: 'file?name=assets/[name].[hash].[ext]'}
+            ]
 
         },
 
@@ -43,11 +43,11 @@ module.exports = function(projectRoot, appConfig) {
             new HtmlWebpackPlugin({
                 chunkSortMode: "dependency",
                 filename: path.resolve(appConfig.outDir, appConfig.index),
-                template: path.resolve(appSrc, appConfig.index),
+                template: path.resolve(appSrc, appConfig.index)
             }),
             new webpack.optimize.CommonsChunkPlugin({
-                name: ["app", "vendor", "polyfills"]
-            }),
+                name: ["main", "vendor", "polyfills"]
+            })
 
         ],
 
@@ -65,13 +65,13 @@ module.exports = function(projectRoot, appConfig) {
             proxy: {
                 "/api": {
                     target: "http://localhost:5000",
-                    pathRewrite: {"^/api" : ""}
+                    pathRewrite: {"^/api": ""}
                 },
 
                 "/socket.io": {
                     target: "http://localhost:5000",
-                    ws: true,
-                },
+                    ws: true
+                }
             }
         }
     };
