@@ -29,8 +29,4 @@ export class RoomService extends RestService<IRoom, INewRoom> {
             }
         });
     }
-
-    public get(id: number) {
-        return this.$.map((rooms: IRoom[]) => rooms.find((r: IRoom) => r.id === id));
-    }
 }

@@ -45,7 +45,6 @@ class ApiForm(FlaskForm):
 
         try:
             db_session.commit()
-            print(obj)
         except IntegrityError as e:
             origin = str(e.orig).lower()
             if "unique" in origin:

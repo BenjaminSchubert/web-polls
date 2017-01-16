@@ -4,10 +4,11 @@ import { UtilsModule } from "../utils/utils.module";
 import { PollListComponent } from "./poll-list.component";
 import { PollService } from "./poll.service";
 import { PollCreationComponent } from "./poll-creation.component";
+import { PollComponent } from "./poll-details.component";
 
 
 @NgModule({
-    declarations: [PollItemComponent, PollListComponent, PollCreationComponent],
+    declarations: [PollItemComponent, PollListComponent, PollCreationComponent, PollComponent],
     exports: [PollListComponent],
     imports: [UtilsModule],
 

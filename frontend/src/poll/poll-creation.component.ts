@@ -3,20 +3,23 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { CreationComponent } from "../base/creation.component";
 import { INewPoll, IPoll } from "./stubs";
 import { PollService } from "./poll.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 
 
 @Component({
     templateUrl: "poll-creation.html",
 })
 export class PollCreationComponent extends CreationComponent<IPoll, INewPoll> implements OnInit {
-    constructor(service: PollService, builder: FormBuilder, private route: ActivatedRoute) {
+    private room: number;
+
+    constructor(service: PollService, builder: FormBuilder, private route: ActivatedRoute, private router: Router) {
         super(service, builder);
     }
 
     public ngOnInit() {
         super.ngOnInit();
-        this.form.get("room_id").setValue(this.route.snapshot.params["room"]);
+        this.room = this.route.snapshot.parent.params["room"];
+        this.form.get("room_id").setValue(this.room);
     }
 
     protected buildForm() {
@@ -25,5 +28,9 @@ export class PollCreationComponent extends CreationComponent<IPoll, INewPoll> im
             name: ["", Validators.required],
             room_id: [""],
         });
+    }
+
+    protected onSuccess(poll: IPoll) {
+        this.router.navigate([this.room, poll.id]).then();
     }
 }

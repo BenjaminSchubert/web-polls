@@ -38,18 +38,32 @@ class PollsNamespace(Namespace):
         if not current_user.is_authenticated:
             return
 
+        rooms = Room.query.join(Room.participants).filter(User.rooms.any(User.id == current_user.id)).all()
+
+        for room in rooms:
+            join_room(room.id)
+
+            if current_user == room.owner:
+                join_room("{}-admin".format(room.id))
+
         polls = Poll.query \
             .join(Room) \
             .filter(User.rooms.any(User.id == current_user.id)) \
             .filter(or_(Poll.visible.is_(True), Room.owner == current_user)).all()
 
-        for poll in polls:
-            join_room(poll.room_id)
-
-            if current_user == poll.room.owner:
-                join_room("{}-admin".format(poll.room_id))
-
         emit("list", polls)
+
+    def on_join(self, _id):
+        """
+        Make the user join the room identified by the given token.
+
+        :param token: token of the room
+        """
+        room = Room.query.get(_id)
+
+        if room.owner == current_user:
+            join_room("{}-admin".format(_id))
+        join_room(_id)
 
 
 register_api(PollApiView, "polls", "/polls/")

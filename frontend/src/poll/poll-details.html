@@ -1,0 +1,28 @@
+<div class="row header" *ngIf="!editing">
+    <div class="col-xs-6 offset-xs-3">
+        <h1>{{ poll?.name }}</h1>
+    </div>
+    <div class="col-xs-3" *ngIf="room?.owning">
+        <button class="btn btn-danger float-xs-right" (click)="delete()">Delete</button>
+        <button class="btn btn-primary float-xs-right" (click)="edit()">Edit</button>
+    </div>
+</div>
+
+
+<form class="row header" [formGroup]="form" (ngSubmit)="submit()" *ngIf="editing">
+    <div class="col-xs-6 offset-xs-3">
+        <input type="text" placeholder="Name" id="name" formControlName="name">
+    </div>
+    <div class="col-xs-3">
+        <button type="submit" class="btn btn-primary float-xs-right" [disabled]="!form.valid">Save</button>
+    </div>
+</form>
+
+
+<div class="content">
+    <div class="form-group row">
+        <div class="col-xs-12">
+            <textarea class="form-control" id="token" disabled [value]="poll?.description"></textarea>
+        </div>
+    </div>
+</div>

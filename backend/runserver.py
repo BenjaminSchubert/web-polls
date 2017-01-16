@@ -66,7 +66,7 @@ def load_user(user_id):
     :param user_id: id of the user to get
     :return: a `User` instance corresponding to the id
     """
-    return User.query.filter(User.id == user_id).first()
+    return User.query.filter(User.id == user_id).one()
 
 
 retries = 10

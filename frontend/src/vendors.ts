@@ -16,6 +16,7 @@ import "@angular/forms";
 import "rxjs/Observable";
 import "rxjs/Subscription";
 import "rxjs/ReplaySubject";
+import "rxjs/Subject";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/take";

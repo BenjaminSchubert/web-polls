@@ -2,6 +2,10 @@
 
 .form-control {
     background-color: $background-input;
+
+    &:disabled {
+        background-color: darken($background-input, 10%);
+    }
 }
 
 .col-form-label,
