@@ -1,7 +1,7 @@
 <wp-scrollable>
     <div header>
         <h4>Available Polls</h4>
-        <a class="add-button" [routerLink]="['new']">
+        <a *ngIf="room?.owning" class="add-button" [routerLink]="['new']">
             <p>+</p>
         </a>
     </div>
@@ -10,7 +10,7 @@
             content
             [poll]="poll"
             class="list-group-item"
-            *ngFor="let poll of service.getForRoom(room) | async"
+            *ngFor="let poll of service.getForRoom(room?.id) | async"
             routerLinkActive="active"
             [routerLink]="[poll.id]"
     >

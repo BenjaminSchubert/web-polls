@@ -2,6 +2,8 @@ import { Subscription } from "rxjs/Subscription";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { PollService } from "./poll.service";
 import { ActivatedRoute, Params } from "@angular/router";
+import { RoomService } from "../room/room.service";
+import { IRoom } from "../room/stubs";
 
 
 @Component({
@@ -9,16 +11,18 @@ import { ActivatedRoute, Params } from "@angular/router";
     templateUrl: "poll-list.html",
 })
 export class PollListComponent implements OnInit, OnDestroy {
-    public room: number;
+    public room: IRoom;
 
     private subscriptions: Subscription[] = [];
 
-    constructor(private route: ActivatedRoute, public service: PollService) {}
+    constructor(private route: ActivatedRoute, public service: PollService, private rooms: RoomService) {}
 
     public ngOnInit(): void {
-        this.subscriptions.push(this.route.params.subscribe((params: Params) => {
-            this.room = parseInt(params["room"], 10);
-        }));
+        this.subscriptions.push(
+            this.route.params
+                .switchMap((params: Params) => this.rooms.get(+params["room"]))
+                .subscribe((room: IRoom) => this.room = room),
+        );
     }
 
     public ngOnDestroy(): void {

@@ -1,8 +1,8 @@
 <template [ngIf]="user.isLoggedIn$ | async">
     <wp-scrollable>
-        <div header>
-            <h4 [routerLink]="['']">Rooms</h4>
-            <a class="add-button" [routerLink]="['new']">
+        <div header [routerLink]="['']">
+            <h4>Rooms</h4>
+            <a class="add-button" (click)="addRoom();$event.stopPropagation()">
                 <p>+</p>
             </a>
         </div>
