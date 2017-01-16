@@ -90,7 +90,7 @@ def notify_changes(session):
     :param session: session for which to notify changes
     """
     for o in session.changes_committed["deleted"]:
-        DBSignals.deleted.send(o.__class__, id=o.id)
+        DBSignals.deleted.send(o.__class__, object=o)
 
     for o in session.changes_committed["dirty"]:
         DBSignals.changed.send(o.__class__, object=o)

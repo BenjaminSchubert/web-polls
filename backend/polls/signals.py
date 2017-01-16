@@ -23,3 +23,15 @@ def new_poll(sender, object, *args, **kwargs):
         room = "{}-admin".format(object.room_id)
 
     socketio.emit("item", object, namespace="/polls", room=room)
+
+
+@DBSignals.deleted.connect_via(Poll)
+def signal_deleted_poll(sender, object, *args, **kwargs):
+    """
+    Notify users that the poll was destroyed
+
+    :param object: the poll deleted
+    :param args: additional arguments
+    :param kwargs: additional keyword arguments
+    """
+    socketio.emit("delete", object.id, namespace="/polls", room=object.room_id)

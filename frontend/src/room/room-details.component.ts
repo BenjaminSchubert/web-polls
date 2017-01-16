@@ -44,7 +44,7 @@ export class RoomComponent extends ErrorHandler implements OnInit {
 
     public delete() {
         this.service.delete(this.room).subscribe(
-            () => this.router.navigate([".."]),
+            () => this.router.navigate([""]),
         );
     }
 }

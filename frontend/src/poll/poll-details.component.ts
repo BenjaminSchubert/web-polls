@@ -6,6 +6,8 @@ import { Response } from "@angular/http";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { IPoll } from "./stubs";
 import { PollService } from "./poll.service";
+import { RoomService } from "../room/room.service";
+import { IRoom } from "../room/stubs";
 
 
 @Component({
@@ -14,11 +16,13 @@ import { PollService } from "./poll.service";
 export class PollComponent extends ErrorHandler implements OnInit {
     public form: FormGroup;
     public poll: IPoll;
+    public room: IRoom;
     public editing: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
         private service: PollService,
+        private rooms: RoomService,
         private builder: FormBuilder,
         private router: Router,
     ) {
@@ -33,6 +37,10 @@ export class PollComponent extends ErrorHandler implements OnInit {
         this.route.params
             .switchMap((params: Params) => this.service.get(+params["poll"]))
             .subscribe((poll: IPoll) => this.poll = poll);
+
+        this.route.parent.params
+            .switchMap((params: Params) => this.rooms.get(+params["room"]))
+            .subscribe((room: IRoom) => this.room = room);
     }
 
     public submit() {
@@ -44,7 +52,7 @@ export class PollComponent extends ErrorHandler implements OnInit {
 
     public delete() {
         this.service.delete(this.poll).subscribe(
-            () => this.router.navigate([".."]),
+            () => this.router.navigate([this.room.id]),
         );
     }
 }
