@@ -10,10 +10,17 @@
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <ul class="nav navbar-nav float-xs-right">
-            <li class="nav-item" [ngSwitch]="account.isLoggedIn$ | async">
+        <ul class="nav navbar-nav float-xs-right" [ngSwitch]="account.isLoggedIn$ | async">
+            <template [ngSwitchCase]="true">
+                <li class="nav-item" >
+                    <span class="navbar-text">Logged in as {{ (account.$ | async)?.username }}</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="javascript:void(0);" (click)="logout()" *ngSwitchCase="true">Logout</a>
+                </li>
+            </template>
+            <li class="nav-item" *ngSwitchCase="false">
                 <a class="nav-link" href="javascript:void(0);" (click)="login()" *ngSwitchCase="false">Login</a>
-                <a class="nav-link" href="javascript:void(0);" (click)="logout()" *ngSwitchCase="true">Logout</a>
             </li>
         </ul>
     </nav>
