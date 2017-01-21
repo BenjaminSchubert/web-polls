@@ -30,32 +30,10 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
         this.socket = io(ioRoom);
         this.socket.connect();
 
-        this.socket.on("disconnect", () => {
-            this.t = [];
-            this._$.next(this.t);
-        });
-
-        this.socket.on("list", (res: T[]) => {
-            this.t = res;
-            this._$.next(this.t);
-        });
-
-        this.socket.on("delete", (res: number) => {
-            this.t.splice(this.t.findIndex((r: T) => r.id === res), 1);
-            this._$.next(this.t);
-        });
-
-        this.socket.on("item", (res: T) => {
-            let index = this.t.findIndex((room: T) => room.id === res.id);
-
-            if (index >= 0) {
-                this.t[index] = res;
-            } else {
-                this.t.push(res);
-                this._new$.next(res);
-            }
-            this._$.next(this.t);
-        });
+        this.socket.on("disconnect", () => this.replace([]));
+        this.socket.on("list", (res: T[]) => this.replace(res));
+        this.socket.on("delete", (res: number) => this.remove(res));
+        this.socket.on("item", (res: T) => this.insert(res));
 
         this.account.$.subscribe(() => {
             this.socket.disconnect();
@@ -68,10 +46,36 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     }
 
     public delete(t: T): Observable<Response> {
-        return this.http.delete(`${this.URL}${t.id}`);
+        return this.http.delete(`${this.URL}${t.id}/`);
     }
 
     public get(id: number) {
         return this.$.map((rooms: T[]) => rooms.find((r: T) => r.id === id));
+    }
+
+    public update(t: T): Observable<Response> {
+        return this.http.put(`${this.URL}${t.id}/`, t);
+    }
+
+    protected insert(t: T): void {
+        let index = this.t.findIndex((room: T) => room.id === t.id);
+
+        if (index >= 0) {
+            this.t[index] = t;
+        } else {
+            this.t.push(t);
+            this._new$.next(t);
+        }
+        this._$.next(this.t);
+    }
+
+    protected replace(t: T[]): void {
+        this.t = t;
+        this._$.next(this.t);
+    }
+
+    protected remove(t: number): void {
+        this.t.splice(this.t.findIndex((r: T) => r.id === t), 1);
+        this._$.next(this.t);
     }
 }

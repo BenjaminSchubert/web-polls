@@ -27,5 +27,6 @@ unable_to_generate_token = ErrorMessage(
 )
 
 invalid_room_token = ErrorMessage(message="No room with the given token was found", code=7)
+room_already_joined = ErrorMessage(message="You already are in this room", code=8)
 
-required = ErrorMessage(message="This field is required", code=8)
+required = ErrorMessage(message="This field is required", code=9)

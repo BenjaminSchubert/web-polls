@@ -18,7 +18,6 @@ export class RoomService extends RestService<IRoom, INewRoom> {
     public create(room: INewRoom) {
         return super.create(room).do((res: Response) => {
             this.socket.emit("join", res.json().token);
-            return res;
         });
     }
 
@@ -28,5 +27,9 @@ export class RoomService extends RestService<IRoom, INewRoom> {
                 callback(res);
             }
         });
+    }
+
+    public quit(room: IRoom) {
+        return this.http.post(`${this.URL}${room.id}/quit/`, {}).do((res: Response) => this.remove(res.json().id));
     }
 }

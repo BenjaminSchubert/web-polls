@@ -24,6 +24,8 @@ class CustomJSONEncoder(JSONEncoder):
         :return: True if the object extends `SerializableMixin`
         """
         try:
+            if issubclass(obj.__class__, SerializableMixin):
+                return True
             if issubclass(object_mapper(obj).class_, SerializableMixin):
                 return True
         except UnmappedInstanceError:

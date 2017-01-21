@@ -18,11 +18,28 @@ def new_poll(sender, object, *args, **kwargs):
     :param kwargs: additional keyword arguments
     """
     if object.visible:
-        room = object.room_id
-    else:
-        room = "{}-admin".format(object.room_id)
+        socketio.emit("item", object, namespace="/polls", room=object.room_id)
+    socketio.emit("item", object, namespace="/polls", room="{}-admin".format(object.room_id))
 
-    socketio.emit("item", object, namespace="/polls", room=room)
+
+@DBSignals.changed.connect_via(Poll)
+def updated_poll(sender, object, *args, **kwargs):
+    """
+
+    :param sender:
+    :param object:
+    :param args:
+    :param kwargs:
+    :return:
+    """
+    if not object.visible:
+        if object._visible:  # the object was visible but is not anymore
+            socketio.emit("delete", object, namespace="/polls", room=object.room_id)
+
+    else:
+        socketio.emit("item", object, namespace="/polls", room=object.room_id)
+
+    socketio.emit("item", object, namespace="/polls", room="{}-admin".format(object.room_id))
 
 
 @DBSignals.deleted.connect_via(Poll)
@@ -34,4 +51,6 @@ def signal_deleted_poll(sender, object, *args, **kwargs):
     :param args: additional arguments
     :param kwargs: additional keyword arguments
     """
-    socketio.emit("delete", object.id, namespace="/polls", room=object.room_id)
+    if object.visible:
+        socketio.emit("delete", object.id, namespace="/polls", room=object.room_id)
+    socketio.emit("delete", object.id, namespace="/polls", room="{}-admin".format(object.room_id))

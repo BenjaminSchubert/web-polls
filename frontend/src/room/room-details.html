@@ -4,10 +4,13 @@
     </div>
 </div>
 
-<div class="row buttons">
-    <div class="col-xs-12" *ngIf="room?.owning">
+<div class="row buttons" [ngSwitch]="room?.owning">
+    <div class="col-xs-12" *ngSwitchCase="true">
         <button class="btn btn-danger float-xs-right" (click)="delete()">Delete</button>
         <button class="btn btn-primary float-xs-right" (click)="edit()">Edit</button>
+    </div>
+    <div class="col-xs-12" *ngSwitchCase="false">
+        <button class="btn btn-danger float-xs-right" (click)="quit()">Quit</button>
     </div>
 </div>
 

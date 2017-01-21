@@ -124,13 +124,14 @@ class ApiView(MethodView):
         :param obj: object to update with the information passed in the body
         :return: an HTTP response with the updated object
         """
-        form = self.get_form(obj)
+        form = self.get_form()
 
         if not form.validate_on_submit():
             raise BadRequestException(form.errors)
 
         try:
-            obj = self.get_form.save()
+            form.populate_obj(obj)
+            db_session.commit()
         except UniqueConstraintFail as e:
             raise BadRequestException({e.field: unique_constraint_failed})
         else:
@@ -153,5 +154,5 @@ def register_api(view, endpoint, url, pk_type="int"):
     view_func = view.as_view(endpoint)
     app.add_url_rule(url, view_func=view_func, methods=["GET", "POST"])
     app.add_url_rule(
-        "{url}<{type}:_id>".format(url=url, type=pk_type), view_func=view_func, methods=["GET", "PUT", "DELETE"]
+        "{url}<{type}:_id>/".format(url=url, type=pk_type), view_func=view_func, methods=["GET", "PUT", "DELETE"]
     )

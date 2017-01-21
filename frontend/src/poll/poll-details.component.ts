@@ -58,8 +58,10 @@ export class PollComponent extends ErrorHandler implements OnInit {
         );
     }
 
-    public makeVisible() {
-        // FIXME IMPLEMENT
+    public setVisible(v: boolean) {
+        let p = JSON.parse(JSON.stringify(this.poll));
+        p.visible = v;
+        this.service.update(p).subscribe();
     }
 
     public addQuestion() {

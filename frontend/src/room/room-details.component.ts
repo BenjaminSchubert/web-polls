@@ -47,4 +47,10 @@ export class RoomComponent extends ErrorHandler implements OnInit {
             () => this.router.navigate([""]),
         );
     }
+
+    public quit() {
+        this.service.quit(this.room).subscribe(
+            () => this.router.navigate([""]),
+        );
+    }
 }

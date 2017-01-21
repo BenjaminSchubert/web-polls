@@ -11,7 +11,6 @@ from polls.models import Poll, PollType
 from rooms import Room
 from runserver import socketio
 
-
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 
@@ -41,10 +40,10 @@ class PollsNamespace(Namespace):
         rooms = Room.query.join(Room.participants).filter(User.rooms.any(User.id == current_user.id)).all()
 
         for room in rooms:
-            join_room(room.id)
-
             if current_user == room.owner:
                 join_room("{}-admin".format(room.id))
+            else:
+                join_room(room.id)
 
         polls = Poll.query \
             .join(Room) \
@@ -57,13 +56,14 @@ class PollsNamespace(Namespace):
         """
         Make the user join the room identified by the given token.
 
-        :param token: token of the room
+        :param _id: id of the room to join
         """
         room = Room.query.get(_id)
 
         if room.owner == current_user:
             join_room("{}-admin".format(_id))
-        join_room(_id)
+        else:
+            join_room(_id)
 
 
 register_api(PollApiView, "polls", "/polls/")
