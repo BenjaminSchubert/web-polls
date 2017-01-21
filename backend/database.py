@@ -14,22 +14,22 @@ __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 def get_database_information():
     """Prepare the database connection string."""
-    _engine = os.environ.get("DATABASE_ENGINE", None)
-    user = os.environ.get("DATABASE_USER", None)
-    password = os.environ.get("DATABASE_PASSWORD", None)
-    host = os.environ.get("DATABASE_HOST", None)
-    name = os.environ.get("DATABASE_NAME", None)
+    _engine = os.environ.get("WEBPOLLS_DB_ENGINE", None)
+    user = os.environ.get("WEBPOLLS_DB_USER", None)
+    password = os.environ.get("WEBPOLLS_DB_PASSWORD", None)
+    host = os.environ.get("WEBPOLLS_DB_HOST", None)
+    name = os.environ.get("WEBPOLLS_DB_NAME", None)
 
     if _engine is None:
-        print("Could not determine engine to use. Please set DATABASE_ENGINE environment variable.")
+        print("Could not determine engine to use. Please set WEBPOLLS_DB_ENGINE environment variable.")
         exit(1)
 
     if name is None:
-        print("Could not determine database name to use. Please set DATABASE_NAME environment variable.")
+        print("Could not determine database name to use. Please set WEBPOLLS_DB_NAME environment variable.")
         exit(1)
 
     if host is None:
-        print("Could not determine database host to use. Please set DATABASE_HOST environment variable.")
+        print("Could not determine database host to use. Please set WEBPOLLS_DB_HOST environment variable.")
         exit(1)
 
     if _engine.startswith("sqlite"):

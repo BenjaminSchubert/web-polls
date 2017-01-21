@@ -6,6 +6,7 @@ Main entry point for the webpolls application.
 This script configures and launches the server.
 """
 
+import os
 import sys
 from time import sleep
 
@@ -22,8 +23,18 @@ from database import engine
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
+
+debug = os.environ.get("WEBPOLLS_DEBUG", False)
+
+secret_key = os.environ.get("WEBPOLLS_SECRET_KEY", None)
+
+if secret_key is None:
+    print("No secret key was defined, please define one through WEBPOLLS_SECRET_KEY.")
+    exit(1)
+
+
 app = Flask("webpolls")
-app.config["SECRET_KEY"] = "very secret"  # FIXME: we need to externalize this
+app.config["SECRET_KEY"] = secret_key
 
 # this is to simplify Angular2 configuration
 app.config.setdefault('WTF_CSRF_HEADERS', ['X-XSRF-TOKEN'])
@@ -50,7 +61,7 @@ from rooms import *  # noqa
 from questions import *  # noqa
 
 
-@app.teardown_appcontext
+@app.teardown_request
 def close_session(exception=None):
     """
     Close the database connection.
@@ -89,4 +100,4 @@ for i in range(retries):
         break
 
 if __name__ == "__main__":
-    socketio.run(app, host="0.0.0.0", debug=True)  # FIXME: a configuration file would be much better
+    socketio.run(app, host="0.0.0.0", debug=debug)
