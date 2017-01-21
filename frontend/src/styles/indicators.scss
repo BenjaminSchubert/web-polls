@@ -16,4 +16,8 @@
     &[active="true"] {
         background-color: #22c222;
     }
+
+    &[invisible="true"] {
+        background-color: #e27e38
+    }
 }

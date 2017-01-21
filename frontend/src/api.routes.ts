@@ -8,6 +8,5 @@ export const AUTH_REGISTER_URL = BASE_URL + "register/";
 
 
 export const ROOMS_URL = BASE_URL + "rooms/";
-
-
 export const POLLS_URL = BASE_URL + "polls/";
+export const QUESTIONS_URL = BASE_URL + "questions/";

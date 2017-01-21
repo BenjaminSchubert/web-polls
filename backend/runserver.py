@@ -46,6 +46,8 @@ from authentication import *  # noqa
 from polls import *  # noqa
 # noinspection PyUnresolvedReferences
 from rooms import *  # noqa
+# noinspection PyUnresolvedReferences
+from questions import *  # noqa
 
 
 @app.teardown_appcontext
@@ -66,7 +68,7 @@ def load_user(user_id):
     :param user_id: id of the user to get
     :return: a `User` instance corresponding to the id
     """
-    return User.query.filter(User.id == user_id).one()
+    return User.query.filter(User.id == user_id).one_or_none()
 
 
 retries = 10

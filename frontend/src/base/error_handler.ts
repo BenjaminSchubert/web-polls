@@ -1,10 +1,12 @@
 // tslint:disable:no-any
 import { FormGroup } from "@angular/forms";
 import { TError } from "./stubs";
+import {BaseComponent} from "./base.component";
 
 
-export class ErrorHandler {
+export class ErrorHandler extends BaseComponent {
     protected errorMessages: {[key: string]: (err: {} | string) => string } = {
+        custom: (err: string) => err,
         match: (err: {message: string, valid: boolean}) => err.message,
         pattern: (err: any) => "This is not a valid entry",
         required: (err: any) => "This field is required",

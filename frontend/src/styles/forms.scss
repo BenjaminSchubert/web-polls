@@ -9,8 +9,18 @@
 }
 
 .col-form-label,
+.form-check-inline,
 .form-control {
     font-size: 15pt;
+}
+
+.form-check-inline {
+    display: flex;
+    align-items: center;
+
+    .form-check-label {
+        padding-right: 1.25rem;
+    }
 }
 
 .error-row {

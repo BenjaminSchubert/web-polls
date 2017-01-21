@@ -1,7 +1,6 @@
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { Observable } from "rxjs/Observable";
-import { Subscription } from "rxjs/Subscription";
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
 import { AccountService } from "./account.service";
 import { ErrorHandler } from "../base/error_handler";
@@ -14,7 +13,7 @@ import { noop } from "../base/miscellaneous";
     selector: "wp-login",
     templateUrl: "./login.html",
 })
-export class LoginComponent extends ErrorHandler implements OnInit, OnDestroy {
+export class LoginComponent extends ErrorHandler implements OnInit {
     public form: FormGroup;
     public showRegistrationForm$: Observable<Boolean>;
 
@@ -30,7 +29,6 @@ export class LoginComponent extends ErrorHandler implements OnInit, OnDestroy {
     }
 
     private _showRegistrationForm$: BehaviorSubject<boolean>;
-    private subscriptions: Subscription[] = [];
 
     constructor(public account: AccountService, private builder: FormBuilder) {
         super();
@@ -49,7 +47,7 @@ export class LoginComponent extends ErrorHandler implements OnInit, OnDestroy {
         this.subscriptions = [
             this.showRegistrationForm$.subscribe((show: boolean) => {
                 if (show && !this.form.contains(repeatPasswordField)) {
-                    this.form.addControl(repeatPasswordField, new FormControl("", Validators.required));
+                    this.form.addControl(repeatPasswordField, new FormControl(null, Validators.required));
                     this.form.addControl("email", new FormControl("", [
                         Validators.required,
                         Validators.pattern("^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$"),
@@ -71,11 +69,6 @@ export class LoginComponent extends ErrorHandler implements OnInit, OnDestroy {
         ];
 
         this.registering = false;
-    }
-
-    public ngOnDestroy() {
-        this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-        this.subscriptions = [];
     }
 
     public hideLoginForm() {

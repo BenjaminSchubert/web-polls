@@ -1,4 +1,4 @@
-"""Defines all views related to rooms."""
+"""Defines all views related to polls."""
 
 from flask_login import current_user
 from flask_socketio import join_room, emit, Namespace
@@ -16,7 +16,7 @@ __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 
 class PollApiView(ApiView):
-    """Defines views related to rooms."""
+    """Defines views related to polls."""
 
     model = Poll
 

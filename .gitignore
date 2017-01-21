@@ -1,5 +1,6 @@
 # editors related stuff
 .idea
+*.iml
 
 
 # node related stuff
@@ -11,7 +12,9 @@ yarn-error.log
 # python
 *.pyc
 __pycache__
+.venv
 
 
 # miscellaneous
 .env
+

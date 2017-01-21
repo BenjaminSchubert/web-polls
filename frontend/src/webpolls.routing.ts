@@ -6,6 +6,7 @@ import { RoomIndexComponent } from "./room/room-index.component";
 import { PollCreationComponent } from "./poll/poll-creation.component";
 import { RoomContainerComponent } from "./room/room-container.component";
 import { PollComponent } from "./poll/poll-details.component";
+import { QuestionCreationComponent } from "./question/question-creation.component";
 
 
 const routes: Routes = [
@@ -23,7 +24,16 @@ const routes: Routes = [
                         path: "new",
                     },
                     {
-                        component: PollComponent,
+                        children: [
+                            {
+                                component: QuestionCreationComponent,
+                                path: "new",
+                            },
+                            {
+                                component: PollComponent,
+                                path: "",
+                            },
+                        ],
                         path: ":poll",
                     },
                     {

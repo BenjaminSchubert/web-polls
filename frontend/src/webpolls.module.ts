@@ -3,12 +3,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { WebpollsComponent } from "./webpolls.component";
 import { routing } from "./webpolls.routing";
 import { UtilsModule } from "./utils/utils.module";
-import { PollsModule } from "./polls/polls.module";
 import { ExtendedRequestOptions } from "./utils/requests";
 import { RequestOptions } from "@angular/http";
 import { AuthModule } from "./auth/auth.module";
 import { PollModule } from "./poll/poll.module";
 import { RoomModule } from "./room/room.module";
+import { QuestionModule } from "./question/question.module";
 
 
 @NgModule({
@@ -17,11 +17,11 @@ import { RoomModule } from "./room/room.module";
     imports: [
         BrowserModule, routing,
         UtilsModule,
-        AuthModule.forRoot(), PollModule.forRoot(),
-        PollsModule, RoomModule.forRoot(),
+        AuthModule.forRoot(), PollModule.forRoot(), RoomModule.forRoot(), QuestionModule.forRoot(),
     ],
     providers: [
         {provide: RequestOptions, useClass: ExtendedRequestOptions},
     ],
 })
-export class WebPollsModule {}
+export class WebPollsModule {
+}

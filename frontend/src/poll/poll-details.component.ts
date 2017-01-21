@@ -1,31 +1,30 @@
-import { Subscription } from "rxjs/Subscription";
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ErrorHandler } from "../base/error_handler";
 import { noop } from "../base/miscellaneous";
 import { Response } from "@angular/http";
-import { ActivatedRoute, Params, Router } from "@angular/router";
+import { ActivatedRoute, Router, Params } from "@angular/router";
 import { IPoll } from "./stubs";
 import { PollService } from "./poll.service";
 import { RoomService } from "../room/room.service";
 import { IRoom } from "../room/stubs";
+import { QuestionService } from "../question/question.service";
 
 
 @Component({
     templateUrl: "poll-details.html",
 })
-export class PollComponent extends ErrorHandler implements OnInit, OnDestroy {
+export class PollComponent extends ErrorHandler implements OnInit {
     public form: FormGroup;
     public poll: IPoll;
     public room: IRoom;
     public editing: boolean = false;
 
-    public subscriptions: Subscription[];
-
     constructor(
         private route: ActivatedRoute,
         private service: PollService,
         private rooms: RoomService,
+        public questions: QuestionService,
         private builder: FormBuilder,
         private router: Router,
     ) {
@@ -39,18 +38,11 @@ export class PollComponent extends ErrorHandler implements OnInit, OnDestroy {
 
     public ngOnInit() {
         this.subscriptions.push(
-            this.route.params
-                .switchMap((params: Params) => this.service.get(+params["poll"]))
+            this.route.params.switchMap((p: Params) => this.service.get(+p["poll"]))
                 .subscribe((poll: IPoll) => this.poll = poll),
-            this.route.parent.params
-                .switchMap((params: Params) => this.rooms.get(+params["room"]))
+            this.route.parent.parent.params.switchMap((p: Params) => this.rooms.get(+p["room"]))
                 .subscribe((room: IRoom) => this.room = room),
         );
-    }
-
-    public ngOnDestroy() {
-        this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
-        this.subscriptions = [];
     }
 
     public submit() {
@@ -64,5 +56,13 @@ export class PollComponent extends ErrorHandler implements OnInit, OnDestroy {
         this.service.delete(this.poll).subscribe(
             () => this.router.navigate([this.room.id]),
         );
+    }
+
+    public makeVisible() {
+        // FIXME IMPLEMENT
+    }
+
+    public addQuestion() {
+        this.router.navigate([this.room.id, this.poll.id, "new"]).then();
     }
 }

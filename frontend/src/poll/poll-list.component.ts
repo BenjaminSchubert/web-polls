@@ -1,21 +1,21 @@
-import { Subscription } from "rxjs/Subscription";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { PollService } from "./poll.service";
 import { ActivatedRoute, Params } from "@angular/router";
 import { RoomService } from "../room/room.service";
 import { IRoom } from "../room/stubs";
+import { BaseComponent } from "../base/base.component";
 
 
 @Component({
     selector: "wp-poll-list",
     templateUrl: "poll-list.html",
 })
-export class PollListComponent implements OnInit, OnDestroy {
+export class PollListComponent extends BaseComponent implements OnInit {
     public room: IRoom;
 
-    private subscriptions: Subscription[] = [];
-
-    constructor(private route: ActivatedRoute, public service: PollService, private rooms: RoomService) {}
+    constructor(private route: ActivatedRoute, public service: PollService, private rooms: RoomService) {
+        super();
+    }
 
     public ngOnInit(): void {
         this.subscriptions.push(
@@ -24,10 +24,4 @@ export class PollListComponent implements OnInit, OnDestroy {
                 .subscribe((room: IRoom) => this.room = room),
         );
     }
-
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((s: Subscription) => s.unsubscribe());
-        this.subscriptions = [];
-    }
-
 }

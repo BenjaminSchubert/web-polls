@@ -28,8 +28,24 @@ wp-room-list {
 
     .header {
         text-align: center;
+
+        h1 {
+            @extend .mx-auto;
+            color: lighten($text-color, 10%);
+            background-color: lighten($background, 15%);
+
+            display: inline-block;
+            padding: 8px 13px 2px 13px;
+
+            border-radius: 20px;
+            -webkit-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+            box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+        }
+    }
+
+    .buttons {
         margin-bottom: 3%;
-        color: $text-color;
     }
 
     .content {

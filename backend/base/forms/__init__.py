@@ -3,13 +3,20 @@
 from typing import Callable
 
 from abc import abstractmethod
+from flask import request
+from flask_wtf.form import _is_submitted, _Auto
 from flask_wtf import FlaskForm
 from sqlalchemy.exc import IntegrityError
+import wtforms_json
+from werkzeug.datastructures import ImmutableMultiDict
 
 from database import db_session
 
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
+
+
+wtforms_json.init()
 
 
 class UniqueConstraintFail(Exception):
@@ -31,6 +38,13 @@ class ApiForm(FlaskForm):
     This class extends `FlaskForm` to allow to create and save the object automatically.
     """
 
+    class Meta(FlaskForm.Meta):
+        def wrap_formdata(self, form, formdata):
+            if formdata is _Auto:
+                if _is_submitted():
+                    return ImmutableMultiDict(wtforms_json.flatten_json(form.__class__, request.get_json()))
+            return super().wrap_formdata(form, formdata)
+
     @property
     @abstractmethod
     def model(self) -> Callable:
@@ -46,11 +60,14 @@ class ApiForm(FlaskForm):
         try:
             db_session.commit()
         except IntegrityError as e:
-            origin = str(e.orig).lower()
-            if "unique" in origin:
-                # this is very likely a unique constraint fail
-                field = origin.split(":")[-1].split(".")[-1]
-                raise UniqueConstraintFail(field)
-            raise
+            self.check_integrity_error(e)
 
         return obj
+
+    def check_integrity_error(self, exception: IntegrityError):
+        origin = str(exception.orig).lower()
+        if "unique" in origin:
+            # this is very likely a unique constraint fail
+            field = origin.split(":")[-1].split(".")[-1]
+            raise UniqueConstraintFail(field)
+        raise exception

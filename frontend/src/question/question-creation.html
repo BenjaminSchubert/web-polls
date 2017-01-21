@@ -1,0 +1,81 @@
+<div class="row header">
+    <div class="col-xs-12">
+        <h1>New Question</h1>
+    </div>
+</div>
+
+<div class="row buttons">
+    <div class="col-xs-12">
+        <button class="btn btn-primary">Previous</button>
+    </div>
+</div>
+
+<form [formGroup]="form" class="content" (ngSubmit)="submit()">
+    <div class="form-group row">
+        <label for="title" class="col-xs-2 col-form-label">Title</label>
+        <div class="col-xs-10">
+            <input type="text" placeholder="Name" id="title" formControlName="title">
+        </div>
+    </div>
+    <div class="row" *ngIf="!(form.get('title').valid || form.get('title').pristine)">
+        <div class="offset-xs-2 col-xs-10 error-row">
+            <div class="alert alert-danger">
+                {{ display_error(form.get("title").errors) }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-xs-2 col-form-label">Type </label>
+        <div class="col-xs-10 form-check form-check-inline">
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="type" value="unique" formControlName="type"/>
+                Single answer
+            </label>
+            <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="type" value="multiple" formControlName="type"/>
+                Multiple answers
+            </label>
+        </div>
+    </div>
+    <div formArrayName="choices">
+        <div *ngFor="let choice of choices.controls; let i=index" [formGroupName]="i">
+            <div class="form-group row">
+                <label class="col-xs-2 col-form-label">Choice {{ i + 1 }}</label>
+                <div class="col-xs-9">
+                    <input type="text" placeholder="Choice" formControlName="text">
+                </div>
+                <div class="col-xs-1">
+                    <button class="btn btn-primary" type="button" (click)="removeChoice(i)">-</button>
+                </div>
+            </div>
+            <div class="row" *ngIf="!(choice.get('text').valid || choice.get('text').pristine)">
+                <div class="offset-xs-2 col-xs-9 error-row">
+                    <div class="alert alert-danger">
+                        {{ display_error(choice.get('text').errors) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="form.get('choices').errors">
+            <div class="offset-xs-2 col-xs-9 error-row">
+                <div class="alert alert-danger">
+                    {{ display_error(form.get("choices").errors) }}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group row">
+        <div class="col-xs-10 offset-xs-2">
+            <button class="btn btn-primary" type="button" (click)="addChoice()">+</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary float-xs-right" [disabled]="!form.valid" type="submit">Create</button>
+        </div>
+    </div>
+</form>
