@@ -61,19 +61,16 @@ In this section, we will use npm alongside flask and only the DB running in a do
 1. `docker-compose up --build db` to lauch the db.
 2. Activate your virtual environment if you have created one.
 3. `pip install -r backend/requirements.pip` to install the requirements for the backend
-4. Export theses variables using the commands below:
+4. You will need to set these environment variables before running the server:
 ```
-export WEBPOLLS_DB_ENGINE="mysql"
-export WEBPOLLS_DB_NAME=${MYSQL_DATABASE}
-export WEBPOLLS_DB_HOST=${HOST}
-export WEBPOLLS_DB_USER=${MYSQL_USER}
-export WEBPOLLS_DB_PASSWORD=${MYSQL_PASSWORD}
+WEBPOLLS_DB_ENGINE="mysql"
+WEBPOLLS_DB_NAME=${MYSQL_DATABASE}
+WEBPOLLS_DB_HOST=${HOST}
+WEBPOLLS_DB_USER=${MYSQL_USER}
+WEBPOLLS_DB_PASSWORD=${MYSQL_PASSWORD}
 ```
-Replace ${MYSQL_DATABASE} by the mysql password you have set in you .env (the one mentionned in the `Deployment` section, and do the
-same for the other variables. If you don't mind having the variables defined in the .env to be set directly, you can execute 
-`set -a && source .env && set +a` to load them and the you can run the commands above directly.
+In the line above, replace the variables such as `${MYSQL_DATABASE}` by the value you want. After that, you will be able to run the server using `python backend/runserver.py` and work on the backend.
 
-After that, you will be able to run the server using `python backend/runserver.py` and work on the backend.
 To setup the frontend, here is what you must do:
 
 1. `cd frontend`
