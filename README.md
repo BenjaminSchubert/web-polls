@@ -64,6 +64,7 @@ In this section, we will use npm alongside flask and only the DB running in a do
 4. You will need to set these environment variables before running the server:
 ```
 WEBPOLLS_DB_ENGINE="mysql"
+WEBPOLLS_SECRET_KEY=${WEBPOLLS_SECRET_KEY}
 WEBPOLLS_DB_NAME=${MYSQL_DATABASE}
 WEBPOLLS_DB_HOST=${HOST}
 WEBPOLLS_DB_USER=${MYSQL_USER}
@@ -73,12 +74,23 @@ In the line above, replace the variables such as `${MYSQL_DATABASE}` by the valu
 the ones defined in the `.env` file. What you could do is run `set -a && source .env && set +a` then export each one of the
 `WEBPOLLS_*` env variables (by running `export WEBPOLLS_DB_NAME=${MYSQL_DATABASE}`, for example) and they will be set directy.
 
-The only variable you need to set manually is `WEBPOLLS_DB_HOST`. If you sourced the `.env` file, you will see that the `HOST` variable is set to `db`. That alias is used between the other dockers. Here, to set `WEBPOLLS_DB_HOST`, you will need to go inside the docker
-of mariaDB running and get its IP address. You can do the following: `the docker inspect db | grep IPAddress` and the IP address
-will be on the second line of the results displayed.
+If you sourced the `.env` file, the only variable you can't simply export is `WEBPOLLS_DB_HOST`. The `HOST` variable is set to `db`;
+that's an alias that is used between the other dockers. Here, to know the value to set for `WEBPOLLS_DB_HOST`, you will need to go
+inside the docker of mariaDB currently running and get its IP address. You can do the following: 
+`the docker inspect db | grep IPAddress` and the IP address will be on the second line of the results displayed.
+
+An example of a typical setup would include these variables before launching the server:
+```
+WEBPOLLS_SECRET_KEY=12345
+WEBPOLLS_DB_ENGINE=mysql
+WEBPOLLS_DB_NAME=webpolls
+WEBPOLLS_DB_HOST=172.18.0.2
+WEBPOLLS_DB_USER=webpolls
+WEBPOLLS_DB_PASSWORD=insecure
+```
 
 After that, you will be able to run the server using `python backend/runserver.py` and work on the backend. If you don't want to 
-set these variable everytime you want to start the server, you may want to set them up inside your IDE or make a script that export
+set these variables everytime you want to start the server, you may want to set them up inside your IDE or make a script that export
 the values.
 
 To setup the frontend, here is what you must do:
