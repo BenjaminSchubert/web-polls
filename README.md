@@ -15,7 +15,7 @@ On the backend we are using :
 
 * [Flask](http://flask.pocoo.org/), a lightweight python server framework
 * [Flask-websockets](https://github.com/zeekay/flask-uwsgi-websocket), an efficient websocket implementation for Flask
-* [Flask-socketio](https://flask-socketio.readthedocs.io), gives Flask applications access to bi-directional communications between the clients and the server and provides all functionnalities of SocketIO
+* [Flask-socketio](https://flask-socketio.readthedocs.io), a plugin providing all functionnalities of SocketIO
 * various other Flask plugins
 * [SQLAlchemy](http://www.sqlalchemy.org/), a Python SQL toolkit and ORM that gives application developers the full power and flexibility of SQL
 * [MariaDB](https://mariadb.org/), a fast, scalable and robust database, with a rich ecosystem of storage engines, plugins and many other tools
