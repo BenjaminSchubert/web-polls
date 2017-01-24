@@ -29,20 +29,17 @@ On the frontend, we are using :
 ## Deployment
 
 Requirements:
-* node 6 LTS (tested on 6.9.1), other versions might work but were not tested
-* npm version 3+
-
-Other requirements will come once the backend is implemented (mainly python 3.5+)
+* Docker 1.13.0
+* Docker Compose 1.10.0
 
 Here are the steps you need to perform to deploy the project locally:
 
 1. Clone the repo : `git clone git@github.com:BenjaminSchubert/web-polls`
-2. cd into the frontend : `cd web-polls/frontend`
-3. install dependencies : `npm install` (you can also use `yarn`)
-4. launch the server: `npm run watch`.
-5. the application will be available at `localhost:8080`
-
-Please note that this is a work in progress and is not feature complete yet.
+2. cd into the project : `cd web-polls`
+3. There is a file name `.env.sample`. Copy it to a new `.env` file: `cp .env.sample .env`
+4. Open the .env file and set the various environment variables to the value you want.
+5. Launch the dockers: `docker-compose up --build`
+6. the application will be available at `localhost:8080`. Of course, if you run the dockers anywhere else than directly on your machine (on a VM for example), don't forget to replace `localhost` by the appropriate address. 
 
 
 ## About the developpers
