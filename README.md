@@ -58,7 +58,7 @@ which python version you use and be ready to install python packages globally.
 
 In this section, we will use npm alongside flask and only the DB running in a docker. Here are the steps you need to do:
 
-1. `docker-compose up --build db` to lauch the db.
+1. `docker-compose up --build db` to launch the db. You will need to have a `.env` file as described in the `Deployment` section.
 2. Activate your virtual environment if you have created one.
 3. `pip install -r backend/requirements.pip` to install the requirements for the backend
 4. You will need to set these environment variables before running the server:
@@ -69,7 +69,8 @@ WEBPOLLS_DB_HOST=${HOST}
 WEBPOLLS_DB_USER=${MYSQL_USER}
 WEBPOLLS_DB_PASSWORD=${MYSQL_PASSWORD}
 ```
-In the line above, replace the variables such as `${MYSQL_DATABASE}` by the value you want. After that, you will be able to run the server using `python backend/runserver.py` and work on the backend.
+In the line above, replace the variables such as `${MYSQL_DATABASE}` by the values you want. You may want to set values that match
+the ones defined in the `.env` file. After that, you will be able to run the server using `python backend/runserver.py` and work on the backend.
 
 To setup the frontend, here is what you must do:
 
