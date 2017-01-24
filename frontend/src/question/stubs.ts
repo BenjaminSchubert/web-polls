@@ -15,6 +15,7 @@ export interface INewQuestion {
 }
 
 export interface IQuestion extends INewQuestion {
+    answers: number;
     choices: IChoice[];
     is_open: boolean;
     id: number;

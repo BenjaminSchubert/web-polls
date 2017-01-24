@@ -23,6 +23,8 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     public questionIndex = 0;
     public editing: boolean = false;
 
+    public colors = ["#459b45", "#51b2de", "#a357dc", "#f36565", "#eaac39", "#fff177"];
+
     constructor(private route: ActivatedRoute,
                 public questions: QuestionService,
                 private polls: PollService,

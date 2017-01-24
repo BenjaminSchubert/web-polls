@@ -57,6 +57,11 @@ class Choice(SerializableMixin, Base):
     question_id = Column(INTEGER, ForeignKey("questions.id", ondelete="CASCADE"), nullable=False)
     question = relationship("Question", backref=backref("choices", cascade="all, delete-orphan"))
 
+    def as_dict(self):
+        obj = super().as_dict()
+        obj["answers"] = len(self.answers)
+        return obj
+
 
 class Answer(SerializableMixin, Base):
     """"""

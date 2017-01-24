@@ -29,3 +29,12 @@
     margin-left: 0.5rem;
   }
 }
+
+.result-bar {
+  height: 25px;
+  border-radius: 25px;
+
+  -webkit-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+  box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
+}

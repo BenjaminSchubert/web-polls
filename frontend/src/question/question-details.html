@@ -13,28 +13,46 @@
 
 <form [formGroup]="form" class="content" (ngSubmit)="submit()">
     <div class="row question-title">
-        <h1 class="col-xs-12">{{ question?.title }}</h1>
+        <h1 class="offset-xs-2 col-xs-8">{{ question?.title }}</h1>
+        <span class="col-xs-2 float-xs-right">{{ question?.answers }} answers</span>
     </div>
 
-    <fieldset class="form-group" *ngIf="question?.type === 'UNIQUE'">
-        <div class="form-check" *ngFor="let choice of question.choices">
-            <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="answer" formControlName="answer" [value]="choice.id">
-                <span></span>
-                {{ choice.text }}
-            </label>
-        </div>
-    </fieldset>
+    <div class="row">
+        <!-- question -->
+        <div class="col-xs-6">
+            <fieldset class="form-group" *ngIf="question?.type === 'UNIQUE'">
+                <div class="form-check" *ngFor="let choice of question.choices">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="answer" formControlName="answer" [value]="choice.id">
+                        <span></span>
+                        {{ choice.text }}
+                    </label>
+                </div>
+            </fieldset>
 
-    <fieldset class="form-group" *ngIf="question?.type === 'MULTIPLE'">
-        <div class="form-check" *ngFor="let choice of question.choices">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="answer" [formControlName]="choice.id">
-                <span></span>
-                {{ choice.text }}
-            </label>
+            <fieldset class="form-group" *ngIf="question?.type === 'MULTIPLE'">
+                <div class="form-check" *ngFor="let choice of question.choices">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="answer" [formControlName]="choice.id">
+                        <span></span>
+                        {{ choice.text }}
+                    </label>
+                </div>
+            </fieldset>
         </div>
-    </fieldset>
+
+        <!-- answers -->
+        <div class="col-xs-6 results" *ngIf="question != null && !question.is_open">
+            <div class="row" *ngFor="let choice of question.choices; let i = index">
+                <div class="form-check col-xs-2">
+                    <label class="form-check-label">{{ choice.answers }}</label>
+                </div>
+                <div class="col-xs-10">
+                    <div class="result-bar" style="width: 28%" [ngStyle]="{'background-color': colors[i % colors.length], width: (choice.answers / question.answers) * 100 + '%'}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row" [ngSwitch]="room?.owning">
         <div class="col-xs-12" *ngSwitchCase="true">

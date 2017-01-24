@@ -59,7 +59,7 @@ class Signals:
     new = _namespace.signal("new")
 
 
-engine = create_engine(get_database_information(), convert_unicode=True)
+engine = create_engine(get_database_information(), convert_unicode=True, pool_size=100, max_overflow=200)
 db_session = scoped_session(sessionmaker(autoflush=False, bind=engine), scopefunc=_app_ctx_stack)
 
 Base = declarative_base()
