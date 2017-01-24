@@ -58,7 +58,7 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     }
 
     protected insert(t: T): void {
-        let index = this.t.findIndex((room: T) => room.id === t.id);
+        let index = this.t.findIndex((t: T) => t.id === t.id);
 
         if (index >= 0) {
             this.t[index] = t;

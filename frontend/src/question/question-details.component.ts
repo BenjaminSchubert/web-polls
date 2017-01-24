@@ -1,8 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, Validators, FormGroup } from "@angular/forms";
+import { FormGroup } from "@angular/forms";
 import { ErrorHandler } from "../base/error_handler";
-import { noop } from "../base/miscellaneous";
-import { Response } from "@angular/http";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { IRoom } from "../room/stubs";
 import { QuestionService } from "./question.service";
@@ -16,7 +14,7 @@ import { RoomService } from "../room/room.service";
     templateUrl: "question-details.html",
 })
 export class QuestionComponent extends ErrorHandler implements OnInit {
-    public form: FormGroup;
+    public form: FormGroup = new FormGroup({});
     public poll: IPoll;
     public question: IQuestion;
     public room: IRoom;
@@ -29,15 +27,9 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
         public questions: QuestionService,
         private polls: PollService,
         private rooms: RoomService,
-        private builder: FormBuilder,
         private router: Router,
     ) {
         super();
-        this.subscriptions = [];
-
-        this.form = this.builder.group({
-            name: ["", Validators.required],
-        });
     }
 
     public ngOnInit() {
@@ -60,23 +52,16 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
         );
     }
 
-    public submit() {
-        this.questions.create(this.form.value).subscribe(
-            noop,
-            (err: Response) => this.handleError(err, this.form),
-        );
-    }
-
     public delete() {
         this.questions.delete(this.question).subscribe(
-            () => this.router.navigate([this.poll.id]),
+            () => this.router.navigate([this.room.id, this.poll.id]),
         );
     }
 
-    public setVisible(v: boolean) {
-        //let p = JSON.parse(JSON.stringify(this.poll));
-        //p.visible = v;
-        //this.questions.update(p).subscribe();
+    public setOpen(v: boolean) {
+        let p = JSON.parse(JSON.stringify(this.question));
+        p.is_open = v;
+        this.questions.update(p).subscribe();
     }
 
 }

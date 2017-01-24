@@ -11,7 +11,7 @@
     </div>
 </div>
 
-<form [formGroup]="form" class="content" (ngSubmit)="submit()">
+<form [formGroup]="form" class="content">
     <div class="row question-title">
         <h1 class="col-xs-12">{{ question?.title }}</h1>
     </div>
@@ -25,11 +25,14 @@
         </div>
     </fieldset>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <button class="btn btn-primary float-xs-right" *ngIf="room?.owning && poll?.visible && !poll?.is_open && !question?.is_open" type="submit">Open</button>
-            <button class="btn btn-primary float-xs-right" *ngIf="room?.owning && question?.is_open" type="submit">Close</button>
-            <button class="btn btn-primary float-xs-right" [disabled]="!form.valid" type="submit" *ngIf="!room?.owning && (poll?.is_open || question?.is_open)">Vote</button>
+    <div class="row" [ngSwitch]="room?.owning">
+        <div class="col-xs-12" *ngSwitchCase="true">
+            <button class="btn btn-primary float-xs-right" *ngIf="poll?.visible && !poll?.is_open && !question?.is_open" (click)="setOpen(true)">Open</button>
+            <button class="btn btn-primary float-xs-right" *ngIf="question?.is_open" (click)="setOpen(false)">Close</button>
+            <button class="btn btn-danger float-xs-right" (click)="delete()">Delete</button>
+        </div>
+        <div class="col-xs-12" *ngSwitchCase="false">
+            <button class="btn btn-primary float-xs-right" type="submit" *ngIf="!room?.owning && (poll?.is_open || question?.is_open)">Vote</button>
         </div>
     </div>
 </form>

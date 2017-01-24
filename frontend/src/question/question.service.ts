@@ -15,7 +15,6 @@ export class QuestionService extends RestService<IQuestion, INewQuestion> {
     constructor(http: Http, account: AccountService, polls: PollService) {
         super(http, account, "/questions");
         polls.new$.subscribe((poll: IPoll) => this.socket.emit("join", poll.id));
-        this.$.subscribe((a: any) => console.log(a));
     }
 
     public getForPoll(id: number) {
