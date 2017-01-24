@@ -90,7 +90,7 @@ class QuestionsNamespace(Namespace):
         """
         Make the user join the room identified by the given token.
 
-        :param token: token of the room
+        :param _id: token of the room
         """
         poll = Poll.query.get(_id)
 

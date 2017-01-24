@@ -9,8 +9,7 @@ from sqlalchemy import VARCHAR
 from sqlalchemy.orm import relationship, backref
 
 from base.models import SerializableMixin
-from database import Base
-
+from database import Base, db_session
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
@@ -40,6 +39,11 @@ class Question(SerializableMixin, Base):
     def as_dict(self):
         obj = super().as_dict()
         obj["choices"] = self.choices
+        obj["answers"] = db_session.query(Answer.user_id) \
+            .filter(Answer.choice_id.in_(db_session.query(Choice.id).filter(Choice.question_id == self.id))) \
+            .distinct() \
+            .count()
+
         return obj
 
 
