@@ -18,7 +18,7 @@
     <fieldset class="form-group">
         <div class="form-check" *ngFor="let choice of question?.choices">
             <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="answer" [disabled]="room?.owning">
+                <input [type]="question?.type === 'UNIQUE' ? 'radio' : 'checkbox'" class="form-check-input" name="answer" [disabled]="room?.owning">
                 <span></span>
                 {{ choice.text }}
             </label>
