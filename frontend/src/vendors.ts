@@ -23,6 +23,7 @@ import "rxjs/add/operator/take";
 import "rxjs/add/operator/combineLatest";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/switchMap";
+import "rxjs/add/observable/of";
 
 // others
 import "bootstrap-loader";

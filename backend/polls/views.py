@@ -1,15 +1,19 @@
 """Defines all views related to polls."""
-
+from flask import jsonify
+from flask import request
 from flask_login import current_user
 from flask_socketio import join_room, emit, Namespace
 from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
 
 from authentication.models import User
 from base.views import ApiView, register_api
+from database import db_session
 from polls.forms import PollForm
 from polls.models import Poll, PollType
+from questions import Question, Choice
 from rooms import Room
-from runserver import socketio
+from runserver import socketio, app
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
@@ -27,6 +31,22 @@ class PollApiView(ApiView):
     def queryset(self):
         """Get the query on which to work."""
         return Poll.query.join(Room).join(Room.participants).filter(User.rooms.any(User.id == current_user.id))
+
+
+def open_poll(_id):
+    if Poll.query.join(Room).filter(Room.owner_id == current_user.id).filter(Poll.id == _id).one_or_none() is None:
+        return jsonify({}), 404
+
+    try:
+        open = request.json["open"]
+    except KeyError:
+        return jsonify({"open": "missing key"}), 400
+
+    for question in Question.query.options(joinedload("choices")).filter(Question.poll_id == _id):
+        question.is_open = open
+
+    db_session.commit()
+    return jsonify({}), 200
 
 
 class PollsNamespace(Namespace):
@@ -66,5 +86,6 @@ class PollsNamespace(Namespace):
             join_room(_id)
 
 
+app.add_url_rule("/polls/<int:_id>/open/", "open_polls", open_poll, methods=["POST"])
 register_api(PollApiView, "polls", "/polls/")
 socketio.on_namespace(PollsNamespace("/polls"))

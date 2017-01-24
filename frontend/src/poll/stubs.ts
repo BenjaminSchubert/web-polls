@@ -6,6 +6,5 @@ export interface INewPoll {
 
 export interface IPoll extends INewPoll {
     id: number;
-    is_open: boolean;
     visible: boolean;
 }

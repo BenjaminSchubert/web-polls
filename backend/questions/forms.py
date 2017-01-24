@@ -21,13 +21,14 @@ class QuestionForm(ApiForm):
 
     model = Question
     choices = FieldList(FormField(ChoiceForm), min_entries=2)
+    is_open = BooleanField()
     title = StringField("name", [DataRequired()])
     description = TextAreaField("description")
     poll_id = IntegerField("poll_id", [DataRequired()])
 
     type = SelectField("type", choices=[
-        (QuestionType.MULTIPLE.value, QuestionType.MULTIPLE.value),
-        (QuestionType.UNIQUE.value, QuestionType.UNIQUE.value),
+        (QuestionType.MULTIPLE.name, QuestionType.MULTIPLE.value),
+        (QuestionType.UNIQUE.name, QuestionType.UNIQUE.value),
     ])
 
     visible = BooleanField("visible")

@@ -16,7 +16,6 @@ class PollForm(ApiForm):
     model = Poll
     name = StringField("name", [DataRequired()])
     description = TextAreaField("description")
-    is_open = BooleanField()
     room_id = IntegerField("room_id", [DataRequired()])
     type = SelectField("type", choices=[(PollType.MANUAL.name, PollType.MANUAL.value)])
     visible = BooleanField("visible")

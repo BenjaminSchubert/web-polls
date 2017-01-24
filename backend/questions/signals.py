@@ -21,6 +21,12 @@ def new_question(sender, object, *args, **kwargs):
     socketio.emit("item", object, namespace="/questions", room=object.poll_id)
 
 
+@DBSignals.changed.connect_via(Question)
+def updated_question(sender, object, *args, **kwargs):
+    # FIXME : we should filter depending on whether the poll is visible or not
+    socketio.emit("item", object, namespace="/questions", room=object.poll_id)
+
+
 @DBSignals.deleted.connect_via(Question)
 def signal_deleted_question(sender, object, *args, **kwargs):
     """

@@ -21,4 +21,8 @@ export class PollService extends RestService<IPoll, INewPoll> {
         return this.$.map((polls: IPoll[]) => polls.filter((poll: IPoll) => poll.room_id === id));
     }
 
+    public open(poll: IPoll, open: boolean) {
+        return this.http.post(`${this.URL}/${poll.id}/open/`, { open: open });
+    }
+
 }

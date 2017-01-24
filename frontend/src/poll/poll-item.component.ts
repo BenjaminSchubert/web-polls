@@ -20,9 +20,6 @@ export class PollItemComponent implements OnChanges {
 
     public ngOnChanges(changes: SimpleChanges): void {
         this.isActive = this.questions.getForPoll(this.poll.id).map((qs: IQuestion[]) => {
-            if (this.poll.is_open) {
-                return true;
-            }
             return qs.some((q: IQuestion) => q.is_open);
         });
     }
