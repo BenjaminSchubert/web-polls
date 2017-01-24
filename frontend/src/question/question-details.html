@@ -1,0 +1,35 @@
+<div class="row header">
+    <div class="col-xs-12">
+        <h1>Question {{ question_index + 1 }} of {{ question_pool_size }}</h1>
+    </div>
+</div>
+
+<div class="row buttons">
+    <div class="col-xs-12">
+        <button class="btn btn-primary" *ngIf="question_index != 0">Previous</button>
+        <button class="btn btn-primary float-xs-right" *ngIf="question_index != question_pool_size - 1">Next</button>
+    </div>
+</div>
+
+<form [formGroup]="form" class="content" (ngSubmit)="submit()">
+    <div class="row question-title">
+        <h1 class="col-xs-12">{{ question?.title }}</h1>
+    </div>
+    <fieldset class="form-group">
+        <div class="form-check" *ngFor="let choice of question?.choices">
+            <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="answer" [disabled]="room?.owning">
+                <span></span>
+                {{ choice.text }}
+            </label>
+        </div>
+    </fieldset>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <button class="btn btn-primary float-xs-right" *ngIf="room?.owning && poll?.visible && !poll?.is_open && !question?.is_open" type="submit">Open</button>
+            <button class="btn btn-primary float-xs-right" *ngIf="room?.owning && question?.is_open" type="submit">Close</button>
+            <button class="btn btn-primary float-xs-right" [disabled]="!form.valid" type="submit" *ngIf="!room?.owning && (poll?.is_open || question?.is_open)">Vote</button>
+        </div>
+    </div>
+</form>
