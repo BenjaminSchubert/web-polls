@@ -1,13 +1,13 @@
 <div class="row header">
     <div class="col-xs-12">
-        <h1>Question {{ question_index + 1 }} of {{ question_pool_size }}</h1>
+        <h1>Question {{ questionIndex + 1 }} of {{ questionPoolSize }}</h1>
     </div>
 </div>
 
 <div class="row buttons">
     <div class="col-xs-12">
-        <button class="btn btn-primary" *ngIf="question_index != 0">Previous</button>
-        <button class="btn btn-primary float-xs-right" *ngIf="question_index != question_pool_size - 1">Next</button>
+        <button class="btn btn-primary" *ngIf="questionIndex != 0" (click)="previous()">Previous</button>
+        <button class="btn btn-primary float-xs-right" *ngIf="questionIndex != questionPoolSize - 1" (click)="next()">Next</button>
     </div>
 </div>
 

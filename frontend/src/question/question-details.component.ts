@@ -18,8 +18,9 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     public poll: IPoll;
     public question: IQuestion;
     public room: IRoom;
-    public question_pool_size = 0;
-    public question_index = 0;
+    public currentQuestions: IQuestion[];
+    public questionPoolSize = 0;
+    public questionIndex = 0;
     public editing: boolean = false;
 
     constructor(
@@ -46,15 +47,16 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
                     if (data[1] === undefined) {
                         return;
                     }
-                    this.question_index = data[0].findIndex((q: IQuestion) => q.id === data[1].id);
-                    this.question_pool_size = data[0].length;
+                    this.currentQuestions = data[0];
+                    this.questionIndex = data[0].findIndex((q: IQuestion) => q.id === data[1].id);
+                    this.questionPoolSize = data[0].length;
                 }),
         );
     }
 
     public delete() {
         this.questions.delete(this.question).subscribe(
-            () => this.router.navigate([this.room.id, this.poll.id]),
+            () => this.router.navigate([this.room.id, this.poll.id]).then(),
         );
     }
 
@@ -62,6 +64,14 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
         let p = JSON.parse(JSON.stringify(this.question));
         p.is_open = v;
         this.questions.update(p).subscribe();
+    }
+
+    public next() {
+        this.router.navigate([this.room.id, this.poll.id, this.currentQuestions[this.questionIndex + 1].id]).then();
+    }
+
+    public previous() {
+        this.router.navigate([this.room.id, this.poll.id, this.currentQuestions[this.questionIndex - 1].id]).then();
     }
 
 }
