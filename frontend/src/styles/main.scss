@@ -2,6 +2,64 @@
 @import "variables";
 @import "list";
 
+body {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #22252a;
+  color: $text-color;
+}
+
+.nav-link, .nav-link:visited {
+  color: $text-color;
+}
+
+.nav-link:hover {
+  color: #eee;
+}
+
+
+/* Links */
+a:hover {
+  color: #54d054;
+  text-decoration: none;
+}
+
+
+/* Add button */
+
+.add-button:hover, .add-button:visited,
+.add-button:link, .add-button:active {
+  text-decoration: none;
+}
+
+.add-button {
+  float: right;
+
+  width: 30px;
+  height: 30px;
+  line-height: 40px;
+
+  text-align: center;
+  font-size: 20pt;
+  color: #aaa;
+
+  border: 2px solid #aaa;
+  border-radius: 30px;
+}
+
+.add-button:hover {
+  color: #999;
+
+  border: 2px solid #999;
+}
+
+.add-button p {
+  margin-top: -6px;
+}
+
 wp-room-list {
   @include list($background-dark, $text-color-dark);
   left: 0;
@@ -33,7 +91,7 @@ wp-room-list {
       background-color: lighten($background, 15%);
 
       display: inline-block;
-      padding: 8px 13px 2px 13px;
+      padding: 3px 13px 9px 13px;
 
       border-radius: 20px;
       -webkit-box-shadow: 0 6px 10px -7px rgba(0, 0, 0, 0.75);
