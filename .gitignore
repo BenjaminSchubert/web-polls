@@ -1,6 +1,7 @@
 # editors related stuff
 .idea
 *.iml
+.vscode
 
 
 # node related stuff
