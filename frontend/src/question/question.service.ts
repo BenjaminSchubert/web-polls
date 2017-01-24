@@ -21,4 +21,8 @@ export class QuestionService extends RestService<IQuestion, INewQuestion> {
         return this.$.map((questions: IQuestion[]) =>
             questions.filter((question: IQuestion) => question.poll_id === id));
     }
+
+    public vote(question: IQuestion, vote: number[]) {
+        return this.http.post(`${this.URL}${question.id}/answer/`, vote);
+    }
 }

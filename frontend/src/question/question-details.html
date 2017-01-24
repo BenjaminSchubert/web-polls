@@ -17,9 +17,19 @@
     </div>
 
     <fieldset class="form-group" *ngIf="question?.type === 'UNIQUE'">
-        <div class="form-check" *ngFor="let choice of question?.choices">
+        <div class="form-check" *ngFor="let choice of question.choices">
             <label class="form-check-label">
                 <input type="radio" class="form-check-input" name="answer" formControlName="answer" [value]="choice.id">
+                <span></span>
+                {{ choice.text }}
+            </label>
+        </div>
+    </fieldset>
+
+    <fieldset class="form-group" *ngIf="question?.type === 'MULTIPLE'">
+        <div class="form-check" *ngFor="let choice of question.choices">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" name="answer" [formControlName]="choice.id">
                 <span></span>
                 {{ choice.text }}
             </label>
@@ -33,7 +43,7 @@
             <button class="btn btn-danger float-xs-right" (click)="delete()">Delete</button>
         </div>
         <div class="col-xs-12" *ngSwitchCase="false">
-            <button class="btn btn-primary float-xs-right" type="submit" *ngIf="!room?.owning && (poll?.is_open || question?.is_open)">Vote</button>
+            <button class="btn btn-primary float-xs-right" type="submit" *ngIf="!room?.owning && (poll?.is_open || question?.is_open)" [disabled]="!form.valid">Vote</button>
         </div>
     </div>
 </form>

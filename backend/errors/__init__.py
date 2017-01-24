@@ -30,3 +30,5 @@ invalid_room_token = ErrorMessage(message="No room with the given token was foun
 room_already_joined = ErrorMessage(message="You already are in this room", code=8)
 
 required = ErrorMessage(message="This field is required", code=9)
+
+invalid_json = ErrorMessage(message="Invalid json", code=10)

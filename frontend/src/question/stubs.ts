@@ -2,6 +2,9 @@ export interface INewChoice {
     text: string;
 }
 
+export interface IChoice extends INewChoice {
+    id: number;
+}
 
 export interface INewQuestion {
     choices: INewChoice[];
@@ -12,6 +15,7 @@ export interface INewQuestion {
 }
 
 export interface IQuestion extends INewQuestion {
+    choices: IChoice[];
     is_open: boolean;
     id: number;
 }

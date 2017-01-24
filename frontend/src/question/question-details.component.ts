@@ -7,14 +7,14 @@ import { IQuestion } from "./stubs";
 import { IPoll } from "../poll/stubs";
 import { PollService } from "../poll/poll.service";
 import { RoomService } from "../room/room.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
 
 
 @Component({
     templateUrl: "question-details.html",
 })
 export class QuestionComponent extends ErrorHandler implements OnInit {
-    public form: FormGroup;
+    public form: FormGroup = new FormGroup({});
     public poll: IPoll;
     public question: IQuestion;
     public room: IRoom;
@@ -38,13 +38,14 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
                 .subscribe((question: IQuestion) => {
                     this.question = question;
                     this.buildForm();
+                    this.checkDisable();
                 }),
             this.route.params.switchMap((p: Params) => this.polls.get(+p["poll"]))
                 .subscribe((poll: IPoll) => this.poll = poll),
             this.route.parent.parent.params.switchMap((p: Params) => this.rooms.get(+p["room"]))
                 .subscribe((room: IRoom) => {
                     this.room = room;
-                    this.disableIfOwner();
+                    this.checkDisable();
                 }),
             this.route.params.switchMap((p: Params) => this.questions.getForPoll(+p["poll"]))
                 .combineLatest(this.route.params.switchMap((p: Params) => this.questions.get(+p["question"])))
@@ -80,17 +81,38 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     }
 
     public submit() {
-        console.log(this.form.value);
+        let answer = [];
+        if (this.question.type === "UNIQUE") {
+            answer.push(this.form.value["answer"]);
+        } else {
+            for (let a of Object.keys(this.form.value)) {
+                if (this.form.get(a).value) {
+                    answer.push(a);
+                }
+            }
+        }
+        this.questions.vote(this.question, answer).subscribe();
     }
 
     private buildForm() {
-        this.form = this.builder.group({
-            "answer": [null],
-        });
+        if (this.question == undefined) {
+            return;
+        }
+
+        if (this.question.type === "UNIQUE") {
+            this.form = this.builder.group({
+                "answer": [null, Validators.required],
+            });
+        } else {
+            this.form = this.builder.group({});
+            for (let c of this.question.choices) {
+                this.form.addControl("" + c.id, new FormControl());
+            }
+        }
     }
 
-    private disableIfOwner() {
-        if (this.room !== undefined && this.room.owning) {
+    private checkDisable(): void {
+        if ((this.room !== undefined && this.room.owning) || (this.question !== undefined && !this.question.is_open)) {
             this.form.disable();
         } else {
             this.form.enable();
