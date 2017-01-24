@@ -55,6 +55,7 @@ It is strongly advised that you setup a [virtualenv](https://virtualenv.pypa.io)
 which python version you use and be ready to install python packages globally.
 
 In this section, we will use npm alongside flask and only the DB running in a docker. Here are the steps you need to do:
+
 1. Activate your virtual environment if you have created one.
 2. `set -a && source .env && set +a`, it will export the env variables that are in your `.env` file (assuming you have one, else `cp .env.sample .env` and edit `.env` as you seem fit)
 3. `./backend/scripts/runserver.sh`, it will export variables needed for the server and run the server.
