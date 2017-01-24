@@ -70,7 +70,16 @@ WEBPOLLS_DB_USER=${MYSQL_USER}
 WEBPOLLS_DB_PASSWORD=${MYSQL_PASSWORD}
 ```
 In the line above, replace the variables such as `${MYSQL_DATABASE}` by the values you want. You may want to set values that match
-the ones defined in the `.env` file. After that, you will be able to run the server using `python backend/runserver.py` and work on the backend.
+the ones defined in the `.env` file. What you could do is run `set -a && source .env && set +a` then export each one of the
+`WEBPOLLS_*` env variables (by running `export WEBPOLLS_DB_NAME=${MYSQL_DATABASE}`, for example) and they will be set directy.
+
+The only variable you need to set manually is `WEBPOLLS_DB_HOST`. If you sourced the `.env` file, you will see that the `HOST` variable is set to `db`. That alias is used between the other dockers. Here, to set `WEBPOLLS_DB_HOST`, you will need to go inside the docker
+of mariaDB running and get its IP address. You can do the following: `the docker inspect db | grep IPAddress` and the IP address
+will be on the second line of the results displayed.
+
+After that, you will be able to run the server using `python backend/runserver.py` and work on the backend. If you don't want to 
+set these variable everytime you want to start the server, you may want to set them up inside your IDE or make a script that export
+the values.
 
 To setup the frontend, here is what you must do:
 
