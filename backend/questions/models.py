@@ -2,6 +2,8 @@
 
 import enum
 
+from flask import request
+from flask_login import current_user
 from sqlalchemy import BOOLEAN
 from sqlalchemy import Column, INTEGER, ForeignKey, Enum
 from sqlalchemy import TEXT
@@ -60,6 +62,8 @@ class Choice(SerializableMixin, Base):
     def as_dict(self):
         obj = super().as_dict()
         obj["answers"] = len(self.answers)
+        if request.method == "GET":
+            obj["chosen"] = any([current_user.id == answer.user_id for answer in self.answers])
         return obj
 
 

@@ -1,9 +1,10 @@
+import { Observable } from "rxjs/Observable";
 import { Component, OnInit } from "@angular/core";
 import { ErrorHandler } from "../base/error_handler";
 import { ActivatedRoute, Params, Router } from "@angular/router";
 import { IRoom } from "../room/stubs";
 import { QuestionService } from "./question.service";
-import { IQuestion } from "./stubs";
+import { IQuestion, IChoice } from "./stubs";
 import { IPoll } from "../poll/stubs";
 import { PollService } from "../poll/poll.service";
 import { RoomService } from "../room/room.service";
@@ -37,6 +38,13 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     public ngOnInit() {
         this.subscriptions.push(
             this.route.params.switchMap((p: Params) => this.questions.get(+p["question"]))
+                .switchMap((question: IQuestion) => {
+                    if (question != null) {
+                        return this.questions.fetch(question);
+                    } else {
+                        return Observable.of(undefined);
+                    }
+                })
                 .subscribe((question: IQuestion) => {
                     this.question = question;
                     this.buildForm();
@@ -100,15 +108,16 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
         if (this.question == undefined) {
             return;
         }
-
+        
         if (this.question.type === "UNIQUE") {
+            let chosen = this.question.choices.filter((c: IChoice) => c.chosen == true);
             this.form = this.builder.group({
-                "answer": [null, Validators.required],
+                "answer": [chosen.length === 1 ? chosen[0].id : null, Validators.required],
             });
         } else {
             this.form = this.builder.group({});
             for (let c of this.question.choices) {
-                this.form.addControl("" + c.id, new FormControl());
+                this.form.addControl("" + c.id, new FormControl(c.chosen));
             }
         }
     }

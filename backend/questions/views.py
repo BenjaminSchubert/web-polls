@@ -32,9 +32,7 @@ class QuestionApiView(ApiView):
     def queryset(self):
         """Get the query on which to work."""
         return Question.query \
-            .join(Poll) \
-            .join(Room) \
-            .join(Room.participants) \
+            .options(joinedload("choices").joinedload("answers")) \
             .filter(User.rooms.any(User.id == current_user.id))
 
 
@@ -64,6 +62,9 @@ def answer_question(_id):
     for answer in data:
         db_session.add(Answer(user_id=current_user.id, choice_id=answer))
     db_session.commit()
+
+    # FIXME : using a signal would be cleaner
+    socketio.emit("item", question, namespace="/questions", room=question.poll_id)
 
     return jsonify({}), 200
 

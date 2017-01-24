@@ -4,6 +4,7 @@ export interface INewChoice {
 
 export interface IChoice extends INewChoice {
     id: number;
+    chosen: boolean;
 }
 
 export interface INewQuestion {

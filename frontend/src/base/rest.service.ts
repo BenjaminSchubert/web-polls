@@ -49,6 +49,10 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
         return this.http.delete(`${this.URL}${t.id}/`);
     }
 
+    public fetch(t: T): Observable<T> {
+        return this.http.get(`${this.URL}${t.id}/`).map((r: Response) => r.json());
+    }
+
     public get(id: number) {
         return this.$.map((rooms: T[]) => rooms.find((r: T) => r.id === id));
     }
