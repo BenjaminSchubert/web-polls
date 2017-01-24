@@ -39,7 +39,29 @@ Here are the steps you need to perform to deploy the project locally:
 3. There is a file name `.env.sample`. Copy it to a new `.env` file: `cp .env.sample .env`
 4. Open the .env file and set the various environment variables to the value you want.
 5. Launch the dockers: `docker-compose up --build`
-6. the application will be available at `localhost:8080`. Of course, if you run the dockers anywhere else than directly on your machine (on a VM for example), don't forget to replace `localhost` by the appropriate address. 
+6. the application will be available on `http://localhost:8080`. Of course, if you run the dockers anywhere else than directly on your machine (on a VM for example), don't forget to replace `localhost` by the appropriate address. 
+
+
+## Contributing
+
+If you want to contribute to the project or simply modify it, you will find here the steps to setupthe development environment.
+
+Requirements:
+* node 6 LTS (tested on 6.9.1), other versions might work but were not tested		 +* Docker 1.13.0
+* npm version 3+
+* python 3.5
+
+It is strongly advised that you setup a [virtualenv](https://virtualenv.pypa.io) before anything. If you dont' want to, be careful about 
+which python version you use and be ready to install python packages globally.
+
+In this section, we will use npm alongside flask and only the DB running in a docker. Here are the steps you need to do:
+1. Activate your virtual environment if you have created one.
+2. `set -a && source .env && set +a`, it will export the env variables that are in your `.env` file (assuming you have one, else `cp .env.sample .env` and edit `.env` as you seem fit)
+3. `./backend/scripts/runserver.sh`, it will export variables needed for the server and run the server.
+4. `cd frontend`
+5. `npm install` and then `npm run watch`
+6. The app is running on `http://localhost:8080`. Of course, if you run the server anywhere else than directly on your machine (on a VM for example), don't forget to replace `localhost` by the appropriate address. 
+7. You are ready to develop. If you change a file in the frontend, it will rebuild the project.
 
 
 ## About the developpers
