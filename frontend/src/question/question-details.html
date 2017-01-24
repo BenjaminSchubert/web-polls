@@ -11,14 +11,15 @@
     </div>
 </div>
 
-<form [formGroup]="form" class="content">
+<form [formGroup]="form" class="content" (ngSubmit)="submit()">
     <div class="row question-title">
         <h1 class="col-xs-12">{{ question?.title }}</h1>
     </div>
-    <fieldset class="form-group">
+
+    <fieldset class="form-group" *ngIf="question?.type === 'UNIQUE'">
         <div class="form-check" *ngFor="let choice of question?.choices">
             <label class="form-check-label">
-                <input [type]="question?.type === 'UNIQUE' ? 'radio' : 'checkbox'" class="form-check-input" name="answer" [disabled]="room?.owning">
+                <input type="radio" class="form-check-input" name="answer" formControlName="answer" [value]="choice.id">
                 <span></span>
                 {{ choice.text }}
             </label>
