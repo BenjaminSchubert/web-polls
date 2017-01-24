@@ -2,75 +2,81 @@
 @import "variables";
 @import "list";
 
-
 wp-room-list {
-    @include list($background-dark, $text-color-dark);
-    left: 0;
+  @include list($background-dark, $text-color-dark);
+  left: 0;
 }
 
-
 #main {
-    @extend .col-xs-6;
-    @extend .col-sm-8;
+  @extend .col-xs-6;
+  @extend .col-sm-8;
 
-    position: fixed;
-    bottom: $navbar-height;
-    top: $navbar-height;
-    right: 0;
+  position: fixed;
+  bottom: $navbar-height;
+  top: $navbar-height;
+  right: 0;
 
-    overflow-y: scroll;
+  overflow-y: scroll;
 
-    background-color: $background-light;
-    color: $text-color;
+  background-color: $background-light;
+  color: $text-color;
 
-    padding: 50px;
-    display: block;
+  padding: 50px;
+  display: block;
 
-    .header {
-        text-align: center;
+  .header {
+    text-align: center;
 
-        h1 {
-            @extend .mx-auto;
-            color: lighten($text-color, 10%);
-            background-color: lighten($background, 15%);
+    h1 {
+      @extend .mx-auto;
+      color: lighten($text-color, 10%);
+      background-color: lighten($background, 15%);
 
-            display: inline-block;
-            padding: 8px 13px 2px 13px;
+      display: inline-block;
+      padding: 8px 13px 2px 13px;
 
-            border-radius: 20px;
-            -webkit-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
-            -moz-box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
-            box-shadow: 0 6px 10px -7px rgba(0,0,0,0.75);
-        }
+      border-radius: 20px;
+      -webkit-box-shadow: 0 6px 10px -7px rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0 6px 10px -7px rgba(0, 0, 0, 0.75);
+      box-shadow: 0 6px 10px -7px rgba(0, 0, 0, 0.75);
     }
+  }
 
-    .buttons {
-        margin-bottom: 3%;
+  .buttons {
+    margin-bottom: 3%;
+  }
+
+  .content {
+    @include component-shadow;
+
+    color: $background-input;
+    background-color: $background-lighter;
+
+    padding: 30px;
+    border: 0;
+    border-radius: 20px;
+
+    .row {
+      margin-bottom: 1rem;
     }
+  }
 
-    .content {
-        @include component-shadow;
+  wp-poll-list {
+    @include list($background, $text-color-dark);
 
-        color: $background-input;
-        background-color: $background-lighter;
-
-        padding: 30px;
-        border: 0;
-        border-radius: 20px;
-
-        .row {
-            margin-bottom: 1rem;
-        }
+    left: calc(3 / 12 * 100%);
+    @media (min-width: $screen-sm-min) {
+      left: calc(2 / 12 * 100%);
     }
+  }
 
-    wp-poll-list {
-        @include list($background, $text-color-dark);
+  .question-title {
+    text-align: center;
 
-        left: calc(3 / 12 * 100%);
-        @media (min-width: $screen-sm-min) {
-            left: calc(2 / 12 * 100%);
-        }
-    }
+    padding-bottom: 20px;
+    margin-bottom: 40px;
 
+    border-bottom: 1px solid #999;
+  }
 
 }

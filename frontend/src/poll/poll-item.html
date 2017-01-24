@@ -1,4 +1,4 @@
 <span>
     {{ poll.name }}
-    <span class="active-indicator" [attr.active]="poll.active" [attr.invisible]="!poll.visible"></span>
+    <span class="active-indicator" [attr.active]="isActive | async" [attr.invisible]="!poll.visible"></span>
 </span>

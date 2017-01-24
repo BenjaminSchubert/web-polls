@@ -7,11 +7,10 @@ from sqlalchemy import or_
 from authentication.models import User
 from base.views import ApiView, register_api
 from polls.models import Poll
-from questions import Question
+from questions import Question, Choice
 from questions.forms import QuestionForm
 from rooms import Room
 from runserver import socketio
-
 
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
@@ -43,8 +42,9 @@ class QuestionsNamespace(Namespace):
         if not current_user.is_authenticated:
             return
 
-        polls = Poll.query.join(Question)\
-            .filter(User.rooms.any(User.id == current_user.id))\
+        polls = Poll.query.join(Question) \
+            .join(Choice) \
+            .filter(User.rooms.any(User.id == current_user.id)) \
             .filter(or_(Poll.visible, Room.owner_id == current_user.id)).all()
 
         for poll in polls:

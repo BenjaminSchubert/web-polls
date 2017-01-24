@@ -60,11 +60,16 @@ def register():
             if "unique" in origin:
                 # this is very likely a unique constraint fail
                 field = origin.split(":")[-1].split(".")[-1]
-                return jsonify({field: unique_constraint_failed}), 400
+                return jsonify({field: [unique_constraint_failed]}), 400
+            elif "duplicate" in origin:
+                field = origin.split("key")[-1].split('"')[0].strip().strip("'")
+                return jsonify({field: [unique_constraint_failed]}), 400
+            else:
+                raise
 
         login_user(user)
 
-        return jsonify({})
+        return jsonify({}), 201
 
     return jsonify(form.errors), 400
 

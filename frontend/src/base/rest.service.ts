@@ -36,8 +36,8 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
         this.socket.on("item", (res: T) => this.insert(res));
 
         this.account.$.subscribe(() => {
-            this.socket.disconnect();
-            this.socket.connect();
+            this.socket.io.disconnect();
+            this.socket.io.connect();
         });
     }
 

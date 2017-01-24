@@ -30,7 +30,6 @@ class RoomForm(ApiForm):
         obj = super().save()
 
         try:
-            obj.participants.append(current_user)
             obj.owner_id = current_user.id
             obj.set_token(db_session)
         except IntegrityError:

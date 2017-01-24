@@ -1,42 +1,128 @@
 @import "variables";
 
 .form-control {
-    background-color: $background-input;
+  background-color: $background-input;
 
-    &:disabled {
-        background-color: darken($background-input, 10%);
-    }
+  &:disabled {
+    background-color: darken($background-input, 10%);
+  }
 }
 
 .col-form-label,
 .form-check-inline,
 .form-control {
-    font-size: 15pt;
+  font-size: 15pt;
 }
 
 .form-check-inline {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 
-    .form-check-label {
-        padding-right: 1.25rem;
-    }
+  .form-check-label {
+    padding-right: 1.25rem;
+  }
 }
 
 .error-row {
-    margin-top: -1.1rem;
+  margin-top: -1.1rem;
 }
 
 .form-error {
-    margin-right: 0;
-    margin-left: 0;
+  margin-right: 0;
+  margin-left: 0;
 }
 
 input[type="text"]:focus, textarea:focus {
-    border: 1px solid #ddd;
-    background-color: lighten($background-input, 10%);
+  border: 1px solid #ddd;
+  background-color: lighten($background-input, 10%);
 
-    -webkit-box-shadow: 0 0 0 1px white;
-    -moz-box-shadow: 0 0 0 1px white;
-    box-shadow: 0 0 0 1px white;
+  -webkit-box-shadow: 0 0 0 1px white;
+  -moz-box-shadow: 0 0 0 1px white;
+  box-shadow: 0 0 0 1px white;
+}
+
+
+/**
+ * Style checkboxes and radio gorups
+ */
+
+.form-check-label {
+  padding-left: 2rem;
+
+  input {
+    margin-left: -2rem;
+  }
+}
+
+.form-check > label > span {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  background: #e6e6e6;
+}
+
+input[type=radio] + span {
+  border-radius: 50%;
+}
+
+/* Checked state */
+.form-check-label input:checked ~ span {
+  background: #5fba61;
+}
+
+/* Hover state whilst checked */
+.form-check-label:hover input:not([disabled]):checked ~ span,
+.form-check-label input:checked:focus ~ span {
+  background: #5fba61;
+}
+
+/* Disabled state */
+.form-check-label input:disabled ~ span {
+  pointer-events: none;
+  background: #e6e6e6;
+}
+
+/* Check mark */
+.form-check-label span:after {
+  position: absolute;
+  display: none;
+  content: '';
+}
+
+/* Show check mark */
+.form-check-label input:checked ~ span:after {
+  display: block;
+}
+
+/* Checkbox tick */
+input[type=checkbox] + span:after {
+  top: 2px;
+  left: 6px;
+  width: 9px;
+  height: 12px;
+  transform: rotate(45deg);
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+}
+
+/* Disabled tick colour */
+input[type=checkbox]:disabled ~ span:after, {
+  border-color: #7b7b7b;
+}
+
+/* Radio button inner circle */
+input[type=radio] + span:after {
+  top: 5px;
+  left: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+/* Disabled circle colour */
+input[type=radio]:disabled ~ span:after {
+  background: #7b7b7b;
 }

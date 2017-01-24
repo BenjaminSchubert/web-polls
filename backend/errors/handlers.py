@@ -34,14 +34,10 @@ def csrf_error(error):
 
     :param error: reason of why the token is missing, unused
     """
-    response = jsonify(csrf_missing)
-    response.status_code = 400
-    abort(response)
+    return jsonify(csrf_missing), 400
 
 
 @login_manager.unauthorized_handler
 def unauthorized():
     """Notify the user that he doesn't have the right to access the current resource and must login first."""
-    response = jsonify(errors.unauthorized)
-    response.status_code = 401
-    abort(response)
+    return jsonify(errors.unauthorized), 401

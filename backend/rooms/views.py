@@ -61,7 +61,7 @@ class RoomNamespace(Namespace):
         :param token: token of the room
         """
         try:
-            room = Room.query.filter(Room.token == token).join(Room.participants).one()
+            room = Room.query.filter(Room.token == token).one()
         except NoResultFound:
             return {"code": [invalid_room_token]}
 

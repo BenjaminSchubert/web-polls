@@ -7,6 +7,7 @@ import { PollCreationComponent } from "./poll/poll-creation.component";
 import { RoomContainerComponent } from "./room/room-container.component";
 import { PollComponent } from "./poll/poll-details.component";
 import { QuestionCreationComponent } from "./question/question-creation.component";
+import { QuestionComponent } from "./question/question-details.component";
 
 
 const routes: Routes = [
@@ -28,6 +29,10 @@ const routes: Routes = [
                             {
                                 component: QuestionCreationComponent,
                                 path: "new",
+                            },
+                            {
+                                component: QuestionComponent,
+                                path: ":question",
                             },
                             {
                                 component: PollComponent,

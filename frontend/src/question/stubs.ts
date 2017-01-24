@@ -12,6 +12,6 @@ export interface INewQuestion {
 }
 
 export interface IQuestion extends INewQuestion {
-    open: boolean;
+    is_open: boolean;
     id: number;
 }

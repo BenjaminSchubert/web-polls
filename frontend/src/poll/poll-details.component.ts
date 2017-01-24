@@ -64,6 +64,12 @@ export class PollComponent extends ErrorHandler implements OnInit {
         this.service.update(p).subscribe();
     }
 
+    public setOpen(v: boolean) {
+        let p = JSON.parse(JSON.stringify(this.poll));
+        p.is_open = v;
+        this.service.update(p).subscribe();
+    }
+
     public addQuestion() {
         this.router.navigate([this.room.id, this.poll.id, "new"]).then();
     }

@@ -24,7 +24,6 @@ export class LoginComponent extends ErrorHandler implements OnInit {
     }
 
     protected set registering(value: boolean) {
-        this._registering = value;
         this._showRegistrationForm$.next(value);
     }
 
@@ -61,6 +60,7 @@ export class LoginComponent extends ErrorHandler implements OnInit {
                     this.form.removeControl(repeatPasswordField);
                     this.form.removeControl("email");
                 }
+                this._registering = show;
             }),
             this.account.loginIsRequested$.subscribe(() => {
                 this.form.reset();

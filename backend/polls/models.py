@@ -34,7 +34,7 @@ class Poll(SerializableMixin, Base):
     description = Column(TEXT)
     name = Column(VARCHAR(255))
     type = Column(Enum(PollType))
-    open_until = Column(TIMESTAMP, default=None)
+    is_open = Column(BOOLEAN, default=False)
     visible = Column(BOOLEAN, default=False)
     room_id = Column(INTEGER, ForeignKey("rooms.id", ondelete="CASCADE"), nullable=False)
     room = relationship("Room")

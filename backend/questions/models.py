@@ -30,9 +30,14 @@ class Question(SerializableMixin, Base):
     id = Column(INTEGER, primary_key=True)
     title = Column(TEXT)
     type = Enum(QuestionType)
-    open = Column(BOOLEAN, default=False)
+    is_open = Column(BOOLEAN, default=False)
     poll_id = Column(INTEGER, ForeignKey("polls.id", ondelete="CASCADE"), nullable=False)
     poll = relationship("Poll", backref="questions")
+
+    def as_dict(self):
+        obj = super().as_dict()
+        obj["choices"] = self.choices
+        return obj
 
 
 class Choice(SerializableMixin, Base):

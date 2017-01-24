@@ -9,7 +9,9 @@
         <button class="btn btn-danger float-xs-right" (click)="delete()">Delete</button>
         <button class="btn btn-primary float-xs-right" (click)="edit()">Edit</button>
         <button class="btn btn-primary float-xs-right" (click)="setVisible(true)" *ngIf="!poll?.visible">Make Visible</button>
-        <button class="btn btn-danger float-xs-right" (click)="setVisible(false)" *ngIf="poll?.visible">Hide</button>
+        <button class="btn btn-danger float-xs-right" (click)="setVisible(false)" *ngIf="poll?.visible && !poll?.is_open">Hide</button>
+        <button class="btn btn-primary float-xs-right" (click)="setOpen(true)" *ngIf="!poll?.is_open && poll?.visible">Open Poll</button>
+        <button class="btn btn-danger float-xs-right" (click)="setOpen(false)" *ngIf="poll?.is_open && poll?.visible">Close Poll</button>
     </div>
 </div>
 
@@ -22,7 +24,7 @@
     </div>
 
     <div class="form-group row" *ngFor="let question of questions.getForPoll(poll?.id) | async">
-        {{ question.title }}
+        <a [routerLink]="[question.id]">{{ question.title }}</a>
     </div>
     <div class="form-group row">
         <div class="col-xs-12">

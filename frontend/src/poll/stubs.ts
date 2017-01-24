@@ -5,8 +5,7 @@ export interface INewPoll {
 }
 
 export interface IPoll extends INewPoll {
-    active: boolean;
     id: number;
-    last_active: string;
+    is_open: boolean;
     visible: boolean;
 }
