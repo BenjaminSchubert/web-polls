@@ -56,7 +56,7 @@ class RoomApiView(ApiView):
             if len(current_user.rooms) == 0:
                 return Room.query.filter(sql.false())
             return Room.query.filter(Room.id.in_([r.id for r in current_user.rooms]))
-        
+
         if session.get("rooms") is not None:
             return Room.query.filter(Room.id.in_(session.get("rooms")))
         return Room.query.filter(sql.false())

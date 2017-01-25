@@ -3,7 +3,6 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 import { ErrorHandler } from "../base/error_handler";
 import { RoomService } from "./room.service";
 import { Router } from "@angular/router";
-import { TError } from "../base/stubs";
 import { Response } from "@angular/http";
 
 
@@ -28,7 +27,7 @@ export class RoomIndexComponent extends ErrorHandler implements OnInit {
     public submit() {
         this.rooms.join(this.form.value).subscribe(
             (data: Response) => this.router.navigate([data.json().id]).then(),
-            (data: TError) => this.handleError(data, this.form),
+            (data: Response) => this.handleError(data.json(), this.form),
         );
     }
 }
