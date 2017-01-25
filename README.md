@@ -8,7 +8,7 @@ result for a question at any time.
 
 Our landing page can be found [there](https://benjaminschubert.github.io/web-polls/).
 
-You can see a preview of the app on our [wiki](https://github.com/BenjaminSchubert/web-polls/wiki/Preview-of-the-app).
+You can try the app deployed [here](https://polls.benschubert.me/).
 
 ## Frameworks used
 On the backend we are using :
