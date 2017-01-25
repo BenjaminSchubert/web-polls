@@ -1,5 +1,5 @@
 import * as io from "socket.io-client";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
+import { ReplaySubject } from "rxjs/ReplaySubject";
 import { Observable } from "rxjs/Observable";
 import { Subject } from "rxjs/Subject";
 import { Response, Http } from "@angular/http";
@@ -12,7 +12,7 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     public new$: Observable<T>;
 
     protected t: T[];
-    protected _$: BehaviorSubject<T[]>;
+    protected _$: ReplaySubject<T[]>;
     protected _new$: Subject<T>;
 
     // tslint:disable-next-line:no-any
@@ -20,7 +20,7 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
 
     constructor(protected url: string, protected http: Http, protected account: AccountService, ioRoom: string) {
         this.t = [];
-        this._$ = new BehaviorSubject(this.t);
+        this._$ = new ReplaySubject(1);
         this._new$ = new Subject();
         this.$ = this._$.asObservable();
         this.new$ = this._new$.asObservable();

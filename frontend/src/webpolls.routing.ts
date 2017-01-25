@@ -8,6 +8,7 @@ import { RoomContainerComponent } from "./room/room-container.component";
 import { PollComponent } from "./poll/poll-details.component";
 import { QuestionCreationComponent } from "./question/question-creation.component";
 import { QuestionComponent } from "./question/question-details.component";
+import { RoomGuard } from "./room/room.guard";
 
 
 const routes: Routes = [
@@ -46,6 +47,7 @@ const routes: Routes = [
                         path: "",
                     },
                 ],
+                canActivate: [RoomGuard],
                 component: RoomContainerComponent,
                 path: ":room",
             },

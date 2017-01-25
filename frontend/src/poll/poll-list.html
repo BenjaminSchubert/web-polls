@@ -19,7 +19,7 @@
     </wp-scrollable>
 </template>
 
-<template [ngIf]="(service.getForRoom(room?.id) | async).length == 0">
+<template [ngIf]="(service.getForRoom(room?.id) | async)?.length == 0">
     <div class="center">
         Please select a room to show its polls
     </div>
