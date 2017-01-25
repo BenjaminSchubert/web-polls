@@ -1,4 +1,4 @@
-<template [ngIf]="(service.getForRoom(room?.id) | async).length > 0">
+<template [ngIf]="room != null">
     <wp-scrollable>
         <div header>
             <h4>Available Polls</h4>
