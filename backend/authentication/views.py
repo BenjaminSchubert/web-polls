@@ -2,6 +2,7 @@
 
 from flask import jsonify
 from flask import request
+from flask import session
 from flask_login import login_user, login_required, logout_user, current_user
 from sqlalchemy.exc import IntegrityError
 
@@ -9,6 +10,7 @@ from authentication.forms import RegisterForm, LoginForm
 from authentication.models import User
 from database import db_session
 from errors import bad_credentials, unique_constraint_failed
+from questions import Answer, Room
 from runserver import app
 
 
@@ -52,6 +54,14 @@ def register():
         user = User()
         form.populate_obj(user)
         db_session.add(user)
+
+        if session.get("rooms") is not None:
+            for room in Room.query.filter(Room.id.in_(session["rooms"])).all():
+                room.participants.append(user)
+
+        for answer in Answer.query.filter(Answer.anonymous_id == session["id"]).all():
+            answer.anonymous_id = None
+            answer.user = user
 
         try:
             db_session.commit()

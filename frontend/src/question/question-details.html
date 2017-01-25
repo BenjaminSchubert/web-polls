@@ -9,7 +9,7 @@
         <div class="col-xs-12">
             <button class="btn btn-primary" *ngIf="questionIndex != 0" (click)="previous()">Previous</button>
             <button class="btn btn-primary float-xs-right" *ngIf="questionIndex != questionPoolSize - 1" (click)="next()">Next</button>
-            <button class="btn btn-primary float-xs-right" *ngIf="!inPresentationMode" (click)="startPresentation()">Start Presentation</button>
+            <button class="btn btn-primary float-xs-right" *ngIf="room?.owning && !inPresentationMode" (click)="startPresentation()">Start Presentation</button>
         </div>
     </div>
 
