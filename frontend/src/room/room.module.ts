@@ -8,7 +8,6 @@ import { RoomItemComponent } from "./room-item.component";
 import { RoomListComponent } from "./room-list.component";
 import { RoomContainerComponent } from "./room-container.component";
 import { PollModule } from "../poll/poll.module";
-import { RoomGuard } from "./room.guard";
 
 
 @NgModule({
@@ -30,7 +29,6 @@ export class RoomModule {
             ngModule: RoomModule,
             providers: [
                 RoomService,
-                RoomGuard,
             ],
         };
     }

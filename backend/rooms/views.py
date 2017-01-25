@@ -19,7 +19,8 @@ __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 
 class AlreadyJoinedException(Exception):
-    pass
+    def __init__(self, id):
+        self.id = id
 
 
 def _join_room(token):
@@ -31,13 +32,13 @@ def _join_room(token):
             db_session.commit()
             return room.id
         else:
-            raise AlreadyJoinedException()
+            raise AlreadyJoinedException(room.id)
     else:
         if session.get("rooms") is None:
             session["rooms"] = []
 
         if room.id in session["rooms"]:
-            raise AlreadyJoinedException()
+            raise AlreadyJoinedException(room.id)
         session["rooms"].append(room.id)
         session.modified = True
         return room.id
@@ -80,9 +81,12 @@ def join_room_view(token):
 def quit_room(room_id):
     room = Room.query.join(Room.participants).filter(Room.id == room_id).one_or_none()
 
-    if room is not None and current_user.is_authenticated:
-        room.participants.remove(current_user)
-        db_session.commit()
+    if room is not None:
+        if current_user.is_authenticated:
+            room.participants.remove(current_user)
+            db_session.commit()
+        else:
+            session.get("rooms", []).remove(room.id)
 
     return jsonify({"id": room_id})
 
@@ -116,7 +120,9 @@ class RoomNamespace(Namespace):
             return {"id": _id}
         except NoResultFound:
             return {"code": [invalid_room_token]}
-        except AlreadyJoinedException:
+        except AlreadyJoinedException as e:
+            join_room(e.id)
+            emit("item", e.id)
             return {"code": [room_already_joined]}
 
 

@@ -5,7 +5,6 @@ import { PollListComponent } from "./poll-list.component";
 import { PollService } from "./poll.service";
 import { PollCreationComponent } from "./poll-creation.component";
 import { PollComponent } from "./poll-details.component";
-import { PollGuard } from "./poll.guard";
 
 
 @NgModule({
@@ -19,7 +18,7 @@ export class PollModule {
         return {
             ngModule: PollModule,
             providers: [
-                PollService, PollGuard,
+                PollService,
             ],
         };
     }
