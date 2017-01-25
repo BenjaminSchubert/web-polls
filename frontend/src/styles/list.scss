@@ -4,6 +4,7 @@
 @mixin list($_background-color, $_text-color) {
     @extend .col-xs-3;
     @extend .col-sm-2;
+    @include list-shadow;
 
     position: fixed;
     bottom: $navbar-height;
