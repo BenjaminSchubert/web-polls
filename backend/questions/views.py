@@ -11,7 +11,7 @@ from authentication.models import User
 from base.views import ApiView, register_api
 from database import db_session
 from errors import invalid_json
-from errors.http import NotFoundException, BadRequestException
+from errors.http import NotFoundException, BadRequestException, ForbiddenException
 from polls.models import Poll
 from questions import Question, Choice, Answer, QuestionType
 from questions.forms import QuestionForm
@@ -39,15 +39,26 @@ class QuestionApiView(ApiView):
             return Question.query.filter(Room.id.in_(session.get("rooms")))
         return Question.query.filter(sql.false())
 
+    def check_object_permissions(self, obj, method):
+        if method in ["POST", "DELETE", "PUT"]:
+            if obj.poll.room.owner != current_user:
+                raise ForbiddenException()
+        else:
+            if (current_user.is_authenticated and current_user not in obj.poll.room.participants) or \
+                    (current_user.is_anonymous and obj.poll.room.id not in session.get("rooms")):
+                raise ForbiddenException()
+
 
 def answer_question(_id):
     # FIXME : this could be done in a smarter way, without redoing everything
-    question = Question.query.options(joinedload("choices")) \
+    question = Question.query \
         .filter(Question.id == _id) \
         .filter(Question.is_open) \
         .one_or_none()
 
-    if question is None:
+    if question is None or \
+            (current_user.is_authenticated and current_user not in question.poll.room.participants) or \
+            (current_user.is_anonymous and question.poll.room.id not in session.get("room", [])):
         raise NotFoundException()
 
     try:

@@ -10,6 +10,7 @@ from sqlalchemy.orm import joinedload
 from authentication.models import User
 from base.views import ApiView, register_api
 from database import db_session
+from errors.http import ForbiddenException
 from polls.forms import PollForm
 from polls.models import Poll, PollType
 from questions import Question
@@ -36,6 +37,15 @@ class PollApiView(ApiView):
         if session.get("rooms") is not None:
             return Poll.query.filter(Poll.room_id.in_(session.get("rooms")))
         return Poll.query.filter(sql.false())
+
+    def check_object_permissions(self, obj, method):
+        if method in ["POST", "DELETE", "PUT"]:
+            if obj.room.owner != current_user:
+                raise ForbiddenException()
+        else:
+            if (current_user.is_authenticated and current_user not in obj.room.participants) or \
+                    (current_user.is_anonymous and obj.room.id not in session.get("rooms")):
+                raise ForbiddenException()
 
 
 def open_poll(_id):

@@ -35,6 +35,11 @@ class BaseHTTPException(Exception):
             self.status_code = status_code
 
 
+class ForbiddenException(BaseHTTPException):
+    def __init__(self):
+        super().__init__({}, 401)
+
+
 class BadRequestException(BaseHTTPException):
     """This is an exception to throw to return a 400 BAD REQUEST to the user."""
 

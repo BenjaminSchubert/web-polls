@@ -10,6 +10,7 @@ from authentication.models import User
 from base.views import ApiView, register_api
 from database import db_session
 from errors import invalid_room_token, room_already_joined
+from errors.http import ForbiddenException
 from rooms.forms import RoomForm
 from rooms.models import Room
 from runserver import socketio, app
@@ -56,6 +57,11 @@ class RoomApiView(ApiView):
         if session.get("rooms") is not None:
             return Room.query.filter(Room.id.in_(session.get("rooms")))
         return Room.query.filter(sql.false())
+
+    def check_object_permissions(self, obj, method):
+        if method in ["POST", "DELETE", "PUT"]:
+            if obj.owner != current_user:
+                raise ForbiddenException()
 
     def get_form(self, obj=None):
         """Get the form to create or update a room."""
