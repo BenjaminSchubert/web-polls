@@ -33,9 +33,10 @@ class PollApiView(ApiView):
     def queryset(self):
         """Get the query on which to work."""
         if current_user.is_authenticated:
-            return Poll.query.filter(User.rooms.any(User.id == current_user.id))
+            return Poll.query.filter(User.rooms.any(User.id == current_user.id))\
+                .filter(or_(Poll.visible, Room.owner_id == current_user.id))
         if session.get("rooms") is not None:
-            return Poll.query.filter(Poll.room_id.in_(session.get("rooms")))
+            return Poll.query.filter(Poll.room_id.in_(session.get("rooms"))).filter(Poll.visible)
         return Poll.query.filter(sql.false())
 
     def check_object_permissions(self, obj, method):
