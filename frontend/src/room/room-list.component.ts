@@ -9,7 +9,10 @@ import { Router } from "@angular/router";
     templateUrl: "room-list.html",
 })
 export class RoomListComponent {
-    constructor(public service: RoomService, public user: AccountService, private router: Router) {}
+    constructor(public service: RoomService,
+                public user: AccountService,
+                private router: Router) {
+    }
 
     public requestLogin() {
         this.user.requestLogin();

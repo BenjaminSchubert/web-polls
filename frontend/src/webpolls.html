@@ -1,6 +1,6 @@
 <div id="content">
     <!-- menu -->
-    <nav id="menu" class="navbar navbar-fixed-top">
+    <nav id="menu" class="navbar navbar-fixed-top" *ngIf="!(fullScreen.requested$ | async)">
         <!-- left menu -->
         <ul class="nav navbar-nav">
             <li class="nav-item" routerLinkActive="active">
@@ -28,12 +28,12 @@
     <menu></menu>
 
     <div class="row">
-        <wp-room-list class="list"></wp-room-list>
+        <wp-room-list class="list" *ngIf="!(fullScreen.requested$ | async)"></wp-room-list>
         <div id="main"><router-outlet></router-outlet></div>
     </div>
 </div>
 
-<footer class="navbar navbar-fixed-bottom">
+<footer class="navbar navbar-fixed-bottom" *ngIf="!(fullScreen.requested$ | async)">
     <ul class="nav navbar-nav float-xs-right">
         <li class="nav-item">
             <a class="nav-link" href="">Contact</a>

@@ -8,6 +8,7 @@ import { IPoll } from "../poll/stubs";
 import { PollService } from "../poll/poll.service";
 import { RoomService } from "../room/room.service";
 import { FormBuilder, FormGroup, FormControl, Validators } from "@angular/forms";
+import { FullScreenService } from "../fullscreen.service";
 
 
 @Component({
@@ -31,7 +32,8 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
                 private polls: PollService,
                 private rooms: RoomService,
                 private router: Router,
-                private builder: FormBuilder) {
+                private builder: FormBuilder,
+                private fullScreen: FullScreenService) {
         super();
     }
 
@@ -98,6 +100,7 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     }
 
     public startPresentation() {
+        this.fullScreen.open();
         this.inPresentationMode = true;
         this.setOpen(true);
     }
@@ -106,12 +109,15 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
         if (event.key === ".") {
             this.inPresentationMode = false;
             this.hasOpen = false;
+            this.fullScreen.close();
         } else if (event.key === "Escape") {
             if (this.inPresentationMode) {
                 this.inPresentationMode = false;
                 this.hasOpen = false;
+                this.fullScreen.close();
             } else {
                 this.inPresentationMode = true;
+                this.fullScreen.open();
             }
         } else if (event.key === "PageDown") {
             if (!this.hasOpen) {

@@ -9,6 +9,7 @@ import { AuthModule } from "./auth/auth.module";
 import { PollModule } from "./poll/poll.module";
 import { RoomModule } from "./room/room.module";
 import { QuestionModule } from "./question/question.module";
+import { FullScreenService } from "./fullscreen.service";
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import { QuestionModule } from "./question/question.module";
         AuthModule.forRoot(), PollModule.forRoot(), RoomModule.forRoot(), QuestionModule.forRoot(),
     ],
     providers: [
-        {provide: RequestOptions, useClass: ExtendedRequestOptions},
+        {provide: RequestOptions, useClass: ExtendedRequestOptions}, FullScreenService,
     ],
 })
 export class WebPollsModule {
