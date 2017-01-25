@@ -9,6 +9,7 @@ import { PollComponent } from "./poll/poll-details.component";
 import { QuestionCreationComponent } from "./question/question-creation.component";
 import { QuestionComponent } from "./question/question-details.component";
 import { RoomGuard } from "./room/room.guard";
+import { PollGuard } from "./poll/poll.guard";
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
                                 path: "",
                             },
                         ],
+                        canActivate: [PollGuard],
                         path: ":poll",
                     },
                     {
