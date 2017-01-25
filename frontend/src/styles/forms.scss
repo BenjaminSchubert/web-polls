@@ -42,8 +42,12 @@ input[type="text"]:focus, textarea:focus {
 }
 
 
+.form-check {
+  margin-bottom: 0px !important;
+}
+
 /**
- * Style checkboxes and radio gorups
+ * Style checkboxes and radio groups
  */
 
 .form-check-label {
@@ -63,6 +67,18 @@ input[type="text"]:focus, textarea:focus {
   background: #e6e6e6;
 }
 
+.form-check.disabled {
+  cursor: disabled;
+
+  span {
+    background: #b3b1b1 !important;
+  }
+
+  p {
+    color: $text-color-lighter !important;
+  }
+}
+
 input[type=radio] + span {
   border-radius: 50%;
 }
@@ -76,12 +92,6 @@ input[type=radio] + span {
 .form-check-label:hover input:not([disabled]):checked ~ span,
 .form-check-label input:checked:focus ~ span {
   background: #5fba61;
-}
-
-/* Disabled state */
-.form-check-label input:disabled ~ span {
-  pointer-events: none;
-  background: #e6e6e6;
 }
 
 /* Check mark */
@@ -120,9 +130,4 @@ input[type=radio] + span:after {
   height: 10px;
   border-radius: 50%;
   background: #fff;
-}
-
-/* Disabled circle colour */
-input[type=radio]:disabled ~ span:after {
-  background: #7b7b7b;
 }

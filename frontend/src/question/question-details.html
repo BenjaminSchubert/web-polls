@@ -23,22 +23,22 @@
             <!-- question -->
             <div class="col-xs-6">
                 <fieldset class="form-group" *ngIf="question?.type === 'UNIQUE'">
-                    <div class="form-check" *ngFor="let choice of question.choices">
+                    <div class="form-check" [ngClass]="{disabled: room?.owning}" *ngFor="let choice of question.choices">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="answer" formControlName="answer"
                                    [value]="choice.id">
                             <span></span>
-                            {{ choice.text }}
+                            <p>{{ choice.text }}</p>
                         </label>
                     </div>
                 </fieldset>
 
                 <fieldset class="form-group" *ngIf="question?.type === 'MULTIPLE'">
-                    <div class="form-check" *ngFor="let choice of question.choices">
+                    <div class="form-check"  [ngClass]="{disabled: room?.owning}" *ngFor="let choice of question.choices">
                         <label class="form-check-label">
                             <input type="checkbox" class="form-check-input" name="answer" [formControlName]="choice.id">
                             <span></span>
-                            {{ choice.text }}
+                            <p>{{ choice.text }}</p>
                         </label>
                     </div>
                 </fieldset>
