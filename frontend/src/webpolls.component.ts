@@ -9,7 +9,6 @@ import { Router } from "@angular/router";
 @Component({
     encapsulation: ViewEncapsulation.None,
     selector: "wp-app",
-    styleUrls: ["webpolls.css"],
     templateUrl: "webpolls.html",
 })
 export class WebpollsComponent {
