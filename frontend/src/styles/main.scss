@@ -140,6 +140,39 @@ wp-room-list {
     border-bottom: 1px solid #999;
   }
 
+  #token {
+    cursor: copy;
+  }
+
+  #questions-list {
+    background-color: $background-light;
+
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 10px;
+
+    border-radius: 5px;
+    font-size: 18px;
+    color: #b1c785;
+
+    .active-indicator {
+      margin-top: 7px;
+    }
+
+    a {
+      color: #b1c785;
+
+      &:hover {
+         color: #a8f707;
+      }
+    }
+
+    div {
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+  }
+
   .results {
     .row {
       margin-bottom: 0;
