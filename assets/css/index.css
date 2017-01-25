@@ -3,14 +3,6 @@ body {
 	color: #a5a5a5;
 }
 
-.navbar-brand {
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
-
-    font-size: 18pt;
-}
-
 h1, h2 {
 	color: #ccc;
 }
