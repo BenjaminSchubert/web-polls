@@ -21,7 +21,8 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     public currentQuestions: IQuestion[];
     public questionPoolSize = 0;
     public questionIndex = 0;
-    public editing: boolean = false;
+    public inPresentationMode: boolean = false;
+    public hasOpen: boolean = false;
 
     public colors = ["#459b45", "#51b2de", "#a357dc", "#f36565", "#eaac39", "#fff177"];
 
@@ -94,6 +95,51 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
             }
         }
         this.questions.vote(this.question, answer).subscribe();
+    }
+
+    public startPresentation() {
+        this.inPresentationMode = true;
+        this.setOpen(true);
+    }
+
+    public onKey(event: KeyboardEvent) {
+        if (event.key === ".") {
+            this.inPresentationMode = false;
+            this.hasOpen = false;
+        } else if (event.key === "Escape") {
+            if (this.inPresentationMode) {
+                this.inPresentationMode = false;
+                this.hasOpen = false;
+            } else {
+                this.inPresentationMode = true;
+            }
+        } else if (event.key === "PageDown") {
+            if (!this.hasOpen) {
+                if (!this.question.is_open) {
+                    this.setOpen(true);
+                }
+                this.hasOpen = true;
+            } else if (this.hasOpen && this.question.is_open) {
+                this.setOpen(false);
+            } else if (this.hasOpen && !this.question.is_open) {
+                if (this.questionIndex !== this.questionPoolSize - 1) {
+                    this.next();
+                    this.hasOpen = false;
+                }
+            }
+        } else if (event.key === "PageUp") {
+            if (!this.hasOpen) {
+                if (this.questionIndex !== 0) {
+                    this.previous();
+                    this.hasOpen = true;
+                }
+            } else if (this.question.is_open) {
+                this.setOpen(false);
+                this.hasOpen = false;
+            } else {
+                this.setOpen(true);
+            }
+        }
     }
 
     private buildForm() {

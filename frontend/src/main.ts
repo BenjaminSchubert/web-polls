@@ -3,7 +3,7 @@ import { enableProdMode } from "@angular/core";
 import { WebPollsModuleNgFactory } from "../compiled/src/webpolls.module.ngfactory";
 
 
-if (process.env.ENV === "production") {
+if (process.env.NODE_ENV === "production") {
     // Production
     enableProdMode();
 }

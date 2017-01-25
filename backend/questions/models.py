@@ -78,7 +78,7 @@ class Answer(SerializableMixin, Base):
     id = Column(INTEGER, primary_key=True)
 
     choice_id = Column(INTEGER, ForeignKey("choices.id", ondelete="CASCADE"), nullable=False)
-    choice = relationship("Choice", backref="answers")
+    choice = relationship("Choice", backref=backref("answers", cascade="all, delete-orphan"))
 
     user_id = Column(INTEGER, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     user = relationship("User")
