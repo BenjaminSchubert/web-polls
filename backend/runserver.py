@@ -48,7 +48,7 @@ app.json_encoder = CustomJSONEncoder
 # noinspection PyUnresolvedReferences
 from database import Base, db_session
 # noinspection PyUnresolvedReferences
-from authentication import User
+from authentication import User, AnonymousUser
 # noinspection PyUnresolvedReferences
 from errors.handlers import *  # noqa
 # noinspection PyUnresolvedReferences
@@ -59,6 +59,9 @@ from polls import *  # noqa
 from rooms import *  # noqa
 # noinspection PyUnresolvedReferences
 from questions import *  # noqa
+
+
+login_manager.anonymous_user = AnonymousUser
 
 
 @app.teardown_request

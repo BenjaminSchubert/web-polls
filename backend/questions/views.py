@@ -1,8 +1,10 @@
 """Defines all views related to questions."""
 from flask import request, jsonify
+from flask import session
 from flask_login import current_user
 from flask_socketio import join_room, emit, Namespace
 from sqlalchemy import or_
+from sqlalchemy import sql
 from sqlalchemy.orm import joinedload
 
 from authentication.models import User
@@ -31,9 +33,11 @@ class QuestionApiView(ApiView):
     @property
     def queryset(self):
         """Get the query on which to work."""
-        return Question.query \
-            .options(joinedload("choices").joinedload("answers")) \
-            .filter(User.rooms.any(User.id == current_user.id))
+        if current_user.is_authenticated:
+            return Question.query.filter(User.rooms.any(User.id == current_user.id))
+        if session.get("rooms") is not None:
+            return Question.query.filter(Room.id.in_(session.get("rooms")))
+        return Question.query.filter(sql.false())
 
 
 def answer_question(_id):
@@ -55,16 +59,25 @@ def answer_question(_id):
     if question.type == QuestionType.UNIQUE and len(data) != 1:
         raise BadRequestException(invalid_json)
 
-    Answer.query.filter(Answer.user_id == current_user.id) \
-        .filter(Answer.choice_id.in_(db_session.query(Choice.id).filter(Choice.question_id == question.id))) \
-        .delete(synchronize_session="fetch")
+    if current_user.is_authenticated:
+        Answer.query.filter(Answer.user_id == current_user.id) \
+            .filter(Answer.choice_id.in_(db_session.query(Choice.id).filter(Choice.question_id == question.id))) \
+            .delete(synchronize_session="fetch")
 
-    for answer in data:
-        db_session.add(Answer(user_id=current_user.id, choice_id=answer))
+        for answer in data:
+            db_session.add(Answer(user_id=current_user.id, choice_id=answer))
+    else:
+        Answer.query.filter(Answer.anonymous_id == session["id"]) \
+            .filter(Answer.choice_id.in_(db_session.query(Choice.id).filter(Choice.question_id == question.id))) \
+            .delete(synchronize_session="fetch")
+
+        for answer in data:
+            db_session.add(Answer(anonymous_id=session["id"], choice_id=answer))
+
     db_session.commit()
 
     # FIXME : using a signal would be cleaner
-    socketio.emit("item", question, namespace="/questions", room=question.poll_id)
+    socketio.emit("item", question.id, namespace="/questions", room=question.poll_id)
 
     return jsonify({}), 200
 
@@ -74,18 +87,20 @@ class QuestionsNamespace(Namespace):
 
     def on_connect(self):
         """Check that the user is authenticated and registers him to its polls."""
-        if not current_user.is_authenticated:
-            return
-
-        polls = Poll.query.join(Question) \
-            .join(Choice) \
-            .filter(User.rooms.any(User.id == current_user.id)) \
-            .filter(or_(Poll.visible, Room.owner_id == current_user.id)).all()
+        if current_user.is_authenticated:
+            polls = Poll.query \
+                .filter(User.rooms.any(User.id == current_user.id)) \
+                .filter(or_(Poll.visible.is_(True), Room.owner_id == current_user.id)).all()
+        else:
+            if session.get("rooms") is not None:
+                polls = Poll.query \
+                    .filter(Room.id.in_(session.get("rooms"))) \
+                    .filter(Poll.visible.is_(True)).all()
+            else:
+                polls = []
 
         for poll in polls:
             join_room(poll.id)
-
-        emit("list", [question for poll in polls for question in poll.questions])
 
     def on_join(self, _id):
         """
@@ -97,6 +112,8 @@ class QuestionsNamespace(Namespace):
 
         if poll.visible or poll.room.owner == current_user:
             join_room(_id)
+            for question in poll.questions:
+                emit("item", question.id)
 
 
 register_api(QuestionApiView, "questions", "/questions/")

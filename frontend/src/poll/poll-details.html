@@ -1,4 +1,4 @@
-<div class="row header" *ngIf="!editing">
+<div class="row header">
     <div class="col-xs-12">
         <h1>{{ poll?.name }}</h1>
     </div>
@@ -7,7 +7,6 @@
 <div class="row buttons">
     <div class="col-xs-12" *ngIf="room?.owning">
         <button class="btn btn-danger float-xs-right" (click)="delete()">Delete</button>
-        <button class="btn btn-primary float-xs-right" (click)="edit()">Edit</button>
         <button class="btn btn-primary float-xs-right" (click)="setVisible(true)" *ngIf="!poll?.visible">Make Visible</button>
         <button class="btn btn-danger float-xs-right" (click)="setVisible(false)" *ngIf="poll?.visible && !poll?.is_open">Hide</button>
         <button class="btn btn-primary float-xs-right" (click)="setOpen(true)" *ngIf="(hasClosedQuestions() | async) && poll?.visible">Open Poll</button>
@@ -32,7 +31,7 @@
     </div>
     <div class="form-group row">
         <div class="col-xs-12">
-            <button class="btn btn-primary float-xs-right" (click)="addQuestion()">Add Question</button>
+            <button class="btn btn-primary float-xs-right" (click)="addQuestion()" *ngIf="room?.owning">Add Question</button>
         </div>
     </div>
 </div>

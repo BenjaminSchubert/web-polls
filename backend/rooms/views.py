@@ -1,7 +1,9 @@
 """Defines all views related to rooms."""
 from flask import jsonify
+from flask import session
 from flask_login import current_user
 from flask_socketio import Namespace, emit, join_room
+from sqlalchemy import sql
 from sqlalchemy.orm.exc import NoResultFound
 
 from authentication.models import User
@@ -15,6 +17,31 @@ from runserver import socketio, app
 __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 
+class AlreadyJoinedException(Exception):
+    pass
+
+
+def _join_room(token):
+    room = Room.query.filter(Room.token == token).one()
+
+    if current_user.is_authenticated:
+        if current_user not in room.participants:
+            room.participants.append(current_user)
+            db_session.commit()
+            return room.id
+        else:
+            raise AlreadyJoinedException()
+    else:
+        if session.get("rooms") is None:
+            session["rooms"] = []
+
+        if room.id in session["rooms"]:
+            raise AlreadyJoinedException()
+        session["rooms"].append(room.id)
+        session.modified = True
+        return room.id
+
+
 class RoomApiView(ApiView):
     """Defines views related to rooms."""
 
@@ -23,11 +50,25 @@ class RoomApiView(ApiView):
     @property
     def queryset(self):
         """Get the query on which to work."""
-        return Room.query.join(Room.participants).filter(User.rooms.any(User.id == current_user.id))
+        if current_user.is_authenticated:
+            return Room.query.filter(User.rooms.any(User.id == current_user.id))
+
+        if session.get("rooms") is not None:
+            return Room.query.filter(Room.id.in_(session.get("rooms")))
+        return Room.query.filter(sql.false())
 
     def get_form(self, obj=None):
         """Get the form to create or update a room."""
         return RoomForm(obj=obj, owner=current_user)
+
+
+def join_room_view(token):
+    try:
+        return jsonify({"id": _join_room(token)})
+    except NoResultFound:
+        return jsonify({"code": [invalid_room_token]}), 400
+    except AlreadyJoinedException:
+        return jsonify({"code": [room_already_joined]}), 400
 
 
 def quit_room(room_id):
@@ -46,13 +87,15 @@ class RoomNamespace(Namespace):
     def on_connect(self):
         """Check that the user is authenticated and registers him to its rooms."""
         if not current_user.is_authenticated:
-            return
-
-        rooms = Room.query.join(Room.participants).filter(User.rooms.any(User.id == current_user.id)).all()
+            if session.get("rooms") is not None:
+                rooms = Room.query.filter(Room.id.in_(session.get("rooms"))).all()
+            else:
+                rooms = []
+        else:
+            rooms = Room.query.filter(User.rooms.any(User.id == current_user.id)).all()
 
         for room in rooms:
             join_room(room.id)
-        emit("list", rooms)
 
     def on_join(self, token):
         """
@@ -61,22 +104,17 @@ class RoomNamespace(Namespace):
         :param token: token of the room
         """
         try:
-            room = Room.query.filter(Room.token == token).one()
+            _id = _join_room(token)
+            join_room(_id)
+            emit("item", _id)
+            return {"id": _id}
         except NoResultFound:
             return {"code": [invalid_room_token]}
+        except AlreadyJoinedException:
+            return {"code": [room_already_joined]}
 
-        if current_user.is_authenticated:
-            if current_user not in room.participants:
-                room.participants.append(current_user)
-                db_session.commit()
 
-                join_room(room.id)
-                emit("item", room)
-                return {"id": room.id}
-
-            else:
-                return {"code": [room_already_joined]}
-
+app.add_url_rule("/rooms/join/<string:token>", "join_room", join_room_view, methods=["POST"])
 app.add_url_rule("/rooms/<int:room_id>/quit/", "quit_room", quit_room, methods=["POST"])
 register_api(RoomApiView, "rooms", "/rooms/")
 socketio.on_namespace(RoomNamespace("/rooms"))

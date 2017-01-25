@@ -10,10 +10,8 @@ import { PollService } from "../poll/poll.service";
 
 @Injectable()
 export class QuestionService extends RestService<IQuestion, INewQuestion> {
-    protected URL: string = QUESTIONS_URL;
-
     constructor(http: Http, account: AccountService, polls: PollService) {
-        super(http, account, "/questions");
+        super(QUESTIONS_URL, http, account, "/questions");
         polls.new$.subscribe((poll: IPoll) => this.socket.emit("join", poll.id));
     }
 
@@ -23,6 +21,6 @@ export class QuestionService extends RestService<IQuestion, INewQuestion> {
     }
 
     public vote(question: IQuestion, vote: number[]) {
-        return this.http.post(`${this.URL}${question.id}/answer/`, vote);
+        return this.http.post(`${this.url}${question.id}/answer/`, vote);
     }
 }

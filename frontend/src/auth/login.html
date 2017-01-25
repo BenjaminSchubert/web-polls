@@ -17,7 +17,7 @@
             </div>
         </div>
 
-        <template [ngIf]="showRegistrationForm$ | async">
+        <template [ngIf]="registering">
             <div class="form-group row">
                 <label for="password" class="col-form-label col-xs-12 col-sm-4">Email</label>
                 <div class="col-xs-12 col-sm-8">
@@ -47,7 +47,7 @@
             </div>
         </div>
 
-        <template [ngIf]="showRegistrationForm$ | async">
+        <template [ngIf]="registering">
             <div class="form-group row">
                 <label for="password" class="col-form-label col-xs-12 col-sm-4">Repeat Password</label>
                 <div class="col-xs-12 col-sm-8">
@@ -68,14 +68,14 @@
         </div>
 
         <div class="form-group row">
-            <div class="col-xs-12" [ngSwitch]="showRegistrationForm$ | async">
+            <div class="col-xs-12" [ngSwitch]="registering">
                 <a class="float-xs-right" (click)="showRegistrationForm()" href="javascript:void(0);" *ngSwitchCase="false">No account yet ?</a>
                 <a class="float-xs-right" (click)="hideRegistrationForm()" href="javascript:void(0);" *ngSwitchCase="true">Already have an account ?</a>
             </div>
         </div>
 
         <div class="form-group row">
-            <div class="col-xs-12" [ngSwitch]="showRegistrationForm$ | async">
+            <div class="col-xs-12" [ngSwitch]="registering">
                 <button id="submit" type="submit" class="btn btn-primary float-xs-right" [disabled]="!form.valid" *ngSwitchCase="false">Sign in</button>
                 <button id="submit" type="submit" class="btn btn-primary float-xs-right" [disabled]="!form.valid" *ngSwitchCase="true">Register</button>
             </div>

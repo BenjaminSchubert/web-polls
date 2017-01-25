@@ -5,6 +5,7 @@ from sqlite3 import IntegrityError
 
 import random
 from blinker import Namespace
+from flask import request
 from flask_login import current_user
 from sqlalchemy import Column, INTEGER, VARCHAR, ForeignKey, Table
 from sqlalchemy.orm import relationship
@@ -43,7 +44,7 @@ class Room(SerializableMixin, Base):
     def as_dict(self):
         """Get the object as a dictionary."""
         base = super().as_dict()
-        base["owning"] = self.owner_id == current_user.id
+        base["owning"] = current_user.is_authenticated and self.owner_id == current_user.id
         return base
 
     def set_token(self, session, size=6):

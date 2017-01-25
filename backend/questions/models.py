@@ -3,11 +3,13 @@
 import enum
 
 from flask import request
+from flask import session
 from flask_login import current_user
 from sqlalchemy import BOOLEAN
 from sqlalchemy import Column, INTEGER, ForeignKey, Enum
 from sqlalchemy import TEXT
 from sqlalchemy import VARCHAR
+from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm import relationship, backref
 
 from base.models import SerializableMixin
@@ -62,14 +64,15 @@ class Choice(SerializableMixin, Base):
     def as_dict(self):
         obj = super().as_dict()
         obj["answers"] = len(self.answers)
-        if request.method == "GET":
-            obj["chosen"] = any([current_user.id == answer.user_id for answer in self.answers])
+        obj["chosen"] = any([
+            current_user.is_authenticated and current_user.id == answer.user_id or
+            current_user.is_anonymous and session["id"] == answer.anonymous_id
+            for answer in self.answers
+        ])
         return obj
 
 
 class Answer(SerializableMixin, Base):
-    """"""
-
     __tablename__ = "answers"
 
     id = Column(INTEGER, primary_key=True)
@@ -79,3 +82,5 @@ class Answer(SerializableMixin, Base):
 
     user_id = Column(INTEGER, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
     user = relationship("User")
+
+    anonymous_id = Column(VARCHAR(length=128), nullable=True)

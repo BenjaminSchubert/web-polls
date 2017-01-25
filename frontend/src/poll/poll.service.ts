@@ -10,10 +10,8 @@ import { IRoom } from "../room/stubs";
 
 @Injectable()
 export class PollService extends RestService<IPoll, INewPoll> {
-    protected URL: string = POLLS_URL;
-
     constructor(http: Http, account: AccountService, rooms: RoomService) {
-        super(http, account, "/polls");
+        super(POLLS_URL, http, account, "/polls");
         rooms.new$.subscribe((room: IRoom) => this.socket.emit("join", room.id));
     }
 
@@ -22,7 +20,7 @@ export class PollService extends RestService<IPoll, INewPoll> {
     }
 
     public open(poll: IPoll, open: boolean) {
-        return this.http.post(`${this.URL}/${poll.id}/open/`, { open: open });
+        return this.http.post(`${this.url}/${poll.id}/open/`, { open: open });
     }
 
 }

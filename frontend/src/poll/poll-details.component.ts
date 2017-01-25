@@ -16,7 +16,6 @@ import { IQuestion } from "../question/stubs";
 export class PollComponent extends ErrorHandler implements OnInit {
     public poll: IPoll;
     public room: IRoom;
-    public editing: boolean = false;
     private questions$: Observable<IQuestion[]>;
 
     constructor(

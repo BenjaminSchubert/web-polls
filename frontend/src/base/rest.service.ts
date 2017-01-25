@@ -8,8 +8,6 @@ import { IIdentifiable } from "./stubs";
 
 
 export abstract class RestService<T extends IIdentifiable, TNew> {
-    protected abstract URL: string;
-
     public $: Observable<T[]>;
     public new$: Observable<T>;
 
@@ -20,7 +18,7 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     // tslint:disable-next-line:no-any
     protected socket: any;  // FIXME : we should type that
 
-    constructor(protected http: Http, protected account: AccountService, ioRoom: string) {
+    constructor(protected url: string, protected http: Http, protected account: AccountService, ioRoom: string) {
         this.t = [];
         this._$ = new BehaviorSubject(this.t);
         this._new$ = new Subject();
@@ -30,10 +28,10 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
         this.socket = io(ioRoom);
         this.socket.connect();
 
+        this.socket.on("connect", () => this.fetchAll().subscribe((ts: T[]) => this.replace(ts)));
         this.socket.on("disconnect", () => this.replace([]));
-        this.socket.on("list", (res: T[]) => this.replace(res));
         this.socket.on("delete", (res: number) => this.remove(res));
-        this.socket.on("item", (res: T) => this.insert(res));
+        this.socket.on("item", (res: number) => this.fetch(res).subscribe((t: T) => this.insert(t)));
 
         this.account.$.subscribe(() => {
             this.socket.io.disconnect();
@@ -42,15 +40,11 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     }
 
     public create(t: TNew): Observable<Response> {
-        return this.http.post(this.URL, t);
+        return this.http.post(this.url, t);
     }
 
     public delete(t: T): Observable<Response> {
-        return this.http.delete(`${this.URL}${t.id}/`);
-    }
-
-    public fetch(t: T): Observable<T> {
-        return this.http.get(`${this.URL}${t.id}/`).map((r: Response) => r.json());
+        return this.http.delete(`${this.url}${t.id}/`);
     }
 
     public get(id: number) {
@@ -58,7 +52,15 @@ export abstract class RestService<T extends IIdentifiable, TNew> {
     }
 
     public update(t: T): Observable<Response> {
-        return this.http.put(`${this.URL}${t.id}/`, t);
+        return this.http.put(`${this.url}${t.id}/`, t);
+    }
+
+    protected fetch(id: number): Observable<T> {
+        return this.http.get(`${this.url}${id}/`).map((r: Response) => r.json());
+    }
+
+    protected fetchAll() {
+        return this.http.get(this.url).map((r: Response) => r.json());
     }
 
     protected insert(t: T): void {

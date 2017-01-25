@@ -1,4 +1,3 @@
-import { Observable } from "rxjs/Observable";
 import { Component, OnInit } from "@angular/core";
 import { ErrorHandler } from "../base/error_handler";
 import { ActivatedRoute, Params, Router } from "@angular/router";
@@ -38,13 +37,6 @@ export class QuestionComponent extends ErrorHandler implements OnInit {
     public ngOnInit() {
         this.subscriptions.push(
             this.route.params.switchMap((p: Params) => this.questions.get(+p["question"]))
-                .switchMap((question: IQuestion) => {
-                    if (question != null) {
-                        return this.questions.fetch(question);
-                    } else {
-                        return Observable.of(undefined);
-                    }
-                })
                 .subscribe((question: IQuestion) => {
                     this.question = question;
                     this.buildForm();

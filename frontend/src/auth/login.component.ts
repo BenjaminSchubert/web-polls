@@ -19,11 +19,11 @@ export class LoginComponent extends ErrorHandler implements OnInit {
 
     private _registering = false;
 
-    protected get registering() {
+    public get registering() {
         return this._registering;
     }
 
-    protected set registering(value: boolean) {
+    public set registering(value: boolean) {
         this._showRegistrationForm$.next(value);
     }
 
@@ -45,6 +45,8 @@ export class LoginComponent extends ErrorHandler implements OnInit {
 
         this.subscriptions = [
             this.showRegistrationForm$.subscribe((show: boolean) => {
+                this._registering = show;
+
                 if (show && !this.form.contains(repeatPasswordField)) {
                     this.form.addControl(repeatPasswordField, new FormControl(null, Validators.required));
                     this.form.addControl("email", new FormControl("", [
@@ -60,7 +62,6 @@ export class LoginComponent extends ErrorHandler implements OnInit {
                     this.form.removeControl(repeatPasswordField);
                     this.form.removeControl("email");
                 }
-                this._registering = show;
             }),
             this.account.loginIsRequested$.subscribe(() => {
                 this.form.reset();

@@ -1,28 +1,19 @@
-<template [ngIf]="user.isLoggedIn$ | async">
-    <wp-scrollable>
-        <div header [routerLink]="['']">
-            <h4>Rooms</h4>
-            <a class="add-button" (click)="addRoom();$event.stopPropagation()">
-                <p>+</p>
-            </a>
-        </div>
-
-        <wp-room-item
-                content
-                [room]="room"
-                class="list-group-item"
-                *ngFor="let room of service.$ | async"
-                routerLinkActive="active"
-                [routerLink]="[room.id]"
-        >
-        </wp-room-item>
-
-    </wp-scrollable>
-</template>
-
-<template [ngIf]="!(user.isLoggedIn$ | async)">
-    <div class="center">
-        Please login to manage your rooms
-        <button class="btn btn-primary" (click)="requestLogin()">Login</button>
+<wp-scrollable>
+    <div header [routerLink]="['']">
+        <h4>Rooms</h4>
+        <a class="add-button" (click)="addRoom();$event.stopPropagation()">
+            <p>+</p>
+        </a>
     </div>
-</template>
+
+    <wp-room-item
+            content
+            [room]="room"
+            class="list-group-item"
+            *ngFor="let room of service.$ | async"
+            routerLinkActive="active"
+            [routerLink]="[room.id]"
+    >
+    </wp-room-item>
+
+</wp-scrollable>
