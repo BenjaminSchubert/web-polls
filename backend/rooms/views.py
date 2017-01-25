@@ -53,8 +53,10 @@ class RoomApiView(ApiView):
     def queryset(self):
         """Get the query on which to work."""
         if current_user.is_authenticated:
-            return Room.query.filter(User.rooms.any(User.id == current_user.id))
-
+            if len(current_user.rooms) == 0:
+                return Room.query.filter(sql.false())
+            return Room.query.filter(Room.id.in_([r.id for r in current_user.rooms]))
+        
         if session.get("rooms") is not None:
             return Room.query.filter(Room.id.in_(session.get("rooms")))
         return Room.query.filter(sql.false())
