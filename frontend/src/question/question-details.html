@@ -16,7 +16,7 @@
     <form [formGroup]="form" class="content" (ngSubmit)="submit()">
         <div class="row question-title">
             <h1 class="offset-xs-2 col-xs-8">{{ question?.title }}</h1>
-            <span class="col-xs-2 float-xs-right">{{ question?.answers }} answers</span>
+            <span class="col-xs-2 float-xs-right">{{ question?.answers }} answer{{ question?.answers == 1 ? "" : "s"}}</span>
         </div>
 
         <div class="row">
