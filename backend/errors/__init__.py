@@ -32,3 +32,5 @@ room_already_joined = ErrorMessage(message="You already are in this room", code=
 required = ErrorMessage(message="This field is required", code=9)
 
 invalid_json = ErrorMessage(message="Invalid json", code=10)
+
+too_long = ErrorMessage(message="This field is too long", code=11)

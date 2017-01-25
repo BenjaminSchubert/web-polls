@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from wtforms import StringField
 
 from base.forms import ApiForm
-from base.forms.validators import DataRequired
+from base.forms.validators import DataRequired, DataLength
 from database import db_session
 from errors import unable_to_generate_token
 from errors.http import BaseHTTPException
@@ -19,7 +19,7 @@ class RoomForm(ApiForm):
     """Defines a form for the creation of a room."""
 
     model = Room
-    name = StringField("name", [DataRequired()])
+    name = StringField("name", [DataRequired(), DataLength(max=255)])
 
     def save(self):
         """

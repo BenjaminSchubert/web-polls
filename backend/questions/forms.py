@@ -4,7 +4,7 @@ from wtforms import FormField
 from wtforms import StringField, TextAreaField, SelectField, BooleanField, IntegerField, FieldList
 
 from base.forms import ApiForm
-from base.forms.validators import DataRequired
+from base.forms.validators import DataRequired, DataLength
 from database import db_session
 from questions import Question, QuestionType, Choice
 
@@ -13,7 +13,7 @@ __author__ = "Benjamin Schubert <ben.c.schubert@gmail.com>"
 
 
 class ChoiceForm(ApiForm):
-    text = StringField("text", [DataRequired()])
+    text = StringField("text", [DataRequired(), DataLength(max=255)])
 
 
 class QuestionForm(ApiForm):
@@ -22,7 +22,7 @@ class QuestionForm(ApiForm):
     model = Question
     choices = FieldList(FormField(ChoiceForm), min_entries=2)
     is_open = BooleanField()
-    title = StringField("name", [DataRequired()])
+    title = StringField("name", [DataRequired(), DataLength(max=255)])
     description = TextAreaField("description")
     poll_id = IntegerField("poll_id", [DataRequired()])
 
