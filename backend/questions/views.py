@@ -56,9 +56,9 @@ def answer_question(_id):
         .filter(Question.is_open) \
         .one_or_none()
 
-    if question is None or \
+    if question is None or not question.poll.visible or \
             (current_user.is_authenticated and current_user not in question.poll.room.participants) or \
-            (current_user.is_anonymous and question.poll.room.id not in session.get("room", [])):
+            (current_user.is_anonymous and question.poll.room_id not in session.get("rooms", [])):
         raise NotFoundException()
 
     try:

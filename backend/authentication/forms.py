@@ -20,4 +20,4 @@ class LoginForm(FlaskForm):
 class RegisterForm(LoginForm):
     """Defines a form used for users' accounts."""
 
-    email = EmailField("username", [DataRequired(), EmailField(), DataLength(max=255)])
+    email = EmailField("username", [DataRequired(), DataLength(max=255)])
