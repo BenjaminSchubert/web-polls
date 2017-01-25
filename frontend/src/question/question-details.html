@@ -49,7 +49,7 @@
             </div>
 
             <!-- answers -->
-            <div class="col-xs-6 results" *ngIf="question != null && !question.is_open && (inPresentationMode && hasOpen)">
+            <div class="col-xs-6 results" *ngIf="question != null && !question.is_open">
                 <div class="row" *ngFor="let choice of question.choices; let i = index">
                     <div class="form-check col-xs-2">
                         <label class="form-check-label">{{ choice.answers }}</label>
