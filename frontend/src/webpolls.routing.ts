@@ -10,6 +10,7 @@ import { QuestionCreationComponent } from "./question/question-creation.componen
 import { QuestionComponent } from "./question/question-details.component";
 import { RoomGuard } from "./room/room.guard";
 import { PollGuard } from "./poll/poll.guard";
+import { QuestionGuard } from "./question/question.guard";
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
                                 path: "new",
                             },
                             {
+                                canActivate: [QuestionGuard],
                                 component: QuestionComponent,
                                 path: ":question",
                             },

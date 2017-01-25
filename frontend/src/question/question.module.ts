@@ -3,6 +3,7 @@ import { UtilsModule } from "../utils/utils.module";
 import { QuestionService } from "./question.service";
 import { QuestionCreationComponent } from "./question-creation.component";
 import { QuestionComponent } from "./question-details.component";
+import { QuestionGuard } from "./question.guard";
 
 
 @NgModule({
@@ -15,7 +16,7 @@ export class QuestionModule {
         return {
             ngModule: QuestionModule,
             providers: [
-                QuestionService,
+                QuestionService, QuestionGuard,
             ],
         };
     }
