@@ -18,17 +18,23 @@
 <div class="content">
     <div class="form-group row">
         <div class="col-xs-12">
+            <h4>Description</h4>
             <textarea class="form-control" id="token" disabled [value]="poll?.description"></textarea>
         </div>
     </div>
 
-    <div id="questions-list" class="form-group row">
+    <div id="questions-list" class="form-group row" *ngIf="(questions.getForPoll(poll?.id) | async)">
+        <div class="col-xs-12">Questions</div>
         <div class="col-xs-12" *ngFor="let question of questions.getForPoll(poll?.id) | async">
             <span class="active-indicator left" [attr.active]="question.is_open"></span>
             <a [routerLink]="[question.id]">{{ question.title }}</a>
             <span class="float-xs-right">{{ question.answers }} answer{{ question?.answers == 1 ? "" : "s"}}</span>
         </div>
     </div>
+    <div id="question-list" class="form-group row" *ngIf="!(questions.getForPoll(poll?.id) | async)">
+        <div class="col-xs-12">No question yet.</div>
+    </div>
+
     <div class="form-group row">
         <div class="col-xs-12">
             <button class="btn btn-primary float-xs-right" (click)="addQuestion()" *ngIf="room?.owning">Add Question</button>
