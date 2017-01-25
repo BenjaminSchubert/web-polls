@@ -16,11 +16,9 @@ export class WebpollsComponent {
 
     public login() {
         this.account.requestLogin();
-        // tslint:disable-next-line:no-unused-expression
-        this.router; // this is required for Augury to work in debug mode
     }
 
     public logout() {
-        this.account.logout().subscribe();
+        this.account.logout().subscribe(() => this.router.navigate([""]).then());
     }
 }
